@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-04-27
+
+### Changed
+
+- Second NRS-4365 dogfood pass found that my own posted QA comment had several formatting violations the runbook should have caught (display-text link, `{{monospace}}` for commands while attesting to the opposite under Pillar P, transition-name vs verdict mismatch). Folded back as concrete runbook improvements:
+  - `references/checklist.md` F7: added a "common violations to scan for in your own comment" note covering display-text-vs-full-URL, `{{monospace}}`-for-commands, and transition-name vs verdict mismatch.
+  - `references/comment-template.md`: replaced the static verdict-line template with parameterised guidance that ties the verdict's *literal transition name* to the routing rule. Added a "Sanity scan before posting" section listing the common self-introduced bugs.
+
 ## [0.1.1] - 2026-04-27
 
 ### Changed

@@ -47,10 +47,22 @@ h4. Verdict
 (!) N should-fix items: {brief list}
 (i) M hints for next time: {brief list}
 
-Ready for customer acceptance (QA2).   |   Ready to transition to QA passed.   |   Bouncing to In Progress — see (x) above.
+Ready to {transition-name-from-your-system}.
 ```
 
+The **verdict line** must match your ticket system's actual transition name *and* the routing rule. For example, in a system where "QA passed" transitions to a customer-acceptance status, do not write "Ready to transition to QA passed" if the verdict is "internal-resolve" — that's a contradiction. Use the literal transition name that matches the routing decision (e.g. "Resolve" for internal-resolve, "QA passed" only when the next stop really is customer acceptance).
+
 Keep it tight. Skip pillars that don't apply (e.g. omit "Communication" if `(-)` n/a). Don't pad with `(/)` for every check — list `(/)` items only when they're load-bearing or non-obvious.
+
+## Sanity scan before posting
+
+Re-read your own comment before clicking *Add*. Common self-introduced bugs:
+
+1. **Severity inconsistency** — declaring "all must-haves pass" while a `(x)` is present elsewhere. Scan for `(x)` first; if any, the verdict must be Bounce or Won't-do.
+2. **Reviewer-side limitations marked `(x)`** — "I couldn't SSH" is `(!)` or `(i)`, not `(x)`. See `severity.md`.
+3. **F7 violations in your own comment** — display-text links where convention is full URLs, `{{monospace}}` for commands when convention is `{code}` blocks, Markdown leakage (`**bold**`, `# heading`).
+4. **Transition-name vs verdict mismatch** — the verdict's *meaning* and the *literal transition name* must agree (see above).
+5. **Pillar P claims vs actual content** — if your P-pillar says "comments use `{code}` blocks" while your comment uses `{{monospace}}` for commands, that's the very contradiction the runbook is meant to prevent.
 
 ## Example 1 — Pass (NRS-4365 shape)
 

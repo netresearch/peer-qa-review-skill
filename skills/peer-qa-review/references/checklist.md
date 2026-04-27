@@ -17,6 +17,12 @@ All checks, organised by pillar. Apply the severity in the rightmost column when
 
 Note F1: "acceptance criteria absent" is the one finding you should bounce on without going further. Without criteria, there is no testable bar.
 
+Note F7: applies equally to **the reviewer's own QA comment**. Common violations to scan for before posting:
+
+- *Display-text links* `[text|url]` when convention is full URLs (or vice versa — match the team's house style).
+- *`{{monospace}}` for commands* in prose when convention is `{code}` blocks. Especially galling when the same comment claims the opposite under Pillar P.
+- *Transition-name vs verdict mismatch* — e.g. writing "Ready to transition to **QA passed**" when the routing rule for IT-internal scope is **Resolve** (and "QA passed" goes to QA2). The verdict's *meaning* and the *transition name* must agree.
+
 ## Pillar R — Functional resolution
 
 The reviewer **re-runs** these. Copy-pasting the implementer's output does not satisfy R-checks.
