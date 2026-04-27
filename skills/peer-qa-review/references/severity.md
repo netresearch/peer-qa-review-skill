@@ -60,9 +60,11 @@ If you can't decide between `(!)` and `(i)`: ask whether the issue would still b
 ## Anti-patterns in severity choice
 
 - **Inflating `(x)` to look thorough** — only use `(x)` when the ticket genuinely cannot resolve. Over-bouncing wastes everyone's time.
+- **Using `(x)` for reviewer-side limitations** — "I couldn't SSH to the host" or "I don't have access to the staging environment" is *not* a blocker on the ticket. The work might be fine; the reviewer's verification is just incomplete. Per `edge-cases.md` A, document explicitly with `(!)` (limitation worth noting) or `(i)` (limitation, but implementer's evidence is otherwise solid). Reserve `(x)` for things wrong with the *implementation*, not the *review*.
 - **Downgrading `(x)` to `(!)` to be polite** — if a fix doesn't actually fix the bug, it's `(x)`. Politeness is in *tone*, not in severity.
 - **Using `(!)` for things that aren't issues** — "I would have done this differently" is `(i)` (or no comment at all), not `(!)`.
 - **Using `(?)` as a hidden `(x)`** — if you'd bounce regardless of the answer, just bounce. `(?)` is for genuinely unknown.
+- **Internal inconsistency** — declaring "all must-haves pass" while still having a `(x)` somewhere in the comment. If you have a `(x)`, the verdict is bounce or won't-do, period. Re-read your own comment before posting.
 
 ## Mapping to verdict
 

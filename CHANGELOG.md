@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-04-27
+
+### Changed
+
+- `references/severity.md` anti-patterns section: added two entries surfaced during the NRS-4365 dogfood.
+  - "Using `(x)` for reviewer-side limitations" — e.g. "I can't SSH to the host"; that's a reviewer-access gap, not a blocker on the ticket. Per `edge-cases.md` A, use `(!)` or `(i)`.
+  - "Internal inconsistency" — declaring "all must-haves pass" while a `(x)` is present elsewhere in the comment. Re-read your own comment before posting.
+
 ## [0.1.0] - 2026-04-27
 
 ### Added
