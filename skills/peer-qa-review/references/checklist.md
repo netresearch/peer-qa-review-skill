@@ -11,7 +11,7 @@ All checks, organised by pillar. Apply the severity in the rightmost column when
 | F2 | **Implementer-side comments** document each step with `{code}` blocks containing both the command and its output | `(!)` per missing block |
 | F3 | **Console output / screenshot** for the actual fix is present | `(x)` if no proof at all; `(!)` if partial |
 | F4a | **Structured issue links** — parent epic, related issues, predecessor, inventory item are linked via the ticket system's *issue-link feature* (not just mentioned in prose). Bidirectional traceability matters: someone navigating from the inventory item should find this ticket. **Verify by querying issue links, not by reading the description**. | `(!)` per missing link |
-| F4b | **External work artefacts** — MR/PR URL, pipeline URL, registry/release URL — present in comments or as web/remote links, and reachable | `(!)` per missing or 404 |
+| F4b | **External work artefacts** — MR/PR, pipeline, registry/release — present in comments or as web/remote links, and reachable. Prefer GitHub/GitLab native shorthand (`owner/repo#123`, `group/project!456`, `owner/repo@7c12680`) over full URLs for trusted shared-namespace projects; full URLs for pipelines, branches, releases, and cross-org links. See `comment-template.md` "Link conventions". | `(!)` per missing or 404 |
 | F5 | *(merged into F4b)* | — |
 | F6 | **Worklog** present (≥ 1 entry, plausible duration) | `(!)` — should-have. Worklogs are part of the audit/billing/capacity trail; the team has agreed to log work, so missing entries shouldn't be normalised as merely a hint. |
 | F7 | **Comment formatting**: ticket-system-native markup (Jira: wiki, not Markdown), no leaking `**bold**`, `# heading`, em-dashes `--` | `(i)` |

@@ -2,6 +2,28 @@
 
 One structured comment at the end of QA. Use Jira wiki markup. Optional addendum comments for separable concerns. For long reviews with action items, also post a *TL;DR action comment* — see the bottom of this file.
 
+## Link conventions
+
+For your team's *trusted shared-namespace* GitHub / GitLab projects, prefer the platform's native shorthand over full URLs. Same logic as why we already use bare `NRS-4365` instead of full Jira URLs: shorter, more scannable, project-context inline.
+
+| Type | GitHub | GitLab (e.g. internal git server) |
+|---|---|---|
+| Repo | `owner/repo` | `group/project` |
+| Issue | `owner/repo#123` | `group/project#123` |
+| PR / MR | `owner/repo#456` | `group/project!456` |
+| Commit | `owner/repo@7c12680` | `group/project@7c12680` |
+| Branch / pipeline / release / tag | full URL | full URL |
+
+**Trade-off**: this shorthand is **not** auto-linked in Jira (Jira only auto-links its own issue keys). Readers in Jira have to mentally construct the URL or copy-paste. Acceptable for internal projects where everyone knows the namespace; same trade you already accept for `NRS-4365`. In GitHub PRs / GitLab MRs the shorthand IS auto-linked, so it's a win in both UI surfaces.
+
+**Keep full URLs** for:
+
+- Pipelines, branches, releases, tags (no clean shorthand)
+- Cross-org / public / third-party projects where the namespace isn't shared
+- Anything you're not 100% sure the reader knows
+
+**Rendering note**: GitLab's `!` in `group/project!456` is *not* a Jira image-macro trigger — Jira's `!filename!` macro requires a *closing* `!`. Mid-token `!` is safe; no escape needed.
+
 ## Format pillar findings as bulleted lists
 
 Use `*` (or `**` for sub-items) at the start of each finding line — *not* bare lines with severity-icon prefixes.

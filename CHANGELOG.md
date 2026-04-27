@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-04-27
+
+### Changed
+
+- **Prefer GitHub / GitLab shorthand over full URLs** for trusted shared-namespace projects. New "Link conventions" section in `references/comment-template.md` and updated F4b in `references/checklist.md`:
+  - Repo: `owner/repo` (GitHub) · `group/project` (GitLab)
+  - Issue: `owner/repo#123` · `group/project#123`
+  - PR / MR: `owner/repo#456` (GitHub uses `#` for both issues and PRs) · `group/project!456` (GitLab `!` for MRs)
+  - Commit: `owner/repo@7c12680` · `group/project@7c12680`
+  - Branch / pipeline / release / tag: full URL (no clean shorthand)
+- Same logic as why we already use bare `NRS-4365` instead of full Jira URLs: shorter, more scannable, project-context inline. Trade-off: shorthand is not auto-linked in Jira (acceptable for internal team comms; auto-linked natively on GitHub/GitLab).
+- Verified: GitLab's `!` in `group/project!456` does not trigger Jira's image-macro (`!filename!` requires closing `!`). No escape needed.
+
 ## [0.1.6] - 2026-04-27
 
 ### Changed
