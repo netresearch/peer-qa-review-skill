@@ -11,9 +11,13 @@ Reuse the standard Atlassian / Jira-wiki icon set. Do **not** invent new categor
 | `(!)` | `(!)` | **SHOULD**: real issue, non-blocking *for this ticket* | document; create follow-up if structural |
 | `(i)` | `(i)` | **HINT**: improvement suggestion / next-time nice-to-have | document; no action required |
 | `(?)` | `(?)` | open question for implementer | block on answer |
-| `(-)` | `(-)` | n/a / not applicable here | none — explicit "we considered this and it doesn't apply" |
+| `(-)` | *literal text* `n/a` | not applicable here | none — explicit "we considered this and it doesn't apply" |
 
 In rendered Jira these become coloured icons. In other systems (GitHub, GitLab, Markdown), use the literal strings — they read clearly even unrendered.
+
+**Watch out for `(-)` specifically**: in Jira wiki the `(-)` token renders as a *forbidden* / *no-entry* icon (🚫), not as "n/a". The forbidden icon visually says "blocked / denied", which is wrong for "not applicable here". Use **literal text** like `*n/a*` or write *"n/a — reason"* instead of the `(-)` token in Jira comments. The other tokens (`(/) (x) (!) (i) (?)`) render with semantically-correct icons.
+
+Also avoid using `(/)`, `(x)`, `(!)`, `(i)`, `(?)` literally in *prose* when you mean to *refer to* a finding by its severity. Jira will render the icon mid-sentence, which is visually confusing. Write "the SHOULD-fix finding" or "the warning above" instead of "the `(!)`".
 
 ## How to choose
 

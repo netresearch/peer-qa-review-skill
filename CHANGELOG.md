@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-04-27
+
+### Changed
+
+- Third pass of NRS-4365 dogfood — actually fetched the *rendered* HTML of my own QA comment and found two more issues the runbook didn't flag:
+  - **`(-)` token renders as 🚫 (forbidden / no-entry) in Jira, not as "n/a"** — visually misleading. The runbook said `(-) = n/a`, but Jira's actual emoticon mapping is closer to "forbidden". Updated `severity.md`: use literal `*n/a*` text instead of the `(-)` token in Jira. The other tokens render with semantically-correct icons.
+  - **Severity tokens in prose render as icons mid-sentence** — `"the (!) finding"` becomes `"the [warning-icon] finding"`, visually confusing. Updated `severity.md` to recommend prose alternatives: "the SHOULD-fix finding" / "the warning above".
+- Lesson methodology: the previous two dogfood passes (v0.1.1, v0.1.2) reviewed the *source* of my QA comment. v0.1.3 reviewed the *rendered HTML output*. Source-only review missed the icon-mapping bugs entirely. Worth adding "fetch and read the rendered output" as a sanity-scan step, but Jira-API access isn't universal — leaving as informal guidance.
+
 ## [0.1.2] - 2026-04-27
 
 ### Changed
