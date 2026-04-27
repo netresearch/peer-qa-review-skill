@@ -14,7 +14,21 @@ For your team's *trusted shared-namespace* GitHub / GitLab projects, prefer the 
 | Commit | `owner/repo@7c12680` | `group/project@7c12680` |
 | Branch / pipeline / release / tag | full URL | full URL |
 
-**Trade-off**: this shorthand is **not** auto-linked in Jira (Jira only auto-links its own issue keys). Readers in Jira have to mentally construct the URL or copy-paste. Acceptable for internal projects where everyone knows the namespace; same trade you already accept for `NRS-4365`. In GitHub PRs / GitLab MRs the shorthand IS auto-linked, so it's a win in both UI surfaces.
+**In Jira specifically**: the shorthand alone is *not* clickable — Jira only auto-links its own issue keys. To get clickable links *and* shorthand readability in Jira, wrap the shorthand as **display text** in a Jira link macro:
+
+```jira
+[provision/ansible-role-vault!9|https://git.netresearch.de/provision/ansible-role-vault/-/merge_requests/9]
+[netresearch/peer-qa-review-skill#10|https://github.com/netresearch/peer-qa-review-skill/issues/10]
+```
+
+This renders as a clickable link reading `provision/ansible-role-vault!9` — the same anchor text GitHub/GitLab use natively. **This is *not* the display-text-link anti-pattern** (which targets opaque text like `[click here|url]`) — the shorthand IS the canonical reference, so using it as display text is the *opposite* of opaque.
+
+**On GitHub PRs / GitLab MRs**: the bare shorthand is already auto-linked by the platform, so write `provision/ansible-role-vault!9` (without the `[…|…]` wrapper) when authoring there.
+
+**Rule of thumb**:
+- *Authoring in Jira* → wrap: `[shorthand|url]`
+- *Authoring on GitHub/GitLab* → bare: `shorthand`
+- *Authoring anywhere ambiguous* → bare shorthand + full URL on the next line, or just use full URL.
 
 **Keep full URLs** for:
 

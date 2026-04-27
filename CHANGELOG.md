@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-27
+
+First matured release after the initial dogfood loop on NRS-4365. The 0.1.x series was a rapid-iteration cycle (each round catching a different class of bug); 0.2.0 consolidates the stable result.
+
+### Highlights since 0.1.0
+
+- **Stronger severity vocabulary** — explicit anti-patterns including "do not use `(x)` for reviewer-side limitations" and "internal inconsistency between findings list and verdict" (`severity.md`).
+- **Sanity-scan step** before posting — re-read your own QA comment for severity inconsistencies, F7 violations, transition-name vs verdict mismatches, and Pillar P attestations contradicted by the comment itself (`comment-template.md`).
+- **Jira-specific rendering rules** — `(-)` renders as 🚫 forbidden, not "n/a"; severity tokens in prose render as icons mid-sentence; both call out in `severity.md`.
+- **Pillar F refinements** — F4 split into F4a (structured issue links via the issue-link feature, verified against the API not description prose) and F4b (external work artefacts); F6 worklog upgraded `(i)` → `(!)` (audit/billing/capacity is not a courtesy); new F1.5 description currency (does the description still describe what was actually delivered?).
+- **Two-comment pattern** for long reviews — the structured comment is the audit trail; an optional TL;DR addressed to the implementer with `[~username]` mention and numbered action items keeps actionability visible without burying the audit-trail header (`comment-template.md`).
+- **List format for pillar findings** — bulleted lists (`*` / `**`) instead of bare severity-icon lines, for proper wrap-indent of long findings (`comment-template.md`).
+- **GitHub / GitLab shorthand** for trusted shared-namespace projects — `owner/repo#123` (GitHub issue or PR), `group/project!456` (GitLab MR), `group/project@sha` (commits). In Jira, wrap as `[shorthand|url]` for clickability with shorthand-as-display-text (this is *not* the display-text-link anti-pattern; opaque display text was the original target). On GitHub/GitLab, the bare shorthand auto-links natively.
+- **Methodology lesson** — every iteration round caught a different *class* of bug. Source-only review consistently misses what's only visible in the rendered output. When possible, fetch and look at the rendered HTML before declaring done.
+
+### Internal links
+
+- `references/severity.md` — full vocabulary, anti-patterns, examples
+- `references/checklist.md` — every check by pillar (F1–F8, R1–R6, I1–I4, D1–D4, B1–B3, C1–C3, P1–P6)
+- `references/comment-template.md` — comment template, link conventions, list format, two-comment TL;DR pattern, sanity scan
+
 ## [0.1.7] - 2026-04-27
 
 ### Changed
