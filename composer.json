@@ -1,0 +1,19 @@
+{
+    "name": "netresearch/peer-qa-review-skill",
+    "description": "Round-1 IT QA peer-review runbook: lifecycle, checklist, severity vocabulary, comment template, edge cases, anti-patterns. Generic for any IT/Ops team.",
+    "type": "ai-agent-skill",
+    "license": "(MIT AND CC-BY-SA-4.0)",
+    "authors": [
+        {
+            "name": "Netresearch DTT GmbH",
+            "homepage": "https://www.netresearch.de/",
+            "role": "Manufacturer"
+        }
+    ],
+    "require": {
+        "netresearch/composer-agent-skill-plugin": "*"
+    },
+    "extra": {
+        "ai-agent-skill": "skills/peer-qa-review/SKILL.md"
+    }
+}

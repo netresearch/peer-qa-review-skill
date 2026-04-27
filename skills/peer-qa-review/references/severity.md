@@ -1,0 +1,73 @@
+# Severity Vocabulary
+
+## The icon set
+
+Reuse the standard Atlassian / Jira-wiki icon set. Do **not** invent new categories — reviewers and implementers should not have to learn fresh vocabulary.
+
+| Icon | Wiki source | Meaning | Action |
+|------|-------------|---------|--------|
+| `(/)` | `(/)` | verified / passed | none |
+| `(x)` | `(x)` | **MUST**: blocking — ticket cannot resolve until fixed | bounce to In Progress |
+| `(!)` | `(!)` | **SHOULD**: real issue, non-blocking *for this ticket* | document; create follow-up if structural |
+| `(i)` | `(i)` | **HINT**: improvement suggestion / next-time nice-to-have | document; no action required |
+| `(?)` | `(?)` | open question for implementer | block on answer |
+| `(-)` | `(-)` | n/a / not applicable here | none — explicit "we considered this and it doesn't apply" |
+
+In rendered Jira these become coloured icons. In other systems (GitHub, GitLab, Markdown), use the literal strings — they read clearly even unrendered.
+
+## How to choose
+
+Ask three questions in order:
+
+1. **Does the ticket fail its acceptance criteria, or actively break something?** → `(x)`
+2. **Is it a real issue that should be addressed, but doesn't block this ticket's purpose?** → `(!)`
+3. **Is it just a "next time, consider…" suggestion?** → `(i)`
+
+If you can't decide between `(!)` and `(i)`: ask whether the issue would still be worth fixing if the ticket were already closed. Yes → `(!)` (file a follow-up). No → `(i)`.
+
+## Examples from real tickets
+
+### `(x)` — blocking
+
+> *(x) container image for 1.2.2 does not exist on ghcr.io. Cannot deploy without a published image.*
+> — NRT-4567, resolved as Won't-do
+
+> *(x) F1: Description has no acceptance criteria. Cannot QA — bouncing to In Progress for clarification.*
+
+### `(!)` — should-fix
+
+> *(!) molecule.yml references requirements.yml but file doesn't exist. Generates warning. Recommend either creating an empty requirements.yml or removing the dependency block.*
+> — NRS-4199 QA review (Björn Marten)
+
+> *(!) :latest image tags in CI — components are pinned (@v0.2.0) but Docker images are :latest. A breaking rebuild upstream would silently propagate.*
+> — NRS-4356 QA review (Sebastian Mendel)
+
+### `(i)` — hint
+
+> *(i) timezone test missing `when: setup_time` guard. Other feature tests use this pattern — should be consistent.*
+
+> *(i) same cgroup v1 legacy warning as IOT-71 — not blocking, worker runs fine after 30s v2 fallback.*
+> — NRS-4240 QA review (Björn Marten)
+
+### `(?)` — open question
+
+> *(?) Was the OPNsense config snapshot taken before the major upgrade? I see the patch-update comment but not a snapshot mention.*
+
+### `(-)` — n/a
+
+> *(-) Communication (C1–C3): change is internal-only (CI image refresh), no announcement needed.*
+
+## Anti-patterns in severity choice
+
+- **Inflating `(x)` to look thorough** — only use `(x)` when the ticket genuinely cannot resolve. Over-bouncing wastes everyone's time.
+- **Downgrading `(x)` to `(!)` to be polite** — if a fix doesn't actually fix the bug, it's `(x)`. Politeness is in *tone*, not in severity.
+- **Using `(!)` for things that aren't issues** — "I would have done this differently" is `(i)` (or no comment at all), not `(!)`.
+- **Using `(?)` as a hidden `(x)`** — if you'd bounce regardless of the answer, just bounce. `(?)` is for genuinely unknown.
+
+## Mapping to verdict
+
+- Any `(x)` → **Bounce** to In Progress (or **Won't-do** if the blocker is external).
+- All `(x)` clear, some `(!)`/`(i)` → **Pass** (resolve or QA2).
+- All clear → **Pass** (resolve or QA2).
+
+`(!)` and `(i)` items are documented in the QA comment but do not block the verdict. If a `(!)` is structural, file a follow-up ticket.
