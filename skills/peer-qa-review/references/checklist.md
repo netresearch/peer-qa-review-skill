@@ -7,15 +7,19 @@ All checks, organised by pillar. Apply the severity in the rightmost column when
 | # | Check | Severity if failing |
 |---|-------|---------------------|
 | F1 | **Description** has clear, testable acceptance criteria (or numbered Task list) | `(x)` if absent — cannot QA |
+| F1.5 | **Description currency** — does the description still accurately describe what was actually delivered? Scope shifts, emerged requirements, surfaced constraints, and important tradeoffs that came up during work should be folded back into the *description* (not buried in comments). The description is the canonical record for future readers. | `(!)` if stale and misleading; `(i)` if minor drift |
 | F2 | **Implementer-side comments** document each step with `{code}` blocks containing both the command and its output | `(!)` per missing block |
 | F3 | **Console output / screenshot** for the actual fix is present | `(x)` if no proof at all; `(!)` if partial |
-| F4 | **Linked issues** are present where expected: parent epic, MR/PR, inventory issue, related-bugs, predecessor | `(!)` per missing link |
-| F5 | **External references**: MR/PR URL, pipeline URL, registry/release URL — present and reachable | `(!)` per missing or 404 |
-| F6 | **Worklog** present (≥ 1 entry, plausible duration) | `(i)` (often inconsistent — should-have, not must-have) |
+| F4a | **Structured issue links** — parent epic, related issues, predecessor, inventory item are linked via the ticket system's *issue-link feature* (not just mentioned in prose). Bidirectional traceability matters: someone navigating from the inventory item should find this ticket. **Verify by querying issue links, not by reading the description**. | `(!)` per missing link |
+| F4b | **External work artefacts** — MR/PR URL, pipeline URL, registry/release URL — present in comments or as web/remote links, and reachable | `(!)` per missing or 404 |
+| F5 | *(merged into F4b)* | — |
+| F6 | **Worklog** present (≥ 1 entry, plausible duration) | `(!)` — should-have. Worklogs are part of the audit/billing/capacity trail; the team has agreed to log work, so missing entries shouldn't be normalised as merely a hint. |
 | F7 | **Comment formatting**: ticket-system-native markup (Jira: wiki, not Markdown), no leaking `**bold**`, `# heading`, em-dashes `--` | `(i)` |
 | F8 | *(deprecated — replaced by Stage -1 claim)* | — |
 
 Note F1: "acceptance criteria absent" is the one finding you should bounce on without going further. Without criteria, there is no testable bar.
+
+Note F4a: don't conflate "mentioned in description prose" with "linked via issue-link feature". A common self-deception is reading the description, seeing `IOT-146`, and assuming it must be linked. **Always verify against the actual issue-link list** (Jira: `Issue Links` section / API `issuelinks` array). If a related ticket is mentioned in prose but not linked, that's a `(!)` — and an easy fix (add the link).
 
 Note F7: applies equally to **the reviewer's own QA comment**. Common violations to scan for before posting:
 

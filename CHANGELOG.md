@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-04-27
+
+### Changed
+
+- Pillar F refinements driven by the fourth NRS-4365 dogfood pass:
+  - **F4 split into F4a (structured issue links) and F4b (external URLs)**. Common self-deception caught: a related ticket mentioned in description prose is *not* the same as one linked via the issue-link feature. Always verify against the actual issue-link list, not the description text. F5 merged into F4b.
+  - **F6 worklog severity upgraded from `(i)` to `(!)`**. Worklog is part of the audit/billing/capacity trail; missing entries shouldn't be normalised as "merely a hint" because team practice is inconsistent.
+  - **New F1.5: Description currency**. Does the description still describe what was actually delivered? Scope shifts, emerged requirements, surfaced constraints belong in the description for future readers, not buried in comments.
+- Caught while updating my own NRS-4365 QA comment: I marked F4 as passed because IOT-146 was mentioned in the description, but the structured issue-link list only had NRS-4317 and SRVV-104. Added IOT-146 as a proper Relation link, and updated the runbook so the next reviewer doesn't make the same mistake.
+
 ## [0.1.3] - 2026-04-27
 
 ### Changed
