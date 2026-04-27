@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-04-27
+
+### Added
+
+- **Two-comment pattern for long reviews** — `references/comment-template.md` now documents when and how to post a TL;DR action-item comment alongside the main structured QA comment. The main comment is the audit trail (complete, written for future readers); the TL;DR is for the implementer who needs to know "do I need to do anything?" in 30 seconds. Includes:
+  - Decision table: when to post a TL;DR (always for bounce/won't-do/pass-with-follow-ups, skip for clean passes).
+  - TL;DR template: implementer @-mention, one-line verdict, numbered action list, cross-reference to audit comment.
+  - Rationale for two comments instead of TL;DR-on-top: keeps the audit-trail header intact and makes the TL;DR the email/Matrix notification preview.
+
 ## [0.1.4] - 2026-04-27
 
 ### Changed

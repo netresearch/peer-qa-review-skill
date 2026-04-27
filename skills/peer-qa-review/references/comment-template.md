@@ -1,6 +1,6 @@
 # Comment Template
 
-One structured comment at the end of QA. Use Jira wiki markup. Optional addendum comments for separable concerns.
+One structured comment at the end of QA. Use Jira wiki markup. Optional addendum comments for separable concerns. For long reviews with action items, also post a *TL;DR action comment* — see the bottom of this file.
 
 ## Template
 
@@ -161,3 +161,48 @@ h4. Follow-up filed
 
 Resolving as Won't-do.
 ```
+
+## Two-comment pattern for long reviews
+
+The structured QA comment is the audit trail — complete, traceable, written for future readers. But it's also long. The implementer who just finished the work often needs *one thing*: "do I need to do anything?"
+
+For reviews with **action items** (bounce, won't-do with reopen condition, pass with structural follow-ups), post a **second comment** immediately after the main one — a short TL;DR addressed to the implementer.
+
+When to do this:
+
+| Verdict | TL;DR comment? |
+|---------|----------------|
+| Pass — clean, no follow-ups | Skip — main comment is enough |
+| Pass — with structural follow-ups or backfill asks | Post TL;DR |
+| Pass — with `(!)` items the implementer should know about | Post TL;DR |
+| Bounce | Always post TL;DR — the implementer needs to know what to fix |
+| Won't-do | Always post TL;DR — reopen condition + follow-up ticket |
+
+### TL;DR template
+
+```jira
+h3. TL;DR for [~implementer.username] — what needs doing now
+
+Verdict: *{passed | failed | won't do}*. {one-line status of the ticket itself}
+
+# *{action 1}* — {short rationale, link to follow-up ticket if any}
+# *{action 2}* — {short rationale}
+
+{Optional: "Nothing here blocks anything. Detail in the full QA review above."
+ OR: "Bouncing — fix #1 and re-transition. Detail above."}
+```
+
+### TL;DR principles
+
+- **Mention the implementer** with `[~username]` so they get a notification.
+- **Lead with the verdict** in one sentence — they want to know if they need to act before reading anything else.
+- **Numbered list of concrete actions only** — no severity icons, no pillar references, no quoted findings. Each item should be doable in ≤ 1 sentence.
+- **Cross-reference the audit-trail comment** at the end ("Detail above") rather than repeating the analysis.
+- **Skip if there's no action**. A clean pass with no follow-ups doesn't need a TL;DR — that just adds noise.
+
+### Why two comments and not one
+
+It's tempting to put the TL;DR at the *top* of the structured comment instead. Don't — for two reasons:
+
+1. The main comment is the *audit trail*. Future readers (next sprint planning, postmortem, similar incident) read it for the analysis, not the actions. A TL;DR on top buries the audit-trail header (`h3. IT Internal QA — passed`).
+2. Jira notifications quote the *first* lines of a comment in email/Matrix previews. A separate TL;DR comment makes the action items the preview, which is what the implementer needs.
