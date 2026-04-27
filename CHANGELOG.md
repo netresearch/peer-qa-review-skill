@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-04-27
+
+### Changed
+
+- **Format pillar findings as bulleted lists, not bare severity-icon lines** — `references/comment-template.md` now mandates `*` / `**` bullet prefixes for findings. Reason: long lines wrap. With bare severity-icon lines (`(/) F1: long text...`), Jira renders `<br/>` and wrap-continuation lands at the left margin under the icon, breaking visual grouping. With formal list items (`* (/) F1: long text...`), Jira renders `<ul><li>` and wrap-continuation aligns under the text — each finding stays visually grouped no matter how long.
+- The bullet + severity-icon double-marking concern (`• ✓ F1:`) was overweighted; rendered output is orderly, not busy. Past NR practice splits on this anyway (Sebastian uses `*` lists in NRS-4356, Björn uses bare lines in NRS-4321) — codifying the wrap-indent winner.
+- Exceptions documented: prose stays prose for Verdict header, Follow-up narrative, and re-execution explanations under a bullet. TL;DR comments keep `#` numbered lists for actions.
+
 ## [0.1.5] - 2026-04-27
 
 ### Added

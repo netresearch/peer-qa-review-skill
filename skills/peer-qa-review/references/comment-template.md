@@ -2,6 +2,41 @@
 
 One structured comment at the end of QA. Use Jira wiki markup. Optional addendum comments for separable concerns. For long reviews with action items, also post a *TL;DR action comment* — see the bottom of this file.
 
+## Format pillar findings as bulleted lists
+
+Use `*` (or `**` for sub-items) at the start of each finding line — *not* bare lines with severity-icon prefixes.
+
+**Why**: line-wrap. Findings often run long (multiple linked tickets, file paths, command output references). On bare severity-icon lines, the wrap continuation lands at the left margin, under the icon, which is hard to scan. With formal list items, Jira's `<li>` indent makes wrap continuation align under the *text*, not the bullet — so each finding stays visually grouped.
+
+```jira
+h4. Formal correctness
+* (/) F1: Description has clear acceptance criteria
+* (/) F4a: Structured Jira issue links:
+** NRS-4317 — parent, Closed
+** IOT-146 — VM inventory, In use
+** SRVV-104 — related, Closed
+* (!) F6: No worklog entries — should-have per audit/billing/capacity
+```
+
+Renders as a properly nested `<ul>` with bullet, severity icon, and indented sub-items. Long lines wrap under the text.
+
+**Avoid the bare-line style** for pillar findings:
+
+```jira
+h4. Formal correctness
+(/) F1: Description has clear acceptance criteria...
+(!) F6: No worklog entries — long line that will wrap...
+```
+
+This renders with `<br/>` between items; long lines wrap to the left margin, under the icon, breaking visual grouping.
+
+**Exceptions** — keep prose paragraphs (not lists) for:
+
+- The Verdict header sentence ("All must-have checks pass.")
+- The Follow-up section narrative
+- Re-execution / unverifiable-evidence explanations that follow a finding (the explanation is a paragraph under the bullet, not its own bullet)
+- The TL;DR comment uses **numbered** `#` items, not `*` — actions deserve sequence.
+
 ## Template
 
 ```jira
