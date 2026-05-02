@@ -19,6 +19,34 @@ The skill produces a **single structured QA comment** on the ticket with `(/) (x
 
 Agent Skill following the [open standard](https://agentskills.io). Works with Claude Code, and any other agent runtime that implements the spec.
 
+## Installation
+
+### Composer (PHP Projects)
+
+```bash
+composer require netresearch/peer-qa-review-skill
+```
+
+Requires [netresearch/composer-agent-skill-plugin](https://github.com/netresearch/composer-agent-skill-plugin).
+
+### npm (Node Projects)
+
+```bash
+npm install --save-dev \
+  @netresearch/agent-skill-coordinator \
+  github:netresearch/peer-qa-review-skill
+```
+
+Requires [@netresearch/agent-skill-coordinator](https://github.com/netresearch/node-agent-skill-coordinator), which discovers the skill in `node_modules` and registers it in `AGENTS.md` via a `postinstall` hook. For pnpm, also allowlist the coordinator's postinstall:
+
+```json
+{
+  "pnpm": {
+    "onlyBuiltDependencies": ["@netresearch/agent-skill-coordinator"]
+  }
+}
+```
+
 ## Companion skills (optional)
 
 - [`jira-communication`](https://github.com/netresearch/jira-skill) (public) — required for ticket I/O. The bundled `qa-gather.py` script is used in Stage 0.
