@@ -39,7 +39,7 @@ A teammate has marked work as **ready for QA**. Your job: verify it before it go
 | -1 | **Claim** | Ticket assigned to me; not previously mine |
 | 0 | **Discover** | Single-call gather of issue + comments + worklog + links + sibling tickets |
 | 1 | **Formal correctness** | Description / linkage / console-output / worklog checks |
-| 2 | **Functional + Inventory** | Reviewer re-runs verification; inventory updated |
+| 2 | **Functional + Inventory + Guardrails** | Reviewer re-runs verification; inventory updated; adjacent functionality spot-checked |
 | 3 | **Docs + Rollback + Communication** | Runbook stale? Snapshot taken? Announced if customer-affecting? |
 | 4 | **Verdict** | Pass-resolve · Pass-QA2 · Bounce · Won't-do |
 | 5 | **Comment + Transition** | Single structured QA comment; transition |
@@ -111,7 +111,7 @@ QA2-vs-internal-resolve decision rule: see `references/edge-cases.md`. When unce
 ## References
 
 - `references/lifecycle.md` — full per-stage detail
-- `references/checklist.md` — every check, organised by pillar (F1–F8 formal, R1–R6 functional, I1–I4 inventory, D1–D4 docs, B1–B3 rollback, C1–C3 communication, P1–P6 process compliance)
+- `references/checklist.md` — every check, organised by pillar (F1–F8 formal, R1–R6 functional, G1–G3 guardrails, I1–I4 inventory, D1–D4 docs, B1–B3 rollback, C1–C3 communication, P1–P6 process compliance)
 - `references/severity.md` — icon vocabulary and worked examples
 - `references/comment-template.md` — Jira-wiki template + 3 worked examples (pass, bounce, won't-do)
 - `references/edge-cases.md` — bounce, won't-do, self-review, unverifiable evidence, QA2 routing
