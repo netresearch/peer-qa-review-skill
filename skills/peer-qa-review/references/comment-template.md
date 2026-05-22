@@ -97,6 +97,11 @@ h4. Inventory / linked artefacts
 (/) {inventory ticket}: updated to {new value}
 (!) {discrepancy}
 
+h4. Guardrails
+(/) G1: adjacent components {A}, {B} spot-checked, unchanged
+(-) G2: n/a — not a shared-layer change
+(/) G3: default-path of {flag/config} still behaves as before
+
 h4. Documentation
 (!) {README / meta / runbook discrepancy}
 (i) {improvement hint}
@@ -161,6 +166,11 @@ Version            2.0.0
 h4. Inventory / linked artefacts
 (/) IOT-146: nothing to update (ticket is about ansible role, not host inventory)
 (!) meta/main.yml platforms still lists only bookworm — should add trixie
+
+h4. Guardrails
+(/) G1: vault role's two adjacent callers (consul, exocortex bootstrap) spot-checked, unchanged
+(-) G2: n/a — not a shared-layer change
+(-) G3: n/a — no config defaults touched
 
 h4. Documentation
 (!) README "Currently supported platforms" still says Debian 12 only

@@ -39,7 +39,7 @@ A teammate has marked work as **ready for QA**. Your job: verify it before it go
 | -1 | **Claim** | Ticket assigned to me; not previously mine |
 | 0 | **Discover** | Single-call gather of issue + comments + worklog + links + sibling tickets |
 | 1 | **Formal correctness** | Description / linkage / console-output / worklog checks |
-| 2 | **Functional + Inventory + Guardrails** | Reviewer re-runs verification; inventory updated; adjacent functionality spot-checked |
+| 2 | **Functional + Inventory + Guardrails** | Reviewer re-runs verification; inventory updated; guardrails checked (adjacent components, shared-layer downstream, unchanged default path) |
 | 3 | **Docs + Rollback + Communication** | Runbook stale? Snapshot taken? Announced if customer-affecting? |
 | 4 | **Verdict** | Pass-resolve · Pass-QA2 · Bounce · Won't-do |
 | 5 | **Comment + Transition** | Single structured QA comment; transition |

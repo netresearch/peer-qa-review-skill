@@ -31,11 +31,13 @@ Verify the **ticket itself** is reviewable. See `checklist.md` items F1–F8.
 
 Output: a list of `(/) (x) (!) (i)` items. If F1 (acceptance criteria absent) is `(x)`, you cannot proceed — bounce immediately.
 
-## Stage 2: Functional resolution + Inventory
+## Stage 2: Functional resolution + Inventory + Guardrails
 
 Verify the **reported problem is fixed**. The reviewer **re-executes** the implementer's verification commands themselves — do not copy-paste the implementer's output. Include fresh `{code}` blocks in the QA comment.
 
-See `checklist.md` items R1–R6 (functional) and I1–I4 (inventory).
+Then verify the change didn't break what the ticket didn't mention: adjacent components, shared-layer downstream consumers, and the unchanged default path of any flag/config touched.
+
+See `checklist.md` items R1–R6 (functional), I1–I4 (inventory), and G1–G3 (guardrails).
 
 For maintenance-style tickets, also run any component-specific QA scripts (e.g. a `gitlab-qa.py` style check) if your team's maintenance skill provides one.
 

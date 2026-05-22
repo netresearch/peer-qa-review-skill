@@ -49,7 +49,7 @@ The R pillar verifies the change fixed what the ticket said it would. The G pill
 | # | Check | Severity |
 |---|-------|----------|
 | G1 | **Adjacent components** — name two adjacent components the change could have affected but is not trying to. Spot-check each is unchanged. If you cannot name two, the blast radius is not understood. | `(!)` SHOULD; `(?)` if blast radius unclear |
-| G2 | **Shared layer downstream** — if the change is in a shared layer (auth, logging, error handling, DB schema, build config), exercise one downstream consumer end-to-end, not just the changed code. | `(x)` MUST if shared layer; `(!)` otherwise |
+| G2 | **Shared layer downstream** — if the change is in a shared layer (auth, logging, error handling, DB schema, build config), exercise one downstream consumer end-to-end, not just the changed code. | `(x)` MUST if shared layer; `n/a` otherwise |
 | G3 | **Unchanged default path** — if the change touches a config file, env var, or feature flag default, verify the unchanged default path still behaves as before. Don't just test the new branch. | `(x)` MUST |
 
 Severity uses the standard icon vocabulary `(/)` `(x)` `(!)` `(i)` `(?)`. A G-finding that demonstrates a real regression is `(x)` MUST and bounces the ticket. A G-finding that surfaces "I cannot tell if X is affected" is `(?)` and blocks on the answer.
