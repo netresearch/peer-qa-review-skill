@@ -139,6 +139,7 @@ Re-read your own comment before clicking *Add*. Common self-introduced bugs:
 3. **F7 violations in your own comment** — display-text links where convention is full URLs, `{{monospace}}` for commands when convention is `{code}` blocks, Markdown leakage (`**bold**`, `# heading`).
 4. **Transition-name vs verdict mismatch** — the verdict's *meaning* and the *literal transition name* must agree (see above).
 5. **Pillar P claims vs actual content** — if your P-pillar says "comments use `{code}` blocks" while your comment uses `{{monospace}}` for commands, that's the very contradiction the runbook is meant to prevent.
+6. **Link audit on your own references** — every ticket key, MR/PR URL, commit hash, runbook page, or vault entry your QA comment mentions should *also* exist as a structural link on the ticket (issue-link for sibling/parent/inventory tickets, web-link for external URLs). The inline mention is for narrative; the link is the structural relationship that survives someone navigating in from the *other* side. F4a tests this for the implementer; apply it to your *own* comment too. If you introduce a new reference (e.g. "filed as NEW-TICKET" or "see MR !N"), create the structural link *before* posting — or note the omission honestly. *Anti-pattern caught the hard way:* posting a QA comment that says "filed as NRS-4447" without ever creating the issue link, leaving navigation one-way only.
 
 ## Example 1 — Pass (NRS-4365 shape)
 
