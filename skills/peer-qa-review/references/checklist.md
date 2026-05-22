@@ -42,6 +42,27 @@ The reviewer **re-runs** these. Copy-pasting the implementer's output does not s
 
 Severity: each R-check failing on its own is `(x)` for R1–R4 (the fix doesn't actually work or breaks something else); `(!)` for R5–R6 (artefacts present but quality flag).
 
+## Pillar G — Guardrails (what the change *wasn't* trying to touch)
+
+The R pillar verifies the change fixed what the ticket said it would. The G pillar verifies it didn't break what the ticket didn't mention. Round-1 QA owns this — by QA2 / customer acceptance the cost of finding it is already too high.
+
+| # | Check | Severity |
+|---|-------|----------|
+| G1 | **Adjacent components** — name two adjacent components the change could have affected but is not trying to. Spot-check each is unchanged. If you cannot name two, the blast radius is not understood. | `(!)` SHOULD; `(?)` if blast radius unclear |
+| G2 | **Shared layer downstream** — if the change is in a shared layer (auth, logging, error handling, DB schema, build config), exercise one downstream consumer end-to-end, not just the changed code. | `(x)` MUST if shared layer; `n/a` otherwise |
+| G3 | **Unchanged default path** — if the change touches a config file, env var, or feature flag default, verify the unchanged default path still behaves as before. Don't just test the new branch. | `(x)` MUST |
+
+Severity uses the standard icon vocabulary `(/)` `(x)` `(!)` `(i)` `(?)`. A G-finding that demonstrates a real regression is `(x)` MUST and bounces the ticket. A G-finding that surfaces "I cannot tell if X is affected" is `(?)` and blocks on the answer.
+
+### Common false negatives this catches
+
+- Bugfix touched a shared helper; the helper has three callers and only one was tested.
+- New feature flag's "off" path silently flipped because the default changed in code, not in config.
+- Schema migration's rollback path was never tested (B-pillar checks the migration; G2 checks a real downstream query against rolled-back schema).
+- "Refactored for clarity" changed behavior in an edge case the original test suite didn't cover.
+
+For changes with no plausible adjacent surface (e.g. a typo fix in a comment, a one-line README update), G-pillar may be recorded as `n/a` rather than `(/)`.
+
 ## Pillar I — Inventory & related artefacts
 
 | # | Check | Severity |
