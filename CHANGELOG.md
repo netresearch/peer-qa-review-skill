@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-05-28
+
 ## [0.2.0] - 2026-04-27
 
 First matured release after the initial dogfood loop on NRS-4365. The 0.1.x series was a rapid-iteration cycle (each round catching a different class of bug); 0.2.0 consolidates the stable result.
