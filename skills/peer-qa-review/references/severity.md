@@ -36,13 +36,13 @@ When you report an issue *and* fix it yourself during the review, keep both fact
 Inline, for one-line fixes:
 
 ```jira
-* (!) goo bar did not work — (/) fixed <how> during QA
+* (!) foo bar did not work — (/) fixed <how> during QA
 ```
 
 Nested, when the fix deserves its own evidence line:
 
 ```jira
-* (!) goo bar did not work
+* (!) foo bar did not work
 ** (/) fixed during QA: <how>, proved by <link to pipeline/commit/output>
 ```
 
