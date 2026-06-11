@@ -12,7 +12,10 @@ For your team's *trusted shared-namespace* GitHub / GitLab projects, prefer the 
 | Issue | `owner/repo#123` | `group/project#123` |
 | PR / MR | `owner/repo#456` | `group/project!456` |
 | Commit | `owner/repo@7c12680` | `group/project@7c12680` |
-| Branch / pipeline / release / tag | full URL | full URL |
+| Pipeline / job | full URL (no native sigil) | `group/project pipelines/219574`, `group/project jobs/546471` — *display-text only*, see below |
+| Branch / release / tag | full URL | full URL |
+
+**Pipelines and jobs have no native autolink sigil** on either platform, so the bare shorthand never auto-links — use it only as display text inside a Jira `[…|url]` macro. The form mirrors the URL path (`/-/pipelines/<id>`), so there is no invented sigil to learn. On GitHub/GitLab themselves, keep the full URL.
 
 **In Jira specifically**: the shorthand alone is *not* clickable — Jira only auto-links its own issue keys. To get clickable links *and* shorthand readability in Jira, wrap the shorthand as **display text** in a Jira link macro:
 
@@ -123,7 +126,7 @@ h4. Verdict
 (!) N should-fix items: {brief list}
 (i) M hints for next time: {brief list}
 
-Ready to {transition-name-from-your-system}.
+Ready to {transition-name-from-your-system}. {optional star rating, e.g. (*)(*)(*)(*) (4/5)}
 ```
 
 The **verdict line** must match your ticket system's actual transition name *and* the routing rule. For example, in a system where "QA passed" transitions to a customer-acceptance status, do not write "Ready to transition to QA passed" if the verdict is "internal-resolve" — that's a contradiction. Use the literal transition name that matches the routing decision (e.g. "Resolve" for internal-resolve, "QA passed" only when the next stop really is customer acceptance).
@@ -142,6 +145,7 @@ Re-read your own comment before clicking *Add*. Common self-introduced bugs:
 6. **Link audit on your own references** — every issue key, MR/PR, commit, or external URL you introduce must also exist as a structural link (issue link or web link), not just inline. See F4a (reviewer-side). *Anti-pattern:* "filed as NEW-TICKET" without the link.
 7. **Unescaped block-markup tags in prose** — writing *about* `{code}` (or `{noformat}`, `{quote}`, `{panel}`) opens a real block right there in the rendered comment and swallows the rest of the line. These tags are block markup; any inline occurrence in prose is a smell. Escape as `\{code\}` when you mean the literal tag.
 8. **Attachment mentioned but not linked** — when your comment references an attached file (session log, screenshot, report), link it with `[^filename.log]` so the reader gets a one-click open. A bare filename forces a scroll-and-hunt through the attachment list.
+9. **Self-fixed findings carry paired icons** — a finding you fixed yourself during QA is written as `(!) finding — (/) fixed <how> during QA` (or with the fix as a nested `**` sub-item carrying its evidence link). Neither a bare `(/)` nor a bare `(!)` tells the whole story; see `severity.md` ("Findings fixed by the reviewer"). Every MR, commit and repo you name in the finding gets its `[shorthand|url]` link.
 
 ## Example 1 — Pass (NRS-4365 shape)
 
