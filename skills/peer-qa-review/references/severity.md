@@ -29,6 +29,25 @@ Ask three questions in order:
 
 If you can't decide between `(!)` and `(i)`: ask whether the issue would still be worth fixing if the ticket were already closed. Yes → `(!)` (file a follow-up). No → `(i)`.
 
+## Findings fixed by the reviewer
+
+When you report an issue *and* fix it yourself during the review, keep both facts visible: the finding keeps its severity icon, the fix gets a paired `(/)`.
+
+Inline, for one-line fixes:
+
+```jira
+* (!) goo bar did not work — (/) fixed <how> during QA
+```
+
+Nested, when the fix deserves its own evidence line:
+
+```jira
+* (!) goo bar did not work
+** (/) fixed during QA: <how>, proved by <link to pipeline/commit/output>
+```
+
+Never collapse the pair into a bare `(/)` (the audit trail must show the issue existed and that the reviewer fixed it), and never leave a bare `(!)` standing when it is already fixed (it reads as an open should-fix and skews the verdict).
+
 ## Examples from real tickets
 
 ### `(x)` — blocking

@@ -142,6 +142,7 @@ Re-read your own comment before clicking *Add*. Common self-introduced bugs:
 6. **Link audit on your own references** — every issue key, MR/PR, commit, or external URL you introduce must also exist as a structural link (issue link or web link), not just inline. See F4a (reviewer-side). *Anti-pattern:* "filed as NEW-TICKET" without the link.
 7. **Unescaped block-markup tags in prose** — writing *about* `{code}` (or `{noformat}`, `{quote}`, `{panel}`) opens a real block right there in the rendered comment and swallows the rest of the line. These tags are block markup; any inline occurrence in prose is a smell. Escape as `\{code\}` when you mean the literal tag.
 8. **Attachment mentioned but not linked** — when your comment references an attached file (session log, screenshot, report), link it with `[^filename.log]` so the reader gets a one-click open. A bare filename forces a scroll-and-hunt through the attachment list.
+9. **Self-fixed findings carry paired icons** — a finding you fixed yourself during QA is written as `(!) finding — (/) fixed <how> during QA` (or with the fix as a nested `**` sub-item carrying its evidence link). Neither a bare `(/)` nor a bare `(!)` tells the whole story; see `severity.md` ("Findings fixed by the reviewer"). Every MR, commit and repo you name in the finding gets its `[shorthand|url]` link.
 
 ## Example 1 — Pass (NRS-4365 shape)
 
