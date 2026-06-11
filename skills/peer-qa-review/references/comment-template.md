@@ -12,7 +12,10 @@ For your team's *trusted shared-namespace* GitHub / GitLab projects, prefer the 
 | Issue | `owner/repo#123` | `group/project#123` |
 | PR / MR | `owner/repo#456` | `group/project!456` |
 | Commit | `owner/repo@7c12680` | `group/project@7c12680` |
-| Branch / pipeline / release / tag | full URL | full URL |
+| Pipeline / job | full URL (no native sigil) | `group/project pipelines/219574`, `group/project jobs/546471` — *display-text only*, see below |
+| Branch / release / tag | full URL | full URL |
+
+**Pipelines and jobs have no native autolink sigil** on either platform, so the bare shorthand never auto-links — use it only as display text inside a Jira `[…|url]` macro. The form mirrors the URL path (`/-/pipelines/<id>`), so there is no invented sigil to learn. On GitHub/GitLab themselves, keep the full URL.
 
 **In Jira specifically**: the shorthand alone is *not* clickable — Jira only auto-links its own issue keys. To get clickable links *and* shorthand readability in Jira, wrap the shorthand as **display text** in a Jira link macro:
 
