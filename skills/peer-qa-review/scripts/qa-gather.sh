@@ -32,8 +32,10 @@ find_qa_gather() {
         "${HOME}/.claude/plugins/cache"
     )
     # Prefer the current script name (jira-integration >= 3.13) over the
-    # legacy one, deterministically: one find per name, first match wins.
-    # `-print -quit` stops at the first hit — no `| head` pipeline, so no
+    # legacy one: one find per name in explicit preference order, stopping
+    # at the first hit (`-print -quit`). Which copy wins *within* one search
+    # root still follows find's traversal order; the guarantee here is the
+    # name preference plus the early stop — and no `| head` pipeline, so no
     # SIGPIPE risk under `set -o pipefail`.
     local p name found
     for p in "${search_paths[@]}"; do
