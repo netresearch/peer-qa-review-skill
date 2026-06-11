@@ -11,11 +11,11 @@ Reuse the standard Atlassian / Jira-wiki icon set. Do **not** invent new categor
 | `(!)` | `(!)` | **SHOULD**: real issue, non-blocking *for this ticket* | document; create follow-up if structural |
 | `(i)` | `(i)` | **HINT**: improvement suggestion / next-time nice-to-have | document; no action required |
 | `(?)` | `(?)` | open question for implementer | block on answer |
-| `(-)` | *literal text* `n/a` | not applicable here | none — explicit "we considered this and it doesn't apply" |
+| `(off)` | `(off)` | not applicable here | none — explicit "we considered this and it doesn't apply" |
 
 In rendered Jira these become coloured icons. In other systems (GitHub, GitLab, Markdown), use the literal strings — they read clearly even unrendered.
 
-**Watch out for `(-)` specifically**: in Jira wiki the `(-)` token renders as a *forbidden* / *no-entry* icon (🚫), not as "n/a". The forbidden icon visually says "blocked / denied", which is wrong for "not applicable here". Use **literal text** like `*n/a*` or write *"n/a — reason"* instead of the `(-)` token in Jira comments. The other tokens (`(/) (x) (!) (i) (?)`) render with semantically-correct icons.
+**Never use `(-)` for "n/a"**: in Jira wiki the `(-)` token renders as a *red* forbidden / no-entry icon, which visually screams "error / blocked / denied" — readers scan it as a failure even though the line lists something that was *considered and intentionally skipped*. Use `(off)` instead: it renders as a subtle grey switched-off lamp, which reads as "nothing active here" without alarm colour. The other tokens (`(/) (x) (!) (i) (?)`) render with semantically-correct icons.
 
 Also avoid using `(/)`, `(x)`, `(!)`, `(i)`, `(?)` literally in *prose* when you mean to *refer to* a finding by its severity. Jira will render the icon mid-sentence, which is visually confusing. Write "the SHOULD-fix finding" or "the warning above" instead of "the `(!)`".
 
@@ -57,9 +57,9 @@ If you can't decide between `(!)` and `(i)`: ask whether the issue would still b
 
 > *(?) Was the OPNsense config snapshot taken before the major upgrade? I see the patch-update comment but not a snapshot mention.*
 
-### `(-)` — n/a
+### `(off)` — n/a
 
-> *(-) Communication (C1–C3): change is internal-only (CI image refresh), no announcement needed.*
+> *(off) Communication (C1–C3): change is internal-only (CI image refresh), no announcement needed.*
 
 ## Anti-patterns in severity choice
 

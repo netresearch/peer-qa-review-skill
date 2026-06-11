@@ -99,7 +99,7 @@ h4. Inventory / linked artefacts
 
 h4. Guardrails
 (/) G1: adjacent components {A}, {B} spot-checked, unchanged
-(-) G2: n/a — not a shared-layer change
+(off) G2: n/a — not a shared-layer change
 (/) G3: default-path of {flag/config} still behaves as before
 
 h4. Documentation
@@ -111,7 +111,7 @@ h4. Rollback / backout
 (/) Backout path documented: {how}
 
 h4. Communication
-(-) n/a — internal-only change   |   (/) Announced in {channel}   |   (!) Customer-affecting; no announcement found
+(off) n/a — internal-only change   |   (/) Announced in {channel}   |   (!) Customer-affecting; no announcement found
 
 h4. Process compliance
 (/) Comments in {code} blocks throughout
@@ -128,7 +128,7 @@ Ready to {transition-name-from-your-system}.
 
 The **verdict line** must match your ticket system's actual transition name *and* the routing rule. For example, in a system where "QA passed" transitions to a customer-acceptance status, do not write "Ready to transition to QA passed" if the verdict is "internal-resolve" — that's a contradiction. Use the literal transition name that matches the routing decision (e.g. "Resolve" for internal-resolve, "QA passed" only when the next stop really is customer acceptance).
 
-Keep it tight. Skip pillars that don't apply (e.g. omit "Communication" if `(-)` n/a). Don't pad with `(/)` for every check — list `(/)` items only when they're load-bearing or non-obvious.
+Keep it tight. Skip pillars that don't apply (e.g. omit "Communication" if `(off)` n/a). Don't pad with `(/)` for every check — list `(/)` items only when they're load-bearing or non-obvious.
 
 ## Sanity scan before posting
 
@@ -140,6 +140,8 @@ Re-read your own comment before clicking *Add*. Common self-introduced bugs:
 4. **Transition-name vs verdict mismatch** — the verdict's *meaning* and the *literal transition name* must agree (see above).
 5. **Pillar P claims vs actual content** — if your P-pillar says "comments use `{code}` blocks" while your comment uses `{{monospace}}` for commands, that's the very contradiction the runbook is meant to prevent.
 6. **Link audit on your own references** — every issue key, MR/PR, commit, or external URL you introduce must also exist as a structural link (issue link or web link), not just inline. See F4a (reviewer-side). *Anti-pattern:* "filed as NEW-TICKET" without the link.
+7. **Unescaped block-markup tags in prose** — writing *about* `{code}` (or `{noformat}`, `{quote}`, `{panel}`) opens a real block right there in the rendered comment and swallows the rest of the line. These tags are block markup; any inline occurrence in prose is a smell. Escape as `\{code\}` when you mean the literal tag.
+8. **Attachment mentioned but not linked** — when your comment references an attached file (session log, screenshot, report), link it with `[^filename.log]` so the reader gets a one-click open. A bare filename forces a scroll-and-hunt through the attachment list.
 
 ## Example 1 — Pass (NRS-4365 shape)
 
@@ -170,8 +172,8 @@ h4. Inventory / linked artefacts
 
 h4. Guardrails
 (/) G1: vault role's two adjacent callers (consul, exocortex bootstrap) spot-checked, unchanged
-(-) G2: n/a — not a shared-layer change
-(-) G3: n/a — no config defaults touched
+(off) G2: n/a — not a shared-layer change
+(off) G3: n/a — no config defaults touched
 
 h4. Documentation
 (!) README "Currently supported platforms" still says Debian 12 only
@@ -181,7 +183,7 @@ h4. Rollback / backout
 (/) Single-line template change; rollback = revert tag bump in requirements.yml + re-run ansible. Documented implicitly via git history.
 
 h4. Communication
-(-) n/a — internal-only change to internal infrastructure
+(off) n/a — internal-only change to internal infrastructure
 
 h4. Process compliance
 (/) Comments in {code} blocks throughout

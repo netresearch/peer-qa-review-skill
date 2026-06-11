@@ -35,7 +35,7 @@ find_qa_gather() {
     for p in "${search_paths[@]}"; do
         [[ -z "$p" ]] && continue
         local found
-        found=$(find "$p" -maxdepth 6 -path '*/skills/jira-communication/scripts/utility/qa-gather.py' 2>/dev/null | head -n1)
+        found=$(find "$p" -maxdepth 6 \( -path '*/skills/jira-communication/scripts/utility/jira-qa-gather.py' -o -path '*/skills/jira-communication/scripts/utility/qa-gather.py' \) 2>/dev/null | head -n1)
         if [[ -n "$found" ]]; then
             echo "$found"
             return 0
