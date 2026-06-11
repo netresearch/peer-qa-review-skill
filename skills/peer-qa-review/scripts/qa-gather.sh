@@ -58,11 +58,12 @@ find_jira_scripts_dir() {
         "${HOME}/.claude/plugins/cache/netresearch-claude-code-marketplace/jira-integration"
         "${HOME}/.claude/plugins/cache"
     )
-    local p
+    local p found
     for p in "${search_paths[@]}"; do
         [[ -z "$p" ]] && continue
-        local found
-        found=$(find "$p" -maxdepth 6 -path '*/skills/jira-communication/scripts/core/jira-issue.py' 2>/dev/null | head -n1)
+        found=$(find "$p" -maxdepth 6 -type f \
+            -path '*/skills/jira-communication/scripts/core/jira-issue.py' \
+            -print -quit 2>/dev/null) || true
         if [[ -n "$found" ]]; then
             dirname "$(dirname "$found")"
             return 0
