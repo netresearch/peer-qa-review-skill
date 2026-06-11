@@ -48,6 +48,18 @@ Nested, when the fix deserves its own evidence line:
 
 Never collapse the pair into a bare `(/)` (the audit trail must show the issue existed and that the reviewer fixed it), and never leave a bare `(!)` standing when it is already fixed (it reads as an open should-fix and skews the verdict).
 
+## Praise and ratings
+
+Developers are humans too — when QA turns up a genuinely *positive unexpected* finding (exemplary docs, communication beyond the bar, a clever guard the ticket didn't ask for), say so with a leading `(y)` (thumbs up), `(*)` (star) or `:)`:
+
+```jira
+* (y) Org-wide heads-up published days before the flip, with a grace period for the assigned MRs
+```
+
+**Keep it sparse** — one praise line per review at most, and only for above-expectation work. Routine compliance gets `(/)`, not applause; inflationary praise devalues the signal.
+
+Independently, the **closing sentence** of the QA comment may carry a 1–5 star rating of the overall implementation quality, e.g. `(*)(*)(*)(*) (4/5)`. Rough scale: 5 = exemplary, fit as a reference for others; 4 = strong with a minor flaw; 3 = solid standard work; 2 = passed with notable gaps; 1 = barely passed. The rating is optional and never replaces the verdict line.
+
 ## Examples from real tickets
 
 ### `(x)` — blocking

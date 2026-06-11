@@ -123,7 +123,7 @@ h4. Verdict
 (!) N should-fix items: {brief list}
 (i) M hints for next time: {brief list}
 
-Ready to {transition-name-from-your-system}.
+Ready to {transition-name-from-your-system}. {optional star rating, e.g. (*)(*)(*)(*) (4/5)}
 ```
 
 The **verdict line** must match your ticket system's actual transition name *and* the routing rule. For example, in a system where "QA passed" transitions to a customer-acceptance status, do not write "Ready to transition to QA passed" if the verdict is "internal-resolve" — that's a contradiction. Use the literal transition name that matches the routing decision (e.g. "Resolve" for internal-resolve, "QA passed" only when the next stop really is customer acceptance).
