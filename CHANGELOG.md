@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-06-11
+
+### Fixed
+
+- **`(off)` instead of `(-)` for n/a findings** — `(-)` renders as a red forbidden icon in Jira and scans as an error although it marks intentionally skipped checks. `severity.md` already warned about this, but `comment-template.md`'s own examples still used `(-)`; both now consistently use `(off)`.
+- **`qa-gather.sh` discovery** — the script searched for `utility/qa-gather.py`, but jira-integration >= 3.13 ships `utility/jira-qa-gather.py`, so discovery always failed on current installs and silently fell back to multi-call mode. Discovery now tries explicit names in preference order with one deterministic `find -type f -print -quit` per name (no `| head` pipeline, no SIGPIPE risk under `set -o pipefail`), and the docs state the actual discovery guarantee.
+
+### Added
+
+- **Paired-icon notation for findings fixed by the reviewer** — issues the reviewer reports *and* fixes during the review are written as `(!) finding — (/) fixed <how> during QA` (or nested with fix evidence on its own line). A bare `(/)` hides that the issue existed; a bare `(!)` reads as an open should-fix and skews the verdict (`severity.md`, `comment-template.md`).
+- **Sparse praise icons and optional 1-5 star rating** for review verdicts (`severity.md`).
+- **Display-text shorthand for pipelines and jobs** in the link conventions (`comment-template.md`).
+- **Sanity-scan items 7-9** — escape literal block-markup tags in prose (`\{code\}` — block tags are never inline and would swallow the rest of the line), link referenced attachments with `[^filename]` instead of bare filenames, and use paired icons plus `[shorthand|url]` links on every MR/commit/repo named in a finding (`comment-template.md`).
+
+### Changed
+
+- **F1.5 (description currency) names the concrete drift artifacts** — unticked task checkboxes for completed work, outdated status/phase tables, and superseded version strings (`references/checklist.md`).
+
 ## [0.4.0] - 2026-05-28
 
 ## [0.2.0] - 2026-04-27

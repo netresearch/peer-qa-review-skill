@@ -1,6 +1,6 @@
 {
   "name": "peer-qa-review",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Round-1 IT QA runbook: peer review of completed work before customer acceptance or internal close. Lifecycle, checklist, severity vocabulary, comment template, edge cases, anti-patterns. Generic for any IT/Ops team.",
   "repository": "https://github.com/netresearch/peer-qa-review-skill",
   "license": "(MIT AND CC-BY-SA-4.0)",
