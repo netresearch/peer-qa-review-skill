@@ -146,6 +146,7 @@ Re-read your own comment before clicking *Add*. Common self-introduced bugs:
 7. **Unescaped block-markup tags in prose** — writing *about* `{code}` (or `{noformat}`, `{quote}`, `{panel}`) opens a real block right there in the rendered comment and swallows the rest of the line. These tags are block markup; any inline occurrence in prose is a smell. Escape as `\{code\}` when you mean the literal tag.
 8. **Attachment mentioned but not linked** — when your comment references an attached file (session log, screenshot, report), link it with `[^filename.log]` so the reader gets a one-click open. A bare filename forces a scroll-and-hunt through the attachment list.
 9. **Self-fixed findings carry paired icons** — a finding you fixed yourself during QA is written as `(!) finding — (/) fixed <how> during QA` (or with the fix as a nested `**` sub-item carrying its evidence link). Neither a bare `(/)` nor a bare `(!)` tells the whole story; see `severity.md` ("Findings fixed by the reviewer"). Every MR, commit and repo you name in the finding gets its `[shorthand|url]` link.
+10. **QA2 verdict but no customer handover** — if the verdict routes to QA2, the internal QA comment is *not* enough; a separate plain-language handover for the approver must accompany it (see § "Customer handover comment (QA2 only)"). Posting only the internal QA comment leaves the customer lost.
 
 ## Example 1 — Pass (NRS-4365 shape)
 
@@ -294,3 +295,42 @@ It's tempting to put the TL;DR at the *top* of the structured comment instead. D
 
 1. The main comment is the *audit trail*. Future readers (next sprint planning, postmortem, similar incident) read it for the analysis, not the actions. A TL;DR on top buries the audit-trail header (`h3. IT Internal QA — passed`).
 2. Jira notifications quote the *first* lines of a comment in email/Matrix previews. A separate TL;DR comment makes the action items the preview, which is what the implementer needs.
+
+## Customer handover comment (QA2 only)
+
+When the verdict routes to **QA2**, the next reader is the customer / product owner who must *accept* the work — not a teammate. The internal QA comment is the wrong artifact for them: it is addressed to IT, dense with infra detail (MRs, vault paths, group diffs), and carries severity icons they don't read. Handing it over as-is leaves the approver lost — they don't know what was delivered or what they are supposed to confirm before accepting.
+
+So on QA2, post a **second, separate comment** addressed to the approver — the customer handover. This is distinct from the implementer TL;DR above (that one is internal, action-focused, mentions `[~implementer]`). Keep the internal QA comment as the audit trail; the handover sits beside it.
+
+The handover:
+
+- is **addressed to the approver** (`[~approver.username]` or "Hallo {Name}");
+- uses **plain language** — no infra jargon, **no severity icons** (`(/)(x)(!)`), no pillar references, no internal ticket/MR mechanics;
+- states (1) **what was delivered** — the outcome they asked for, (2) the **one acceptance check** they should perform and exactly how, (3) the **next step / who to contact** (and whether the ticket auto-closes on their confirmation);
+- matches the requester's language (e.g. German for a German-speaking customer).
+
+### Customer handover template
+
+```jira
+h3. Handover for [~approver.username]
+
+{One sentence: what was delivered, in the customer's terms.}
+
+*Bitte zur Abnahme prüfen:* {the single concrete acceptance check, e.g. "dass sich {user} unter https://… mit den zugestellten Zugangsdaten einloggen kann."}
+
+Sobald das passt, {next step: "dürfen Sie das Ticket schließen" | "geben Sie uns kurz Bescheid und wir schließen ab"}. Bei Rückfragen: {contact / channel}.
+```
+
+### Example — QA2 handover (NRS-4480 shape)
+
+```jira
+h3. Handover for [~tobias.hein]
+
+Der Jira-Zugang für Reinhold Fischer (BBAG) ist eingerichtet — Benutzer aktiv, Rechte analog zu Josef Strobel, Zugangsdaten wurden Herrn Fischer zugestellt.
+
+*Bitte zur Abnahme prüfen:* dass Herr Fischer sich unter https://jira.netresearch.de mit den zugestellten Zugangsdaten einloggen kann.
+
+Sobald die Anmeldung bestätigt ist, kann das Ticket geschlossen werden. Bei Rückfragen meldet euch gern.
+```
+
+The matching internal QA comment (`h3. IT Internal QA — passed`, with the terraform/vault/group evidence) stays as the separate audit trail.
