@@ -42,7 +42,7 @@ A teammate has marked work as **ready for QA**. Your job: verify it before it go
 | 2 | **Functional + Inventory + Guardrails** | Reviewer re-runs verification; inventory updated; guardrails checked (adjacent components, shared-layer downstream, unchanged default path) |
 | 3 | **Docs + Rollback + Communication** | Runbook stale? Snapshot taken? Announced if customer-affecting? |
 | 4 | **Verdict** | Pass-resolve · Pass-QA2 · Bounce · Won't-do |
-| 5 | **Comment + Transition** | Single structured QA comment; transition |
+| 5 | **Comment + Transition** | Internal QA comment; on QA2, a separate customer handover comment; transition |
 
 Full per-stage checks: `references/lifecycle.md` and `references/checklist.md`.
 
@@ -60,11 +60,13 @@ Reuse the standard Atlassian icon set. Do **not** invent new categories.
 
 Rationale and examples: `references/severity.md`.
 
-## Output: one structured comment
+## Output: QA comment (+ handover on QA2)
 
-Single Jira comment, header `h3. IT Internal QA`, h4 sections for each pillar, severity icons throughout, verdict line at the end. Optional addendum comments for separable concerns (e.g. Confluence runbook review).
+Single Jira comment, header `h3. IT Internal QA`, h4 sections per pillar, severity icons throughout, verdict line at the end. Optional addendum comments for separable internal concerns (e.g. Confluence runbook review).
 
-Full template + filled examples: `references/comment-template.md`.
+**On a QA2 verdict, post a second, separate comment — the customer handover.** The internal QA comment is addressed to IT and never states the acceptance check, so it leaves the approver lost. The handover is addressed to the approver, plain language, no infra jargon, no severity icons; it states what was delivered, the one acceptance check to perform, and the next step. Never hand the internal QA comment over as the handover.
+
+Full template + filled examples (incl. customer handover): `references/comment-template.md`.
 
 ## Stage 0 — discover (one call)
 
@@ -102,7 +104,7 @@ The Round-1 QA queue is typically a **team queue** with no assignee. Self-assign
 | Outcome | When | Action |
 |---------|------|--------|
 | **Pass — resolve** | All `(x)` clear, IT-internal scope (no customer affected) | transition QA → Closed/Done |
-| **Pass — QA2** | All `(x)` clear, customer-affecting change | transition QA → QA2, assign to product owner / customer |
+| **Pass — QA2** | All `(x)` clear, customer-affecting change | post the internal QA comment **and** a separate customer handover comment; transition QA → QA2, assign to product owner / customer |
 | **Bounce — In Progress** | Any `(x)` | transition QA → In Progress, comment with the blocker, re-assign to implementer |
 | **Won't-do** | Blocking external prerequisite missing | document, file follow-up ticket, resolve as Won't-do with reopen condition |
 

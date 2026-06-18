@@ -45,6 +45,8 @@ After QA passes, where does the ticket go next?
 
 **When uncertain, default to QA2** and let the product owner / customer-success rep approve.
 
+**On QA2, leave the approver a handover — not just the QA comment.** The internal QA comment is addressed to IT (infra detail, severity icons) and never states the acceptance check, so a customer / product owner lands on it and is lost: they don't know what was delivered or what to confirm. Routing to QA2 therefore means *two* comments — the internal QA comment (audit trail) **and** a separate, plain-language customer handover that says what was delivered, the one check to perform, and the next step. Never hand the internal QA comment over as the handover. Template + worked example: `references/comment-template.md` § "Customer handover comment (QA2 only)".
+
 ## E. Reviewer is also implementer
 
 You cannot review your own work. The first-person bias is too strong; even with discipline, you'll miss things.
