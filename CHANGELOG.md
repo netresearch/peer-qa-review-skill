@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-18
+
+### Added
+
+- **Separate customer handover comment on QA2** — a QA2 verdict now requires two
+  comments: the internal `h3. IT Internal QA` comment (audit trail, addressed to
+  IT) and a separate, plain-language **customer handover** addressed to the
+  approver, stating what was delivered, the one acceptance check to perform, and
+  the next step. The internal QA comment is never handed to the customer as the
+  handover. New "Customer handover comment (QA2 only)" template and worked
+  example in `comment-template.md`; Stage 5, Output, and Pass-QA2 routing in
+  `SKILL.md` and the QA2 routing in `edge-cases.md` updated to match.
+- **CI skill-validation workflow** (`.github/workflows/lint.yml`) calling the
+  `netresearch/skill-repo-skill` reusable `validate.yml`, closing the gap where
+  the pre-commit hooks claimed CI enforcement that did not exist.
+- **`.markdownlint-cli2.jsonc`** mirroring the reusable's defaults so the local
+  pre-commit hook and CI lint with the same config, and **`.gitignore`**.
+
+### Changed
+
+- **`SKILL.md` trimmed to a lean index** (from 1117 words to within the 500-word
+  cap) — all detail already lives in `references/*`; every section is retained,
+  including the QA2 customer-handover rule. Restores `validate-skill` to green.
+
 ## [0.4.1] - 2026-06-11
 
 ### Fixed
