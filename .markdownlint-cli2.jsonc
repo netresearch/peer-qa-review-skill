@@ -1,0 +1,24 @@
+{
+  // Mirrors the netresearch/skill-repo-skill reusable validate.yml defaults
+  // (MD013/024/033/036/040/041/060) so the local pre-commit hook and CI lint
+  // with the same config — the parity the repo's pre-commit header promises.
+  //
+  // Three more are disabled for this repo's intentional documentation style:
+  //   MD028 — consecutive blockquotes: severity.md keeps each real-ticket
+  //           example as its own quote, separated by a blank line.
+  //   MD029 — the anti-patterns catalog is one continuous 1..20 list across
+  //           section headings, so items can be cited by number.
+  //   MD032 — label-then-list ("Rule of thumb:" directly above its bullets).
+  "config": {
+    "MD013": false,
+    "MD024": false,
+    "MD028": false,
+    "MD029": false,
+    "MD032": false,
+    "MD033": false,
+    "MD036": false,
+    "MD040": false,
+    "MD041": false,
+    "MD060": false
+  }
+}
