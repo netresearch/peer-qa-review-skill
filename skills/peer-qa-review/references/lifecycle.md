@@ -13,7 +13,7 @@ The QA queue is normally a **team queue** with no assignee. Reviewer self-assign
 | Me, from a prior implementation phase | Stop — cannot self-QA. Hand off to another teammate. See `edge-cases.md`. |
 | Me, from a prior abandoned QA attempt | Continue |
 
-The claim is a loan, not ownership: unassign again on a passing verdict (Stage 5, "Assignee on exit").
+The claim is a loan, not ownership: clear your reviewer assignment on a passing verdict — unassign on resolve, hand to the product owner on QA2 (Stage 5, "Assignee on exit").
 
 ## Stage 0: Discover
 
@@ -81,7 +81,8 @@ One structured comment per template (`comment-template.md`), then transition the
 
 | Outcome | Assignee |
 |---------|----------|
-| Pass — resolve / QA2 | **Unassign** back to the team queue (on QA2, after assigning the product owner per routing) |
+| Pass — resolve | **Unassign** back to the team queue |
+| Pass — QA2 | Assign the **product owner** (per routing) — the ticket moves to them, not back to the queue |
 | Bounce | Assign the **implementer** — they own the rework |
 | Won't-do | Unassign (no further work for the reviewer) |
 
