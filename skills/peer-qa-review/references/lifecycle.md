@@ -13,6 +13,8 @@ The QA queue is normally a **team queue** with no assignee. Reviewer self-assign
 | Me, from a prior implementation phase | Stop — cannot self-QA. Hand off to another teammate. See `edge-cases.md`. |
 | Me, from a prior abandoned QA attempt | Continue |
 
+The claim is a loan, not ownership: unassign again on a passing verdict (Stage 5, "Assignee on exit").
+
 ## Stage 0: Discover
 
 One call to gather all reviewer-relevant context. With `jira-communication` installed:
@@ -74,5 +76,15 @@ One structured comment per template (`comment-template.md`), then transition the
 | Pass — QA2 | QA → QA2 (or equivalent customer-acceptance status) |
 | Bounce | QA → In Progress, re-assign to implementer |
 | Won't-do | QA → Closed with resolution "Won't Do" + reopen condition |
+
+**Assignee on exit** — the Stage -1 self-assign was only to *claim* the review; clear it on the way out so a passed ticket doesn't keep the reviewer's name as if it were open work:
+
+| Outcome | Assignee |
+|---------|----------|
+| Pass — resolve / QA2 | **Unassign** back to the team queue (on QA2, after assigning the product owner per routing) |
+| Bounce | Assign the **implementer** — they own the rework |
+| Won't-do | Unassign (no further work for the reviewer) |
+
+Gotcha: a **Resolve** transition often does **not** clear the assignee, whereas **Close** does — so a "Resolved but still assigned to me" ticket is the one to clean up. Verify the assignee after a resolve, and unassign explicitly (e.g. set the field to null) if it stuck.
 
 Optional addendum comments are fine for separable concerns (e.g. a separate Confluence-runbook review). Keep the main verdict comment self-contained.
