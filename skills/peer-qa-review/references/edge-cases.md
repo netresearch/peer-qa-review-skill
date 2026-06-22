@@ -94,3 +94,16 @@ Implementer ran something irreversible (data migration, prod deploy, account del
 If nothing exists at all → `(!)` for this ticket plus a process-compliance note in the QA comment, but pass if the action's effects are independently verifiable now.
 
 If nothing exists *and* the effects can't be independently verified → `(x)` and bounce. We don't accept "trust me" for irreversible production changes.
+
+## J. The implementer dropped or de-scoped an acceptance criterion
+
+The implementer unilaterally declares an acceptance criterion out of scope — typically a one-line "looks like a one-off, not worth it" in the closing comment — while the criterion is still listed (and unmet) in the description.
+
+**Decision**: An unmet AC is `(x)` → **Bounce**. It is *not* a `(!)` you wave through, and it is *not* something QA closes out by filing its own follow-up ticket. A dropped AC means one of two things, and both belong to the **implementer**:
+
+1. the work is genuinely missing → implement it, or
+2. the de-scope is justified → fold an *agreed* descope into the **description** (not a one-liner in a closing comment), and adjust or remove the AC there.
+
+Bounce to In Progress, reassign to the implementer, and name both paths in the QA comment. Do **not** offer to file the follow-up yourself — that silently endorses a unilateral scope change and makes QA the cleanup crew instead of the safeguard. This is sharpest when the drop contradicts the ticket's own framing (e.g. the title/Root-cause call the problem "likely fleet-wide / latent" but the closing comment reclassifies it as "a one-off").
+
+This is distinct from a genuine `(!)` should-fix: a should-fix is a *new* issue surfaced alongside *met* ACs (document it, follow-up if structural). A dropped AC is an *unmet* contractual criterion — the bar the ticket set for itself. The discriminator is AC fulfilment, not how minor the gap feels.

@@ -35,6 +35,8 @@ Note F7: applies equally to **the reviewer's own QA comment**. Common violations
 
 The reviewer **re-runs** these. Copy-pasting the implementer's output does not satisfy R-checks.
 
+**"Already merged/applied" does not make the review moot.** If no review happened before the ticket reached QA, *this* QA is the only and last safeguard — so a full adversarial code review is required even when the MR is already merged and the change is live. Merge status only changes where findings *go* (follow-up MRs instead of pre-merge blocks), never *whether* you review. Do the adversarial pass — read the actual diff, sanity-check the documented commands against the real repo state, look for what the change *wasn't* trying to touch — in round 1, not only after the requester asks for it. Verifying that the stated acceptance criteria pass (verification-grade) is necessary but not sufficient; the adversarial pass is what catches the things the AC never named.
+
 | # | Check | How |
 |---|-------|-----|
 | R1 | **Re-run the failing scenario** from the original report. Does it now succeed? | Per ticket. Capture fresh output. |
