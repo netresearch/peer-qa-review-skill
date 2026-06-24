@@ -56,7 +56,7 @@ what was delivered, the one acceptance check, the next step.
 ## Verdict routing
 
 - **Pass, resolve**: all `(x)` clear, IT-internal; QA to Closed/Done, then
-  unassign — Resolve often leaves the assignee set, Close clears it.
+  clear your assignment — Resolve often leaves the assignee set; Close clears it.
 - **Pass, QA2**: all `(x)` clear, customer-affecting; post the QA comment **and**
   a customer handover; QA to QA2, assign the product owner.
 - **Bounce**: any `(x)`; QA to In Progress, comment the blocker, reassign.
