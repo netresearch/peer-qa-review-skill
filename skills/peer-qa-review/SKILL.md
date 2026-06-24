@@ -5,7 +5,7 @@ license: "(MIT AND CC-BY-SA-4.0). See LICENSE-MIT and LICENSE-CC-BY-SA-4.0"
 compatibility: "Requires a ticket system (Jira tested) and shell access. Companion: jira-communication skill."
 metadata:
   author: Netresearch DTT GmbH
-  version: "0.5.0"
+  version: "0.5.1"
   repository: https://github.com/netresearch/peer-qa-review-skill
 allowed-tools: Bash Read Write Edit
 ---
