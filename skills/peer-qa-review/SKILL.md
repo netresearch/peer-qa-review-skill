@@ -15,7 +15,7 @@ allowed-tools: Bash Read Write Edit
 A teammate marked work **ready for QA**. Verify before it reaches customer
 acceptance, QA2, or internal close: re-run verification; check formal
 correctness, inventory, docs; post a structured comment; transition. Not
-rubber-stamping; detail lives in `references/`.
+rubber-stamping; detail in `references/`.
 
 ## When it applies
 
@@ -23,25 +23,25 @@ Triggers: see description. **Skip** if: still In Progress (transition
 first); already QA2 (different scope); already closed (post-mortem only); or you
 are the implementer (no self-review).
 
-A ticket-system skill is required (Jira: `jira-communication`); Stage 0 uses its
-gather for single-call discovery. Consult team IT/maintenance skills for overrides.
+A ticket-system skill is required (Jira: `jira-communication`); Stage 0 uses it
+for single-call discovery. Consult team IT/maintenance skills for overrides.
 
 ## Lifecycle
 
-- **-1 Claim**: team queue, self-assign; someone else's, stop; never self-review.
+- **-1 Claim**: team queue, self-assign to *claim* only (clear on exit, see
+  routing); someone else's, stop; never self-review.
 - **0 Discover**: `scripts/qa-gather.sh <KEY>` (`--json` to parse).
 - **1 Formal** (description, linkage, console-output, worklog); **2 Functional,
   Inventory, Guardrails** (re-run; update inventory; check adjacent components,
-  shared-layer downstream, default path); **3 Docs, Rollback, Communication**
-  (runbook current? snapshot? announced if customer-affecting?).
+  shared-layer downstream, default path); **3 Docs, Rollback, Communication**.
 - **4 Verdict** (routing below); **5 Comment, Transition**: internal QA comment;
   on QA2 also a customer handover.
 
 ## Severity icons
 
-Reuse the Atlassian set. `(/)` passed; `(x)` MUST/blocking
-(bounce); `(!)` SHOULD, non-blocking here (document, follow-up if structural);
-`(i)` hint (document); `(?)` open question (block).
+Reuse the Atlassian set. `(/)` passed; `(x)` MUST/blocking (bounce); `(!)`
+SHOULD (document, follow-up if structural); `(i)` hint; `(?)` open question
+(block); `(off)` n/a (never `(-)` or `*n/a*`).
 
 ## Output
 
@@ -50,13 +50,13 @@ severity icons, a verdict line.
 
 **On a QA2 verdict, post a second, separate comment: the customer handover.**
 The internal QA comment is addressed to IT and never states the acceptance
-check, leaving the approver lost. The handover, for the approver, is plain
-(no jargon or icons): what was delivered, the one acceptance check, the next
-step. Never hand the internal QA comment over as the handover.
+check, leaving the approver lost. The handover is plain (no jargon or icons):
+what was delivered, the one acceptance check, the next step.
 
 ## Verdict routing
 
-- **Pass, resolve**: all `(x)` clear, IT-internal; QA to Closed/Done.
+- **Pass, resolve**: all `(x)` clear, IT-internal; QA to Closed/Done, then
+  unassign — Resolve often leaves the assignee set, Close clears it.
 - **Pass, QA2**: all `(x)` clear, customer-affecting; post the QA comment **and**
   a customer handover; QA to QA2, assign the product owner.
 - **Bounce**: any `(x)`; QA to In Progress, comment the blocker, reassign.
