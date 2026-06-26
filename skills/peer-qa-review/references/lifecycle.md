@@ -88,4 +88,6 @@ One structured comment per template (`comment-template.md`), then transition the
 
 Gotcha: a **Resolve** transition often does **not** clear the assignee, whereas **Close** does — so a "Resolved but still assigned to me" ticket is the one to clean up. Verify the assignee after a resolve, and unassign explicitly (e.g. set the field to null) if it stuck.
 
+**Log your QA time** — before you transition, book a worklog for the review against the ticket (e.g. `jira-worklog.py add <KEY> <duration> -c "Round-1 IT QA: …"`). Stage 1 already flags a missing *implementer* worklog (checklist F6); the reviewer's own review time is part of the **same** audit / billing / capacity trail, so log it as a closing step rather than waiting to be asked. Cover the actual review work — re-running verification, reading pipelines/logs, root-cause forensics, writing the comment — not just the transition click.
+
 Optional addendum comments are fine for separable concerns (e.g. a separate Confluence-runbook review). Keep the main verdict comment self-contained.
