@@ -39,6 +39,26 @@ description.
 **Fail signal**: the unmet AC is recorded as a `(!)` should-fix and the ticket
 is resolved, or QA files its own follow-up ticket as a workaround.
 
+## E4 — Domain config → use the domain skill's validator (Pillar R)
+
+**Situation**: a ticket reaches QA whose change is domain-specific config a
+skill owns (e.g. a Concourse `pipeline.yml` modernization, owned by
+`concourse-ci`).
+
+**Input**: reviewer performs the Pillar R functional re-run.
+
+**Expect**:
+- Reviewer invokes the matching domain skill and runs its validator / gotcha
+  catalog (e.g. `concourse-ci`'s `validate-pipeline.sh`), and checks
+  skill-specific SHOULD-items (e.g. `clean_tags: true` on a tag-tracking git
+  resource).
+- A domain SHOULD-issue the skill flags is recorded with the correct severity
+  (`(!)`), not dismissed as "no action required."
+
+**Fail signal**: reviewer hand-rolls validation (a bare `yaml.safe_load` /
+syntax parse), declares the artefact valid, and under-flags a domain SHOULD-fix
+the owning skill would have caught.
+
 ## E3 — Claim then unassign on pass (Stage 5)
 
 **Situation**: reviewer self-assigned to claim a team-queue ticket, then passes

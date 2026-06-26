@@ -35,6 +35,8 @@ Note F7: applies equally to **the reviewer's own QA comment**. Common violations
 
 The reviewer **re-runs** these. Copy-pasting the implementer's output does not satisfy R-checks.
 
+**Use the matching domain skill, don't hand-roll verification.** When the artefact is domain-specific config that a skill owns (Concourse → `concourse-ci`, Terraform/K8s/Docker → the matching skill, TYPO3 → `typo3-conformance`, etc.), invoke that skill and run its validator and gotcha catalog instead of an ad-hoc parse. A domain skill surfaces SHOULD-issues a generic syntax check misses — e.g. `concourse-ci` ships `validate-pipeline.sh` and flags a missing `clean_tags: true` on a tag-tracking git resource, which a plain `yaml.safe_load` reports as valid. Re-running by hand is necessary but not sufficient; the domain skill is the authoritative checklist.
+
 **"Already merged/applied" does not make the review moot.** If no review happened before the ticket reached QA, *this* QA is the only and last safeguard — so a full adversarial code review is required even when the MR is already merged and the change is live. Merge status only changes where findings *go* (follow-up MRs instead of pre-merge blocks), never *whether* you review. Do the adversarial pass — read the actual diff, sanity-check the documented commands against the real repo state, look for what the change *wasn't* trying to touch — in round 1, not only after the requester asks for it. Verifying that the stated acceptance criteria pass (verification-grade) is necessary but not sufficient; the adversarial pass is what catches the things the AC never named.
 
 | # | Check | How |
