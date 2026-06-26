@@ -34,8 +34,8 @@ for single-call discovery. Consult team IT/maintenance skills for overrides.
 - **1 Formal** (description, linkage, console-output, worklog); **2 Functional,
   Inventory, Guardrails** (re-run; update inventory; check adjacent components,
   shared-layer downstream, default path); **3 Docs, Rollback, Communication**.
-- **4 Verdict** (routing below); **5 Comment, Transition**: internal QA comment;
-  on QA2 also a customer handover.
+- **4 Verdict** (routing below); **5 Comment, Transition, Worklog**: internal QA
+  comment; on QA2 also a customer handover.
 
 ## Severity icons
 
