@@ -21,7 +21,7 @@ Things to flag in the implementer's comments. Each item below is `(!)` unless no
 
 ## Reviewer anti-patterns
 
-12. **Copy-pasting implementer's output** instead of re-running. This is not QA — this is *re-reading*. R-pillar checks require fresh output.
+12. **Copy-pasting implementer's output** instead of re-running. This is not QA — this is *re-reading*. R-pillar checks require fresh output. Subtler variant: **reasoning a FAIL away** — a verifier reports FAIL and you explain it off as an "environment artifact" or "known false-positive" *without re-probing*. A FAIL you believe is spurious is still a FAIL until a **precise independent probe** disproves it; present the re-probe evidence, not the reasoning. Sibling cross-check: when QAing a batch, if N-1 items pass an identical probe and one FAILs, the outlier is a real finding, not noise. (Caught in an offboarding batch where a coarse verifier's `ad` FAIL was nearly dismissed as a regex false-positive — a precise re-probe surfaced a live Domain-Admin account for a departed employee.)
 13. **Inflating `(x)` to look thorough** — only use blocking severity when the ticket genuinely cannot resolve. Over-bouncing wastes everyone's time. (`severity.md`)
 14. **Reviewing in pieces across many comments** instead of one structured QA comment. Hurts auditability — pillars get scattered, the verdict is unclear.
 15. **Quoting the entire implementer comment back at them** in the QA comment — wastes space. Reference by date/author/section if you must.
