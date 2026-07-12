@@ -7,7 +7,7 @@ Things to flag in the implementer's comments. Each item below is `(!)` unless no
 1. **One giant final comment** instead of one-per-step. Kills the audit trail when work is interrupted; reviewers can't tell what was done when.
 2. **`{{monospace}}`** for commands instead of `{code}` blocks. Can't be expanded/collapsed, no syntax highlighting, copy-paste eats whitespace.
 3. **Markdown leakage** in Jira: `**bold**`, `# heading`, em-dashes `--`, `[display text](url)`. Renders as literal text.
-4. **`[display text|url]`** display-text links. Convention in many NR teams is full URLs — the URL shows where it goes, the text becomes a lie when the link is renamed.
+4. **`[display text|url]`** display-text links. Convention in many teams is full URLs — the URL shows where it goes, the text becomes a lie when the link is renamed.
 5. **No prompt context in `{code}` blocks**: just bare output. The reader can't tell which host or container the command ran in.
 6. **Mixing implementer and reviewer voice in one thread** without clear `h3.` headings to separate concerns.
 

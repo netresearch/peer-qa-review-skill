@@ -77,4 +77,4 @@ leakage, end-of-run inventory, tags without a green pipeline) in
 `references/lifecycle.md`, `references/checklist.md` (checks by pillar);
 `references/severity.md`; `references/comment-template.md` (template, examples,
 customer handover); `references/edge-cases.md` (QA2 routing, bounce, won't-do,
-self-review); `references/anti-patterns.md`; `references/frameworks.md`.
+self-review); `references/anti-patterns.md`.
