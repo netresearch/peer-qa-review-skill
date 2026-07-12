@@ -19,7 +19,7 @@ All checks, organised by pillar. Apply the severity in the rightmost column when
 
 Note F1: "acceptance criteria absent" is the one finding you should bounce on without going further. Without criteria, there is no testable bar.
 
-Note F4a: don't conflate "mentioned in description prose" with "linked via issue-link feature". A common self-deception is reading the description, seeing `IOT-146`, and assuming it must be linked. **Always verify against the actual issue-link list** (Jira: `Issue Links` section / API `issuelinks` array). If a related ticket is mentioned in prose but not linked, that's a `(!)` — and an easy fix (add the link).
+Note F4a: don't conflate "mentioned in description prose" with "linked via issue-link feature". A common self-deception is reading the description, seeing `INV-146`, and assuming it must be linked. **Always verify against the actual issue-link list** (Jira: `Issue Links` section / API `issuelinks` array). If a related ticket is mentioned in prose but not linked, that's a `(!)` — and an easy fix (add the link).
 
 Note F4a (reviewer-side): apply the same rule to *your own* QA comment. Every ticket key, MR/PR URL, commit hash, runbook page, or vault entry you mention as a reviewer should also exist as a structural link on the ticket. If the QA comment introduces a *new* reference — typical case: "filed follow-up as NEW-TICKET", "see MR !N", "fixed by commit abc123" — create the structural link (issue link for tickets, web link for external URLs) *before* posting the comment, not after. The inline mention is for narrative; the link is the relationship that survives someone navigating in from the *other* side. Anti-pattern caught the hard way: QA comments referencing a follow-up ticket only inline, leaving the navigation one-way.
 
@@ -75,7 +75,7 @@ For changes with no plausible adjacent surface (e.g. a typo fix in a comment, a 
 
 | # | Check | Severity |
 |---|-------|----------|
-| I1 | **Inventory / CMDB** entry updated where applicable (e.g. IOS "Current Version" custom field for maintenance tickets) | `(x)` for maintenance tickets if missing; `(!)` otherwise |
+| I1 | **Inventory / CMDB** entry updated where applicable (e.g. a "Current Version" custom field for maintenance tickets) | `(x)` for maintenance tickets if missing; `(!)` otherwise |
 | I2 | **Linked tickets state**: parent epic moves forward, child tickets are themselves in valid states, inventory issues reflect the change | `(!)` per inconsistency |
 | I3 | **Sibling tickets**: if this is one of N parallel tickets (e.g. multiple host upgrades), spot-check that this ticket's pattern matches the others | `(i)` — flag deviation |
 | I4 | **Side-quests** (improvements made en passant) are documented as separate sub-headings, not lost | `(i)` |

@@ -60,29 +60,29 @@ Developers are humans too — when QA turns up a genuinely *positive unexpected*
 
 Independently, the **closing sentence** of the QA comment may carry a 1–5 star rating of the overall implementation quality, e.g. `(*)(*)(*)(*) (4/5)`. Rough scale: 5 = exemplary, fit as a reference for others; 4 = strong with a minor flaw; 3 = solid standard work; 2 = passed with notable gaps; 1 = barely passed. The rating is optional and never replaces the verdict line.
 
-## Examples from real tickets
+## Examples
 
 ### `(x)` — blocking
 
 > *(x) container image for 1.2.2 does not exist on ghcr.io. Cannot deploy without a published image.*
-> — NRT-4567, resolved as Won't-do
+> — OPS-4567, resolved as Won't-do
 
 > *(x) F1: Description has no acceptance criteria. Cannot QA — bouncing to In Progress for clarification.*
 
 ### `(!)` — should-fix
 
 > *(!) molecule.yml references requirements.yml but file doesn't exist. Generates warning. Recommend either creating an empty requirements.yml or removing the dependency block.*
-> — NRS-4199 QA review (Björn Marten)
+> — PROJ-4199 QA review
 
 > *(!) :latest image tags in CI — components are pinned (@v0.2.0) but Docker images are :latest. A breaking rebuild upstream would silently propagate.*
-> — NRS-4356 QA review (Sebastian Mendel)
+> — PROJ-4356 QA review
 
 ### `(i)` — hint
 
 > *(i) timezone test missing `when: setup_time` guard. Other feature tests use this pattern — should be consistent.*
 
-> *(i) same cgroup v1 legacy warning as IOT-71 — not blocking, worker runs fine after 30s v2 fallback.*
-> — NRS-4240 QA review (Björn Marten)
+> *(i) same cgroup v1 legacy warning as INV-71 — not blocking, worker runs fine after 30s v2 fallback.*
+> — PROJ-4240 QA review
 
 ### `(?)` — open question
 

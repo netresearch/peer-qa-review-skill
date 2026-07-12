@@ -4,7 +4,7 @@ One structured comment at the end of QA. Use Jira wiki markup. Optional addendum
 
 ## Link conventions
 
-For your team's *trusted shared-namespace* GitHub / GitLab projects, prefer the platform's native shorthand over full URLs. Same logic as why we already use bare `NRS-4365` instead of full Jira URLs: shorter, more scannable, project-context inline.
+For your team's *trusted shared-namespace* GitHub / GitLab projects, prefer the platform's native shorthand over full URLs. Same logic as why teams often use bare `PROJ-4365` instead of full Jira URLs: shorter, more scannable, project-context inline.
 
 | Type | GitHub | GitLab (e.g. internal git server) |
 |---|---|---|
@@ -20,13 +20,13 @@ For your team's *trusted shared-namespace* GitHub / GitLab projects, prefer the 
 **In Jira specifically**: the shorthand alone is *not* clickable — Jira only auto-links its own issue keys. To get clickable links *and* shorthand readability in Jira, wrap the shorthand as **display text** in a Jira link macro:
 
 ```jira
-[provision/ansible-role-vault!9|https://git.netresearch.de/provision/ansible-role-vault/-/merge_requests/9]
-[netresearch/peer-qa-review-skill#10|https://github.com/netresearch/peer-qa-review-skill/issues/10]
+[infra/deploy-tooling!9|https://git.example.com/infra/deploy-tooling/-/merge_requests/9]
+[example-org/example-repo#10|https://github.com/example-org/example-repo/issues/10]
 ```
 
-This renders as a clickable link reading `provision/ansible-role-vault!9` — the same anchor text GitHub/GitLab use natively. **This is *not* the display-text-link anti-pattern** (which targets opaque text like `[click here|url]`) — the shorthand IS the canonical reference, so using it as display text is the *opposite* of opaque.
+This renders as a clickable link reading `infra/deploy-tooling!9` — the same anchor text GitHub/GitLab use natively. **This is *not* the display-text-link anti-pattern** (which targets opaque text like `[click here|url]`) — the shorthand IS the canonical reference, so using it as display text is the *opposite* of opaque.
 
-**On GitHub PRs / GitLab MRs**: the bare shorthand is already auto-linked by the platform, so write `provision/ansible-role-vault!9` (without the `[…|…]` wrapper) when authoring there.
+**On GitHub PRs / GitLab MRs**: the bare shorthand is already auto-linked by the platform, so write `infra/deploy-tooling!9` (without the `[…|…]` wrapper) when authoring there.
 
 **Rule of thumb**:
 - *Authoring in Jira* → wrap: `[shorthand|url]`
@@ -51,9 +51,9 @@ Use `*` (or `**` for sub-items) at the start of each finding line — *not* bare
 h4. Formal correctness
 * (/) F1: Description has clear acceptance criteria
 * (/) F4a: Structured Jira issue links:
-** NRS-4317 — parent, Closed
-** IOT-146 — VM inventory, In use
-** SRVV-104 — related, Closed
+** PROJ-4317 — parent, Closed
+** INV-146 — VM inventory, In use
+** INFRA-104 — related, Closed
 * (!) F6: No worklog entries — should-have per audit/billing/capacity
 ```
 
@@ -148,7 +148,7 @@ Re-read your own comment before clicking *Add*. Common self-introduced bugs:
 9. **Self-fixed findings carry paired icons** — a finding you fixed yourself during QA is written as `(!) finding — (/) fixed <how> during QA` (or with the fix as a nested `**` sub-item carrying its evidence link). Neither a bare `(/)` nor a bare `(!)` tells the whole story; see `severity.md` ("Findings fixed by the reviewer"). Every MR, commit and repo you name in the finding gets its `[shorthand|url]` link.
 10. **QA2 verdict but no customer handover** — if the verdict routes to QA2, the internal QA comment is *not* enough; a separate plain-language handover for the approver must accompany it (see § "Customer handover comment (QA2 only)"). Posting only the internal QA comment leaves the customer lost.
 
-## Example 1 — Pass (NRS-4365 shape)
+## Example 1 — Pass (PROJ-4365 shape)
 
 ```jira
 h3. IT Internal QA — passed
@@ -156,27 +156,27 @@ h3. IT Internal QA — passed
 h4. Formal correctness
 (/) Description has clear acceptance criteria (4 numbered tasks)
 (/) Implementer comments document each step with command+output
-(/) Linked: NRS-4317 (parent), MR !9 (role), MR !315 (consumer)
+(/) Linked: PROJ-4317 (parent), MR !9 (role), MR !315 (consumer)
 (!) No CHANGELOG entry for v1.7.7 — minor, team-wide pattern
 (i) No worklog logged
 
 h4. Functional verification
 {code:bash}
-ssh exocortex.nr 'systemctl is-active vault && vault status | head -3'
+ssh vault01.internal 'systemctl is-active vault && vault status | head -3'
 active
 Sealed             false
 Version            2.0.0
 {code}
-(/) Vault active and unsealed on exocortex.nr (re-checked just now)
+(/) Vault active and unsealed on vault01.internal (re-checked just now)
 (/) Pipeline 204129 for v1.7.7: success
 (/) Tag v1.7.7 exists on merge 95f7770
 
 h4. Inventory / linked artefacts
-(/) IOT-146: nothing to update (ticket is about ansible role, not host inventory)
+(/) INV-146: nothing to update (ticket is about ansible role, not host inventory)
 (!) meta/main.yml platforms still lists only bookworm — should add trixie
 
 h4. Guardrails
-(/) G1: vault role's two adjacent callers (consul, exocortex bootstrap) spot-checked, unchanged
+(/) G1: vault role's two adjacent callers (consul, host-bootstrap) spot-checked, unchanged
 (off) G2: n/a — not a shared-layer change
 (off) G3: n/a — no config defaults touched
 
@@ -227,7 +227,7 @@ Please:
 2. Make the playbook idempotent — second run should be no-op (R3).
 ```
 
-## Example 3 — Won't-do (NRT-4567 shape)
+## Example 3 — Won't-do (OPS-4567 shape)
 
 ```jira
 h3. IT Internal QA — won't do (blocking external prerequisite)
@@ -236,14 +236,14 @@ h4. Why
 (x) Container image for 1.2.2 does not exist on ghcr.io.
 
 {code}
-docker manifest inspect ghcr.io/netresearch/<component>:1.2.2
+docker manifest inspect ghcr.io/example-org/<component>:1.2.2
 no such manifest
 {code}
 
 GitHub releases v1.2.1 and v1.2.2 are tagged but no Docker images were published. Only 1.2.0 and latest are on ghcr.io.
 
 h4. Reopen condition
-The CI for https://github.com/netresearch/<component> doesn't publish Docker images on release. Reopen this ticket once the GitHub Actions release workflow is fixed and v1.2.2 (or later) images are available.
+The CI for https://github.com/example-org/<component> doesn't publish Docker images on release. Reopen this ticket once the GitHub Actions release workflow is fixed and v1.2.2 (or later) images are available.
 
 h4. Follow-up filed
 {NEW-TICKET}: fix GitHub Actions release workflow for <component> to publish Docker images.
@@ -321,14 +321,14 @@ h3. Handover for [~approver.username]
 Sobald das passt, {next step: "dürfen Sie das Ticket schließen" | "geben Sie uns kurz Bescheid und wir schließen ab"}. Bei Rückfragen: {contact / channel}.
 ```
 
-### Example — QA2 handover (NRS-4480 shape)
+### Example — QA2 handover (PROJ-4480 shape)
 
 ```jira
-h3. Handover for [~tobias.hein]
+h3. Handover for [~approver.username]
 
-Der Jira-Zugang für Reinhold Fischer (BBAG) ist eingerichtet — Benutzer aktiv, Rechte analog zu Josef Strobel, Zugangsdaten wurden Herrn Fischer zugestellt.
+Der Jira-Zugang für Max Mustermann (Kunde GmbH) ist eingerichtet — Benutzer aktiv, Rechte analog zu Erika Musterfrau, Zugangsdaten wurden Herrn Mustermann zugestellt.
 
-*Bitte zur Abnahme prüfen:* dass Herr Fischer sich unter https://jira.netresearch.de mit den zugestellten Zugangsdaten einloggen kann.
+*Bitte zur Abnahme prüfen:* dass Herr Mustermann sich unter https://jira.example.com mit den zugestellten Zugangsdaten einloggen kann.
 
 Sobald die Anmeldung bestätigt ist, kann das Ticket geschlossen werden. Bei Rückfragen meldet euch gern.
 ```

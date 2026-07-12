@@ -14,7 +14,7 @@ h4. Functional verification
 (/) Implementer's captured output reviewed: the migration completed cleanly, row counts match.
 ```
 
-## B. Failed prerequisites discovered in QA (NRT-4567 pattern)
+## B. Failed prerequisites discovered in QA (OPS-4567 pattern)
 
 The component being updated doesn't exist upstream / can't be deployed / depends on a fix elsewhere.
 
@@ -67,7 +67,7 @@ Common signals: implementation was clearly aborted ("WIP, will continue Monday")
 h3. Bouncing to In Progress
 
 (x) Pre-conditions for QA aren't met yet:
-- {specific signal, e.g. "dependency ticket NRS-1234 is still in progress"}
+- {specific signal, e.g. "dependency ticket PROJ-1234 is still in progress"}
 - {or: "comment from <date> says 'still need to test on staging'"}
 
 Re-transition once {specific condition} holds.
