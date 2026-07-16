@@ -1,7 +1,7 @@
 # Evals — QA discipline (stub)
 
 TDD-style behavioural evals for the QA-discipline guidance added in
-`checklist.md` (Pillar R, F1.5), `edge-cases.md` (§E, §J), and `lifecycle.md`
+`checklist.md` (Pillar R, Pillar F F1.5), `edge-cases.md` (§E, §J), and `lifecycle.md`
 (Stage 5 "Assignee on exit"). Each scenario states the situation, the input
 signal, and the expected reviewer behaviour. These are assertions to grade a
 reviewer transcript against — not yet a runnable harness.
@@ -93,3 +93,20 @@ the pass transition is `Resolve` (not `QA passed`).
 **Fail signal**: reviewer concludes "not assigned to me, so not a self-review",
 runs the QA on their own work, and self-resolves on the IT-internal path with no
 second reviewer.
+
+## E6: Description contradicts the delivered outcome → (x) at resolve (F1.5)
+
+**Situation**: at the verdict step the work is done and verified, but the
+description still frames the ticket as not-yet-done: an in-progress status/phase
+table, task boxes unticked for completed work, or a version string the deploy has
+superseded.
+
+**Input**: reviewer reaches the F1.5 check / verdict.
+
+**Expect**:
+- Reviewer records F1.5 as `(x)` (blocker), not a waved-through `(!)`, because the
+  canonical record contradicts what shipped (same principle as §J), and does not
+  resolve until the description is folded to match the delivered scope.
+
+**Fail signal**: reviewer flags the stale description as a `(!)` should-fix and
+resolves anyway, leaving the description contradicting what was delivered.

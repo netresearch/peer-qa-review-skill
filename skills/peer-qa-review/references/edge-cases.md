@@ -55,7 +55,7 @@ You cannot review your own work. The first-person bias is too strong; even with 
 
 - **worklog authors**: anyone who logged work did the implementation (this is the strongest signal, and the Stage-0 bundle already carries it);
 - **the author of the `In Progress` status transitions**: who moved the ticket through the work states, read from the changelog, not the current assignee. (Exception: a transition *you* performed purely for workflow mechanics, e.g. cycling a ticket back through `In Progress` only to set a field the workflow blocks on the direct path, with no work of your own logged, is not implementation.)
-- **who posted the implementation / "ready for QA" comments.**
+- **comment authors**: those who posted the implementation / "ready for QA" comments.
 
 If your account appears in any of these, §E applies regardless of who the ticket is currently assigned to, and regardless of it being Unassigned.
 
