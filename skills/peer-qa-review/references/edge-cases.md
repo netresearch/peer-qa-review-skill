@@ -51,11 +51,19 @@ After QA passes, where does the ticket go next?
 
 You cannot review your own work. The first-person bias is too strong; even with discipline, you'll miss things.
 
+**First, detect it: do not rely on the assignee.** On a team queue the ticket is worked while *Unassigned* and only self-assigned at QA time, so "not assigned to me" fires too late, or never: it never reveals that *you* did the work. Decide from **authorship**, using the Stage-0 bundle:
+
+- **worklog authors**: anyone who logged work did the implementation (this is the strongest signal, and the Stage-0 bundle already carries it);
+- **the author of the `In Progress` status transitions**: who moved the ticket through the work states, read from the changelog, not the current assignee. (Exception: a transition *you* performed purely for workflow mechanics, e.g. cycling a ticket back through `In Progress` only to set a field the workflow blocks on the direct path, with no work of your own logged, is not implementation.)
+- **who posted the implementation / "ready for QA" comments.**
+
+If your account appears in any of these, §E applies regardless of who the ticket is currently assigned to, and regardless of it being Unassigned.
+
 **Decision**: Hand off to another teammate. If genuinely no other reviewer is available right now:
 
 1. **Document the constraint** in the QA comment explicitly: *"Self-review by implementer due to no available reviewer at <time>. Requesting asynchronous sanity check from <colleague> when available."*
 2. **Flag for colleague**: post a follow-up comment / ping in the team channel asking for a real second pair of eyes.
-3. **Do not transition** to "QA passed" until at least one other set of eyes has acknowledged the work — even if it's just a `(/)` from a colleague after the fact.
+3. **Do not transition to the terminal verdict (neither `QA passed` (QA2) *nor* an internal `Resolve`)** until at least one other set of eyes has acknowledged the work, even if it's just a `(/)` from a colleague after the fact. The internal-resolve path is **not** an exemption: self-*resolving* your own work is the same self-review as self-passing it, and it closes the ticket with no second reviewer ever in the loop. Leave it in QA with the constraint documented until a colleague acknowledges; do not walk it to Resolved to "get it off the queue".
 
 ## F. The ticket should not have been put in QA
 
