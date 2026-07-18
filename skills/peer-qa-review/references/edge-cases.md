@@ -59,6 +59,8 @@ You cannot review your own work. The first-person bias is too strong; even with 
 
 If your account appears in any of these, §E applies regardless of who the ticket is currently assigned to, and regardless of it being Unassigned.
 
+**Per resolved PR/change, not per ticket.** When a ticket bundles several changes or PRs, the guard holds for *each one separately*: apply implementer ≠ reviewer to every resolved PR/change, not once to the ticket as a whole. You may QA the PRs you did not author, but a PR you authored still needs a second reviewer. A PR resolved, approved, or QA-closed by its own author is a blocking `(x)` and invalidates the QA for that change — "only a quick one" and "already deployed, just closing it out" are not exemptions. If a bundle mixes your own PRs with a colleague's, split the verdict: pass the ones you can review, and leave your own in QA for a second pair of eyes.
+
 **Decision**: Hand off to another teammate. If genuinely no other reviewer is available right now:
 
 1. **Document the constraint** in the QA comment explicitly: *"Self-review by implementer due to no available reviewer at <time>. Requesting asynchronous sanity check from <colleague> when available."*

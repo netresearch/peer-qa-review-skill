@@ -21,6 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   path uncovered, so an implementer could self-*resolve* their own work with no
   second reviewer. §E, #17, and "-1 Claim" now forbid self-transitioning to
   `Resolve` *and* `QA passed` until a second set of eyes acknowledges.
+- **The self-review guard applies per resolved PR/change, not per ticket**
+  (`edge-cases.md` §E, anti-pattern #17). When a ticket bundles several PRs the
+  guard holds for each one; a PR the implementer resolved/approved/QA-closed
+  themselves is a blocking `(x)` that invalidates that change's QA. If a bundle
+  mixes your own PRs with a colleague's, split the verdict.
 - **`checklist.md` F1.5**: a description that *contradicts the delivered
   outcome* at resolve time (still frames the work as not-yet-done: in-progress
   status/phase table, unticked boxes for completed work, superseded version) is
@@ -30,6 +35,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Eval E5** (`evals/qa-discipline.md`): self-review on an unassigned queue,
   detect by authorship, do not self-resolve on the IT-internal path.
+- **`checklist.md` R7 — functional proof, not config presence.** A set/grepped
+  config flag or a green healthcheck is not proof the feature works: trigger it
+  end-to-end and attach the evidence. A shadowed/overridden config that still
+  "reports healthy" is its own trap — verify the *effective* running config,
+  not the health endpoint. Mirrored as anti-pattern #21.
+- **Anti-patterns #22–#23**: QA findings are to be worked, not clicked away (a
+  verdict with open `(!)` / `(?)` is not "passed"); check the current state
+  before proposing a fix (the certificate/router/config may already exist).
 
 ## [0.5.0] - 2026-06-18
 
