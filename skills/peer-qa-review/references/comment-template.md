@@ -90,7 +90,7 @@ h4. Formal correctness
 
 h4. Functional verification
 {code:bash}
-{reviewer-run command + fresh output — not copy-pasted from implementer}
+{reviewer-run command + literal raw output — not copy-pasted, not reformatted or summarised}
 {code}
 (/) {scenario re-run, succeeds}
 (/) Pipeline {N} for {tag}: success
@@ -147,6 +147,7 @@ Re-read your own comment before clicking *Add*. Common self-introduced bugs:
 8. **Attachment mentioned but not linked** — when your comment references an attached file (session log, screenshot, report), link it with `[^filename.log]` so the reader gets a one-click open. A bare filename forces a scroll-and-hunt through the attachment list.
 9. **Self-fixed findings carry paired icons** — a finding you fixed yourself during QA is written as `(!) finding — (/) fixed <how> during QA` (or with the fix as a nested `**` sub-item carrying its evidence link). Neither a bare `(/)` nor a bare `(!)` tells the whole story; see `severity.md` ("Findings fixed by the reviewer"). Every MR, commit and repo you name in the finding gets its `[shorthand|url]` link.
 10. **QA2 verdict but no customer handover** — if the verdict routes to QA2, the internal QA comment is *not* enough; a separate plain-language handover for the approver must accompany it (see § "Customer handover comment (QA2 only)"). Posting only the internal QA comment leaves the customer lost.
+11. **TL;DR comment not posted** — after posting the main QA comment, check the table above: if the verdict is anything other than a clean pass with no follow-ups, a TL;DR comment addressed to `[~implementer]` is required. It's easy to forget because it's a *second* comment. Check before closing the ticket.
 
 ## Example 1 — Pass (PROJ-4365 shape)
 
