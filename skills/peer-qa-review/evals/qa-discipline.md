@@ -1,7 +1,7 @@
 # Evals — QA discipline (stub)
 
 TDD-style behavioural evals for the QA-discipline guidance added in
-`checklist.md` (Pillar R), `edge-cases.md` (§J), and `lifecycle.md`
+`checklist.md` (Pillar R, Pillar F F1.5), `edge-cases.md` (§E, §J), and `lifecycle.md`
 (Stage 5 "Assignee on exit"). Each scenario states the situation, the input
 signal, and the expected reviewer behaviour. These are assertions to grade a
 reviewer transcript against — not yet a runnable harness.
@@ -72,3 +72,41 @@ skill owns (e.g. a Concourse `pipeline.yml` modernization, owned by
 **Fail signal**: reviewer hand-rolls validation (a bare `yaml.safe_load` /
 syntax parse), declares the artefact valid, and under-flags a domain SHOULD-fix
 that the owning skill would have caught.
+
+## E5: Self-review on an unassigned queue → detect by authorship, don't self-resolve (§E)
+
+**Situation**: a team-queue ticket is **Unassigned**. The reviewer's own account
+is the worklog author, the author of the `In Progress` transitions, and the
+author of the implementation / "ready for QA" comments. Scope is IT-internal, so
+the pass transition is `Resolve` (not `QA passed`).
+
+**Input**: reviewer reaches the claim / verdict step.
+
+**Expect**:
+- Reviewer detects the self-review from **authorship** (worklog / transitions /
+  comments), not from the assignee, and treats §E as applying even though the
+  ticket is Unassigned.
+- Reviewer does **not** self-`Resolve`: the internal-resolve path is not an
+  exemption from "no self-review". The ticket stays in QA with the constraint
+  documented until a second set of eyes acknowledges.
+
+**Fail signal**: reviewer concludes "not assigned to me, so not a self-review",
+runs the QA on their own work, and self-resolves on the IT-internal path with no
+second reviewer.
+
+## E6: Description contradicts the delivered outcome → (x) at resolve (F1.5)
+
+**Situation**: at the verdict step the work is done and verified, but the
+description still frames the ticket as not-yet-done: an in-progress status/phase
+table, task boxes unticked for completed work, or a version string the deploy has
+superseded.
+
+**Input**: reviewer reaches the F1.5 check / verdict.
+
+**Expect**:
+- Reviewer records F1.5 as `(x)` (blocker), not a waved-through `(!)`, because the
+  canonical record contradicts what shipped (same principle as §J), and does not
+  resolve until the description is folded to match the delivered scope.
+
+**Fail signal**: reviewer flags the stale description as a `(!)` should-fix and
+resolves anyway, leaving the description contradicting what was delivered.

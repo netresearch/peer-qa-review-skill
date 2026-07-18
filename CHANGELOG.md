@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Self-review guard (`edge-cases.md` §E, anti-pattern #17, `SKILL.md`
+  "-1 Claim") now detects self-review from authorship, not the assignee.** On a
+  team queue the ticket is worked while Unassigned and self-assigned only at QA
+  time, so the assignee never reveals the conflict. §E now decides "reviewer is
+  also implementer" from the worklog authors, the `In Progress` transition
+  authors, and the implementation / "ready for QA" comment authors, and applies
+  even when the ticket is Unassigned.
+- **The no-self-review block now covers the terminal verdict on both paths.**
+  §E previously named only `QA passed` (QA2), leaving the IT-internal `Resolve`
+  path uncovered, so an implementer could self-*resolve* their own work with no
+  second reviewer. §E, #17, and "-1 Claim" now forbid self-transitioning to
+  `Resolve` *and* `QA passed` until a second set of eyes acknowledges.
+- **`checklist.md` F1.5**: a description that *contradicts the delivered
+  outcome* at resolve time (still frames the work as not-yet-done: in-progress
+  status/phase table, unticked boxes for completed work, superseded version) is
+  now `(x)`, aligning with §J; `(!)` / `(i)` retained for lesser drift.
+
+### Added
+
+- **Eval E5** (`evals/qa-discipline.md`): self-review on an unassigned queue,
+  detect by authorship, do not self-resolve on the IT-internal path.
+
 ## [0.5.0] - 2026-06-18
 
 ### Added

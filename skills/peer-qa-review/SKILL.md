@@ -13,9 +13,9 @@ allowed-tools: Bash Read Write Edit
 # Peer QA Review (Round 1)
 
 A teammate marked work **ready for QA**. Verify before it reaches customer
-acceptance, QA2, or internal close: re-run verification; check formal
-correctness, inventory, docs; post a structured comment; transition. Not
-rubber-stamping; detail in `references/`.
+acceptance, QA2, or close: re-run verification; check formal correctness,
+inventory, docs; post a structured comment; transition. Not rubber-stamping;
+detail in `references/`.
 
 ## When it applies
 
@@ -23,13 +23,14 @@ Triggers: see description. **Skip** if: still In Progress (transition
 first); already QA2 (different scope); already closed (post-mortem only); or you
 are the implementer (no self-review).
 
-A ticket-system skill is required (Jira: `jira-communication`); Stage 0 uses it
-for single-call discovery. Consult team IT/maintenance skills for overrides.
+A ticket-system skill is required (Jira: `jira-communication`) for Stage 0
+discovery. Consult maintenance skills for overrides.
 
 ## Lifecycle
 
 - **-1 Claim**: team queue, self-assign to *claim* only (clear on exit, see
-  routing); someone else's, stop; never self-review.
+  routing); someone else's, stop; never self-review, by authorship not
+  assignee (`edge-cases.md` §E).
 - **0 Discover**: `scripts/qa-gather.sh <KEY>` (`--json` to parse).
 - **1 Formal** (description, linkage, console-output, worklog); **2 Functional,
   Inventory, Guardrails** (re-run; update inventory; check adjacent components,
