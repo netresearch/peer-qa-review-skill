@@ -47,8 +47,9 @@ The reviewer **re-runs** these. Copy-pasting the implementer's output does not s
 | R4 | **No collateral damage**: failed services, error-level logs since the change, container health, dependent services | `systemctl --failed`, `journalctl -p err --since '1h ago'`, etc. |
 | R5 | **Tag/release exists** where claimed (annotated vs lightweight is `(i)`; missing is `(x)`) | `git for-each-ref refs/tags/<v>` |
 | R6 | **CI pipeline** for the merged commit/tag was green | `glab api projects/<id>/pipelines?ref=<tag>` or equivalent |
+| R7 | **Functional proof, not config presence** — a set/grepped config flag, a present setting, or a green healthcheck is *not* proof the feature works. Exercise it end-to-end (fire the webhook with a real payload, render and screenshot the output, confirm the role/flag actually takes effect) and attach the evidence to the ticket. A shadowed/overridden config that still "reports healthy" is its own trap — verify the *effective* running configuration, not the health endpoint. | Trigger the feature; capture the evidence |
 
-Severity: each R-check failing on its own is `(x)` for R1–R4 (the fix doesn't actually work or breaks something else); `(!)` for R5–R6 (artefacts present but quality flag).
+Severity: each R-check failing on its own is `(x)` for R1–R4 and R7 (the fix doesn't actually work, isn't functionally proven, or breaks something else); `(!)` for R5–R6 (artefacts present but quality flag).
 
 ## Pillar G — Guardrails (what the change *wasn't* trying to touch)
 

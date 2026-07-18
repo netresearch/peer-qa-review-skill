@@ -21,7 +21,7 @@ detail in `references/`.
 
 Triggers: see description. **Skip** if: still In Progress (transition
 first); already QA2 (different scope); already closed (post-mortem only); or you
-are the implementer (no self-review).
+are the implementer (no self-review; per-PR, §E).
 
 A ticket-system skill is required (Jira: `jira-communication`) for Stage 0
 discovery. Consult maintenance skills for overrides.
