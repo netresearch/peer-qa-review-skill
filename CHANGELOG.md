@@ -44,6 +44,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   verdict with open `(!)` / `(?)` is not "passed"); check the current state
   before proposing a fix (the certificate/router/config may already exist).
 
+## [0.6.1] - 2026-07-20
+
+### Changed
+
+- Mandate clickable references and `[~]` user mentions in QA comments; make
+  finding F1.5 explicit.
+
 ## [0.5.0] - 2026-06-18
 
 ### Added
