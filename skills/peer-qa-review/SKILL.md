@@ -28,12 +28,8 @@ discovery. Consult maintenance skills for overrides.
 
 ## Lifecycle
 
-**Stage -1 Claim is your first tool call** — before Stage 0, before reading the
-ticket. Assign it to yourself: unassigned → claim; someone else's → stop; yours
-from a prior implementation → stop, you cannot self-QA (authorship decides, not
-the assignee field). The claim is a loan: clear it on exit per Stage 5. Decision
-table in `lifecycle.md` §Stage -1, self-review in `edge-cases.md` §E.
-
+- **-1 Claim — your FIRST tool call**, before Stage 0: assign to yourself;
+  someone else's, stop; never self-review (`lifecycle.md` §-1).
 - **0 Discover**: `scripts/qa-gather.sh <KEY>` (`--json` to parse).
 - **1 Formal** (description, linkage, console-output, worklog); **2 Functional,
   Inventory, Guardrails** (re-run; update inventory; check adjacent components,
