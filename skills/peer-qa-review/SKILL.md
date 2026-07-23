@@ -28,9 +28,8 @@ discovery. Consult maintenance skills for overrides.
 
 ## Lifecycle
 
-- **-1 Claim**: team queue, self-assign to *claim* only (clear on exit, see
-  routing); someone else's, stop; never self-review, by authorship not
-  assignee (`edge-cases.md` §E).
+- **-1 Claim — your FIRST tool call**, before Stage 0: assign to yourself;
+  someone else's, stop; never self-review (`lifecycle.md` §-1).
 - **0 Discover**: `scripts/qa-gather.sh <KEY>` (`--json` to parse).
 - **1 Formal** (description, linkage, console-output, worklog); **2 Functional,
   Inventory, Guardrails** (re-run; update inventory; check adjacent components,

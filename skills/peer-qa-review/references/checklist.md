@@ -62,6 +62,7 @@ The R pillar verifies the change fixed what the ticket said it would. The G pill
 | G1 | **Adjacent components** — name two adjacent components the change could have affected but is not trying to. Spot-check each is unchanged. If you cannot name two, the blast radius is not understood. | `(!)` SHOULD; `(?)` if blast radius unclear |
 | G2 | **Shared layer downstream** — if the change is in a shared layer (auth, logging, error handling, DB schema, build config), exercise one downstream consumer end-to-end, not just the changed code. | `(x)` MUST if shared layer; `n/a` otherwise |
 | G3 | **Unchanged default path** — if the change touches a config file, env var, or feature flag default, verify the unchanged default path still behaves as before. Don't just test the new branch. | `(x)` MUST |
+| G4 | **Every enforcement layer on the path** — if the change alters *how a service is reached* (DNS record, address family, port, protocol, route, hostname), enumerate every layer that filters by source address or identity — packet filter / cloud firewall, reverse-proxy allow-list, application-level IP check, WAF, rate limiter — and confirm each already covers the new path. An open firewall is not evidence a request survives at L7. | `(x)` MUST if reachability changes; `n/a` otherwise |
 
 Severity uses the standard icon vocabulary `(/)` `(x)` `(!)` `(i)` `(?)`. A G-finding that demonstrates a real regression is `(x)` MUST and bounces the ticket. A G-finding that surfaces "I cannot tell if X is affected" is `(?)` and blocks on the answer.
 
@@ -71,6 +72,7 @@ Severity uses the standard icon vocabulary `(/)` `(x)` `(!)` `(i)` `(?)`. A G-fi
 - New feature flag's "off" path silently flipped because the default changed in code, not in config.
 - Schema migration's rollback path was never tested (B-pillar checks the migration; G2 checks a real downstream query against rolled-back schema).
 - "Refactored for clarity" changed behavior in an edge case the original test suite didn't cover.
+- An AAAA record was published for a dual-stack host whose reverse-proxy allow-list carried IPv4 prefixes only: the name resolves, clients prefer IPv6, and every request is rejected at L7 with no fallback — Happy Eyeballs retries connection failures, not HTTP errors. The cloud firewall was open to `::/0`, which looked like proof the path was fine (G4).
 
 For changes with no plausible adjacent surface (e.g. a typo fix in a comment, a one-line README update), G-pillar may be recorded as `n/a` rather than `(/)`.
 
