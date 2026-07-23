@@ -28,9 +28,12 @@ discovery. Consult maintenance skills for overrides.
 
 ## Lifecycle
 
-- **-1 Claim**: team queue, self-assign to *claim* only (clear on exit, see
-  routing); someone else's, stop; never self-review, by authorship not
-  assignee (`edge-cases.md` §E).
+**Stage -1 Claim is your first tool call** — before Stage 0, before reading the
+ticket. Assign it to yourself: unassigned → claim; someone else's → stop; yours
+from a prior implementation → stop, you cannot self-QA (authorship decides, not
+the assignee field). The claim is a loan: clear it on exit per Stage 5. Decision
+table in `lifecycle.md` §Stage -1, self-review in `edge-cases.md` §E.
+
 - **0 Discover**: `scripts/qa-gather.sh <KEY>` (`--json` to parse).
 - **1 Formal** (description, linkage, console-output, worklog); **2 Functional,
   Inventory, Guardrails** (re-run; update inventory; check adjacent components,
