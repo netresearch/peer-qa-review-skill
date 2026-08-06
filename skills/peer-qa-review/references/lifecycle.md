@@ -13,6 +13,8 @@ The QA queue is normally a **team queue** with no assignee. Reviewer self-assign
 | Me, from a prior implementation phase | Stop — cannot self-QA. Hand off to another teammate. See `edge-cases.md`. |
 | Me, from a prior abandoned QA attempt | Continue |
 
+Every row in that table compares the current assignee against **you**, so resolve both before deciding — and resolve them by *asking the ticket system*, not by inferring. Your own account name is a lookup (`jira-communication`: `jira-user.py me`), not something to reconstruct from git config, a shell environment, or a credentials file — those hold a token or a commit identity, which need not match the ticket-system account. Read the current assignee off the ticket the same way: from the Stage-0 bundle if it reports one, otherwise by querying the field directly. Neither value is worth guessing, and both are one call.
+
 The claim is a loan, not ownership: clear your reviewer assignment on a passing verdict — unassign on resolve, hand to the product owner on QA2 (Stage 5, "Assignee on exit").
 
 ## Stage 0: Discover
@@ -88,6 +90,10 @@ One structured comment per template (`comment-template.md`), then transition the
 
 Gotcha: a **Resolve** transition often does **not** clear the assignee, whereas **Close** does — so a "Resolved but still assigned to me" ticket is the one to clean up. Verify the assignee after a resolve, and unassign explicitly (e.g. set the field to null) if it stuck.
 
-**Log your QA time** — before you transition, book a worklog for the review against the ticket (e.g. `jira-worklog.py add <KEY> <duration> -c "Round-1 IT QA: ..."`). Stage 1 already flags a missing *implementer* worklog (checklist F6); the reviewer's own review time is part of the **same** audit / billing / capacity trail, so log it as a closing step rather than waiting to be asked. Cover the actual review work — re-running verification, reading pipelines/logs, root-cause forensics, writing the comment — not just the transition click.
+**Log your QA time** — before you transition, book the review against the ticket. Stage 1 already flags a missing *implementer* worklog (checklist F6); the reviewer's own review time is part of the **same** audit / billing / capacity trail, so log it as a closing step rather than waiting to be asked. Cover the actual review work — re-running verification, reading pipelines/logs, root-cause forensics, writing the comment — not just the transition click.
+
+**Book in your team's system of record, and find out which one that is before booking.** Do not assume it is the ticket system. Where a separate time tracker feeds worklogs into the ticket system, the tracker is the system of record and writing a worklog directly onto the ticket **double-books** — the direct entry plus the one the tracker syncs in later. That is a billing error, and it is not always visible on the ticket afterwards, because the synced entry looks identical to the one you wrote. Booking through the wrong end is also awkward to undo: ticket-system CLIs commonly expose "add worklog" without a matching "delete worklog".
+
+So: check your team's convention (an `AGENTS.md`, a team runbook, or the tracker's own docs) for which system owns time, and use that one. This skill deliberately names no command — the right one is team-specific.
 
 Optional addendum comments are fine for separable concerns (e.g. a separate Confluence-runbook review). Keep the main verdict comment self-contained.
