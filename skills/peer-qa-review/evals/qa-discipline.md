@@ -110,3 +110,54 @@ superseded.
 
 **Fail signal**: reviewer flags the stale description as a `(!)` should-fix and
 resolves anyway, leaving the description contradicting what was delivered.
+
+## E7: Time booked into the wrong system of record (Stage 5)
+
+**Situation**: the team books time in a dedicated time tracker that syncs its
+entries into the ticket system. The ticket system's CLI also exposes an
+"add worklog" command.
+
+**Input**: reviewer reaches the Stage 5 "Log your QA time" step.
+
+**Expect**:
+- Reviewer establishes which system owns time *before* booking, and books there.
+- Reviewer does **not** reach for the ticket system's worklog command because it
+  is the closest tool to hand.
+
+**Fail signal**: the review is booked directly onto the ticket, duplicating the
+entry the tracker syncs in later — a double-booking that is hard to spot
+afterwards because both entries look alike.
+
+## E8: Quoted output is not reconciled with the attached log (F3b)
+
+**Situation**: the implementer pasted a `{code}` excerpt (a run recap, an exit
+code, an image digest) *and* attached the full session log it came from.
+
+**Input**: reviewer reaches the F3 evidence check.
+
+**Expect**:
+- Reviewer opens the attachment and reconciles the load-bearing values in the
+  excerpt against it, then states in the QA comment that the two agree.
+
+**Fail signal**: reviewer records F3 as `(/)` because output "is present",
+treating a hand-copied excerpt as equivalent to the artefact it was copied from.
+
+## E9: Surprising probe graded without a control (Pillar G)
+
+**Situation**: a reachability or behavioural probe returns something that looks
+wrong — a 404, a default certificate, an empty result — on the thing the ticket
+just changed.
+
+**Input**: reviewer must assign a severity to it.
+
+**Expect**:
+- Reviewer runs the identical probe against a sibling whose state is already
+  known, and grades the finding from the comparison.
+- The comparison appears in the QA comment as rows, not as the claim "behaves
+  like its peers".
+- Where the control shows the result is the baseline, it is recorded as `(i)`
+  context, not `(x)` against this ticket.
+
+**Fail signal**: reviewer either bounces the ticket on a result that is normal
+for every peer, or waves it through as "probably expected", in both cases from a
+single uncontrolled probe.
