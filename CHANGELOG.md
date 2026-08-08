@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-08-08
+
+### Added
+
+- Add Agent Plugins 1.0.0 portable manifest (manifest)
+
+### Fixed
+
+- Stop naming a worklog command; add F3b, control-grading, identity lookup (lifecycle)
+
+### Documentation
+
+- Cover explicitly instructed self-review in §E (edge-cases)
+
 ## [0.6.2] - 2026-08-03
 
 ### Changed
