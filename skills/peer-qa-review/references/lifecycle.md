@@ -27,6 +27,8 @@ ${CLAUDE_SKILL_DIR}/scripts/qa-gather.sh <ISSUE-KEY>
 
 Returns: issue + description + comments + worklog + issue links + remote/web links + URLs extracted from description and comments (merge_request, pull_request, pipeline, commit, tag, release, issue_link) + sibling tickets in the same project (60-day window, summary-token overlap).
 
+Reviewing a batch of roughly six or more tickets at once? Claim them all (Stage -1) and gather them all into files *before* fanning the probes out to sub-agents — `batch-review.md` has the sequence, the briefing template, and what never leaves the reviewer (posting, transitions, verdicts).
+
 If your team has internal skills for the ticket system / inventory / runbook, they may chain in additional context — consult them.
 
 ## Stage 1: Formal correctness
