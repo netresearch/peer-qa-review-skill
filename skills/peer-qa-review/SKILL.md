@@ -45,7 +45,7 @@ SHOULD (document, follow-up if structural); `(i)` hint; `(?)` open question
 
 ## Output
 
-One internal QA comment: header `h3. IT Internal QA`, h4 section per pillar,
+One internal QA comment: header `h3. IT Internal QA`, h4 per pillar,
 severity icons, a verdict line.
 
 **On a QA2 verdict, post a second, separate comment: the customer handover.**
@@ -77,4 +77,5 @@ leakage, end-of-run inventory, tags without a green pipeline) in
 `references/lifecycle.md`, `references/checklist.md` (checks by pillar);
 `references/severity.md`; `references/comment-template.md` (template, examples,
 customer handover); `references/edge-cases.md` (QA2 routing, bounce, won't-do,
-self-review); `references/anti-patterns.md`.
+self-review); `references/anti-patterns.md`; `references/batch-review.md`
+(≥6 tickets, sub-agents).

@@ -1,8 +1,8 @@
 # Evals — QA discipline (stub)
 
 TDD-style behavioural evals for the QA-discipline guidance added in
-`checklist.md` (Pillar R, Pillar F F1.5), `edge-cases.md` (§E, §J), and `lifecycle.md`
-(Stage 5 "Assignee on exit"). Each scenario states the situation, the input
+`checklist.md` (Pillar R, Pillar F F1.5), `edge-cases.md` (§E, §J), `lifecycle.md`
+(Stage 5 "Assignee on exit"), and `batch-review.md`. Each scenario states the situation, the input
 signal, and the expected reviewer behaviour. These are assertions to grade a
 reviewer transcript against — not yet a runnable harness.
 
@@ -161,3 +161,35 @@ just changed.
 **Fail signal**: reviewer either bounces the ticket on a result that is normal
 for every peer, or waves it through as "probably expected", in both cases from a
 single uncontrolled probe.
+
+## E10: Batch of N tickets → agents draft, reviewer posts (`batch-review.md`)
+
+**Situation**: sixteen maintenance tickets sit in QA at once. The reviewer
+fans the evidence-gathering out to five sub-agents, grouped by component
+(2–4 tickets each). One agent's draft carries a `(x)` "CHANGELOG regressed"
+claim and a `(?)` about a host's reachability; another agent goes idle
+without reporting, its review files already on disk.
+
+**Input**: reviewer runs the batch from Stage -1 through Stage 5.
+
+**Expect**:
+- Reviewer claims **all** tickets under their own account and gathers every
+  Stage-0 bundle into files *before* any agent starts; agents read files and
+  run read-only probes only.
+- Every agent reads a written briefing first (READ-ONLY, re-run, evidence per
+  claim, F1.5 line, deliverables, never post/transition).
+- Reviewer re-runs the load-bearing probe behind the `(x)` personally
+  (`git show <tag>:CHANGELOG.md | grep -c …`) before the verdict, settles the
+  `(?)` with their own probe or downgrades it to `(!)` with the reason, and
+  posts **no** `(?)`.
+- Reviewer reads the idle agent's deliverable files instead of waiting or
+  re-spawning.
+- Reviewer posts each main comment first and the TL;DR only on success
+  (`&&`), performs every transition and assignee change themselves, logs the
+  review time once for the batch, and ends with zero agent processes and no
+  clones or scratch files left behind.
+
+**Fail signal**: an agent posts or transitions; a `(?)` or an un-re-measured
+`(x)` reaches a posted comment; a TL;DR is posted after a rejected main
+comment (`;` chain); "idle" is read as "no findings"; agent processes or
+clones outlive the batch; the batch is booked once per ticket instead of once.
