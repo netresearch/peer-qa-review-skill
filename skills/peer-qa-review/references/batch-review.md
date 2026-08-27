@@ -18,6 +18,8 @@ Claim **every** ticket first, before any agent starts. The claim is the reviewer
 
 Run `qa-gather.sh` for every ticket **before** fanning out, and write each bundle to a file (`<ticket-bundle-dir>/<KEY>.txt`, plus the full description and comment thread as `<KEY>.work.txt` if the bundle abbreviates it). Agents read files; they do not each re-query the ticket system. One gather per ticket, by the reviewer, is also what makes the batch reproducible afterwards.
 
+**A key in the batch request that does not exist** (typo, digit swap) is resolved at this stage, not bounced back blindly: search the same project's QA-status queue for the near-miss (`project = X AND status = QA`) — a single candidate with a matching topic and a plausible transposition is almost always the intended ticket. Proceed with it, but mark the substitution as an explicit assumption in your reply *and* in the final report, so the requester can veto it. No plausible candidate → ask before gathering anything.
+
 ### 3. Group per agent by domain, not per ticket
 
 One agent per **component or domain** (the DNS tickets, the monitoring-stack tickets, the account-lifecycle tickets), carrying 2–4 tickets each. Sibling tickets of one domain share probes, hosts and conventions, so one agent sees the pattern deviations (`edge-cases.md` §C) that a per-ticket agent cannot. One agent per ticket multiplies the setup and loses exactly that cross-check.
