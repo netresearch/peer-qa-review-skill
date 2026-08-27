@@ -93,6 +93,7 @@ For changes with no plausible adjacent surface (e.g. a typo fix in a comment, a 
 | I2 | **Linked tickets state**: parent epic moves forward, child tickets are themselves in valid states, inventory issues reflect the change | `(!)` per inconsistency |
 | I3 | **Sibling tickets**: if this is one of N parallel tickets (e.g. multiple host upgrades), spot-check that this ticket's pattern matches the others | `(i)` — flag deviation |
 | I4 | **Side-quests** (improvements made en passant) are documented as separate sub-headings, not lost | `(i)` |
+| I5 | **Announced tickets exist.** When the description or a comment announces follow-up work as "separate tickets" / "filed as follow-up" / "needs its own ticket", verify each announced ticket actually exists — query the tracker (e.g. by creator + creation window, or by the announced summary), never trust the prose. "Filed" without a ticket is the subtler twin of the missing inventory update: the finding has nowhere to be decided or rejected. Fix during QA where you can: file the missing tickets yourself, link them to the reviewed ticket, and record the finding with paired icons (`(!) announced but unfiled — (/) filed during QA as <KEY>…`). | `(!)`; `(/)`-paired when filed during QA |
 
 ## Pillar D — Documentation & runbook
 
