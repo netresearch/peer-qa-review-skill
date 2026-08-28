@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-08-28
+
 ### Added
 
 - Checklist item I5: when a description or comment announces follow-up work as separate tickets, verify each announced ticket exists via a tracker query and file the missing ones during QA (checklist)
