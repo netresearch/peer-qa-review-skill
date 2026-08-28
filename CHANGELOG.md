@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Checklist item I5: when a description or comment announces follow-up work as separate tickets, verify each announced ticket exists via a tracker query and file the missing ones during QA (checklist)
+- Batch review Stage 0 resolves a nonexistent ticket key: search the same project's QA queue for the near-miss and proceed on a single plausible candidate with the substitution marked as an explicit assumption (batch-review)
+
 ## [0.8.0] - 2026-08-27
 
 ### Added
