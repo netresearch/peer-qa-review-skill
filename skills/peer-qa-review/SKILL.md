@@ -7,7 +7,7 @@ metadata:
   author: Netresearch DTT GmbH
   version: "0.9.0"
   repository: https://github.com/netresearch/peer-qa-review-skill
-allowed-tools: Bash Read Write Edit
+allowed-tools: Bash(${CLAUDE_SKILL_DIR}/scripts/*) Bash(git:*) Bash(glab:*) Read Write Edit
 ---
 
 # Peer QA Review (Round 1)
@@ -30,7 +30,7 @@ discovery. Consult maintenance skills for overrides.
 
 - **-1 Claim — your FIRST tool call**, before Stage 0: assign to yourself;
   someone else's, stop; never self-review (`lifecycle.md` §-1).
-- **0 Discover**: `scripts/qa-gather.sh <KEY>` (`--json` to parse).
+- **0 Discover**: `${CLAUDE_SKILL_DIR}/scripts/qa-gather.sh <KEY>` (`--json`).
 - **1 Formal** (description, linkage, console-output, worklog); **2 Functional,
   Inventory, Guardrails** (re-run; update inventory; check adjacent components,
   shared-layer downstream, default path); **3 Docs, Rollback, Communication**.
