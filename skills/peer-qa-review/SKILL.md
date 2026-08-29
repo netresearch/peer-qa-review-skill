@@ -30,7 +30,7 @@ discovery. Consult maintenance skills for overrides.
 
 - **-1 Claim — your FIRST tool call**, before Stage 0: assign to yourself;
   someone else's, stop; never self-review (`lifecycle.md` §-1).
-- **0 Discover**: `${CLAUDE_SKILL_DIR}/scripts/qa-gather.sh <KEY>` (`--json`).
+- **0 Discover**: `${CLAUDE_SKILL_DIR}/scripts/qa-gather.sh <KEY>` (`--json` to parse).
 - **1 Formal** (description, linkage, console-output, worklog); **2 Functional,
   Inventory, Guardrails** (re-run; update inventory; check adjacent components,
   shared-layer downstream, default path); **3 Docs, Rollback, Communication**.
