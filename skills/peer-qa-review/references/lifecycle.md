@@ -99,3 +99,5 @@ Gotcha: a **Resolve** transition often does **not** clear the assignee, whereas 
 So: check your team's convention (an `AGENTS.md`, a team runbook, or the tracker's own docs) for which system owns time, and use that one. This skill deliberately names no command — the right one is team-specific.
 
 Optional addendum comments are fine for separable concerns (e.g. a separate Confluence-runbook review). Keep the main verdict comment self-contained.
+
+**Then close the session, not just the ticket.** The review is finished when `/retro done` (the `retro` skill's seven-gate check — task, findings, retro, cleanup, open questions, tickets, time) reports every row ✅; a review that filed follow-ups (Stage 3) or found friction owes the retro and the booking as much as the verdict comment.
