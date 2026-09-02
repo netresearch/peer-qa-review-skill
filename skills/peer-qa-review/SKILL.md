@@ -55,8 +55,11 @@ what was delivered, the one acceptance check, the next step.
 
 ## Verdict routing
 
-- **Pass, resolve**: all `(x)` clear, IT-internal; QA to Closed/Done, then
-  clear your assignment — Resolve often leaves the assignee set; Close clears it.
+- **Pass, resolve**: all `(x)` clear, IT-internal; QA to the project's terminal
+  reviewed status — usually **Resolved** — then clear your assignment. Take the
+  status from the transition list, not from this line: closing is frequently
+  someone else's step, so a reviewer who walks a ticket further than the pass
+  requires has changed something that was not theirs to change.
 - **Pass, QA2**: all `(x)` clear, customer-affecting; post the QA comment **and**
   a customer handover; QA to QA2, assign the product owner.
 - **Bounce**: any `(x)`; QA to In Progress, comment the blocker, reassign.
