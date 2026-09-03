@@ -96,9 +96,13 @@ Decision rules: `edge-cases.md`.
 
 A Round-1 pass moves the ticket once. That is the whole write.
 
-Anything beyond one needs the ticket owner's agreement first, and *"the field I
-wanted is not on this screen"* is never a reason — see "Ask the transition what
-it wants". Measured: two of a colleague's finished tickets took **twelve**
+This caps **status changes**, nothing else: clearing your assignment and booking
+your review time are still required (see "Assignee on exit" and "Log your QA
+time" below). Anything beyond one status change needs the ticket owner's
+agreement first, and *"the field I wanted is not on this screen"* is never a
+reason: the transition's own screen decides what it needs, and reaching a
+different screen is not a fix. Measured: two of a colleague's finished tickets
+took **twelve**
 status changes between them where two were needed, because a missing resolution
 was read as a defect and chased across screens, then reversed after the operator
 objected. Both tickets now carry that churn in their history permanently.

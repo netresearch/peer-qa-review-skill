@@ -6,7 +6,7 @@ Exercised on a 16-ticket maintenance batch with 5 agents (2–4 tickets each): a
 
 ## Sizing
 
-Fan-out pays off from roughly **six tickets** upwards — and from **any** number when the reviewer is holding other work at the same time. The threshold is reviewer wall-clock, not ticket count: three reviews inside a live maintenance window, where each one blocks a colleague and the operator is asking for status, is a fan-out even though three is below six. Measured once at 151 tool calls of inline review while a window ran and the room stayed silent. Below that, the reviewer runs the lifecycle inline, one ticket after the other — the briefing, the per-agent deliverables and the re-measuring pass cost more than they save on a handful of tickets.
+Fan-out pays off from roughly **six tickets** upwards — and from **any** number when the reviewer is holding other work at the same time. The threshold is reviewer wall-clock, not ticket count: three reviews inside a live maintenance window, where each one blocks a colleague and the operator is asking for status, is a fan-out even though three is below six. Measured once: 151 tool calls of inline review while a window ran and the room stayed silent. Below that, the reviewer runs the lifecycle inline, one ticket after the other — the briefing, the per-agent deliverables and the re-measuring pass cost more than they save on a handful of tickets.
 
 ## Sequence
 
