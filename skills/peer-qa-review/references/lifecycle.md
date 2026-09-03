@@ -105,13 +105,24 @@ NRT-4586  381 ✅ Done    -> Closed
              (no fields)
 ```
 
-So: supply what the transition marks `required`, supply nothing it does not ask
-for, and never reason from the status name. A resolve transition that lists no
-fields is not an incomplete workflow and a ticket that arrives at QA already
-carrying a resolution is not a defect — both are the workflow saying what it
-wants. **Never add a status change to reach a screen**: walking a ticket to
+Note the two routes to `Closed` above: one demands a resolution, the other
+declares nothing. The status name could never have told them apart.
+
+So: supply what the transition marks `required`, and never reason from the
+status name. A resolve transition that demands nothing is not an incomplete
+workflow, and a ticket that arrives at QA already carrying a resolution is not a
+defect. **Never add a status change to reach a screen**: walking a ticket to
 Closed because that is where the resolution field lives rewrites its history for
 a field nothing asked you to set.
+
+One asymmetry to respect, because it bites in the other direction. A field
+marked `required` is reliable — supply it. A field that is *absent* is not
+proof the transition would reject it: a measured case on Jira DC 9.12 had a
+Close transition report no `resolution` in the expand and accept one anyway
+(`jira-communication`, `references/intent-verbs.md`). So read the spec to learn
+what you **must** send, not to predict what will be refused; when a field you
+believe belongs is missing from the spec, the transition attempt is the test,
+and `Field 'resolution' cannot be set` is the only reliable rejection.
 
 Two consequences worth naming:
 
