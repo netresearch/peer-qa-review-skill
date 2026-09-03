@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The shipped script is declared in `allowed-tools`, not bare Bash
+- Renovate manages the pre-commit hooks; the stale validator pin is lifted
+
+### Fixed
+
+- `lifecycle`: the transition's field spec is read instead of memorised conventions
+- `lifecycle`: a passed review is no longer routed to Closed
+
+### Documentation
+
+- `lifecycle`: neither the label nor the target status selects a transition; the source of truth named; required is reliable, absent is not; the session closes with `/retro done` after Stage 5
+- Batch review: watch the QA queue, cap the status writes, open the batch page
+- The sample output matches what the command prints
+
 ## [0.9.0] - 2026-08-28
 
 ### Added
