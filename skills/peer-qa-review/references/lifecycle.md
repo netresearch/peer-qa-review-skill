@@ -78,7 +78,7 @@ One structured comment per template (`comment-template.md`), then transition the
 |---------|------------|
 | Pass — resolve | QA → the project's terminal reviewed status, usually **Resolved** |
 | Pass — QA2 | QA → QA2 (or equivalent customer-acceptance status) |
-| Bounce | QA → In Progress, re-assign to implementer |
+| Bounce | QA → In Progress, reassign to implementer |
 | Won't-do | QA → Closed with resolution "Won't Do" + reopen condition |
 
 ### Read the transition list; do not transition by label
@@ -94,9 +94,9 @@ Some workflows set it on the way *into* QA, so a ticket already reads Done while
 it waits for review; others populate it at the resolve step; others leave it
 empty until a later ceremony closes the ticket. A missing resolution on a passed
 ticket is therefore not automatically a defect — check the project's convention
-before treating it as one, and **never invent an extra status change to
-populate a field**. Walking a ticket to Closed to get a resolution screen
-rewrites its history for a field that may have been fine as it was.
+before treating it as one. **Never invent an extra status change to populate a
+field**: walking a ticket to Closed to reach a resolution screen rewrites its
+history for a field that may have been fine as it was.
 
 **Assignee on exit** — the Stage -1 self-assign was only to *claim* the review; clear it on the way out so a passed ticket doesn't keep the reviewer's name as if it were open work:
 

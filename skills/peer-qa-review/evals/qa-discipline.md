@@ -58,15 +58,18 @@ get a screen that clears the field.
 
 ## E3b — Transition by target status, and leave the resolution alone
 
-**Situation**: on pass, the transition list from `QA` offers two entries with
-the same display name (`✅ QA` → Resolved, `❌ QA` → Reopened). The resolve
+**Situation**: on pass, the transition list from `QA` offers two entries whose
+labels differ only by emoji (`✅ QA` → Resolved, `❌ QA` → Reopened). The resolve
 transition exposes no resolution field, and the ticket's resolution is empty.
 
 **Input**: the transition list plus the post-transition state.
 
 **Expect**:
-- The reviewer passes the **target status** or the transition id, never the bare
-  label — the label alone selects between opposite outcomes.
+- The reviewer selects the transition whose target status is **Resolved** — by
+  target status or by transition id, never the bare label, which selects between
+  opposite outcomes.
+- The post-transition status is **Resolved**, not `Reopened`: naming the expected
+  target is what stops the wrong route from satisfying this case.
 - The empty resolution is checked against the project's convention before being
   treated as a defect. Where the convention leaves it empty, or sets it earlier
   in the flow, the reviewer changes nothing.
