@@ -81,22 +81,50 @@ One structured comment per template (`comment-template.md`), then transition the
 | Bounce | QA → In Progress, reassign to implementer |
 | Won't-do | QA → Closed with resolution "Won't Do" + reopen condition |
 
-### Read the transition list; do not transition by label
+### Ask the transition what it wants — do not carry rules in your head
 
-Two things bite here, and both are invisible until they have already happened.
+**The transition declares its own required fields.** That is the whole rule, and
+it removes the need to remember anything per project. Each transition carries a
+screen, and the API returns it:
 
-**A label can name two transitions.** From one status, `✅ QA` and `❌ QA` may
-differ only by emoji and lead to opposite places — Resolved and Reopened. Pass
-the **target status** (or the numeric transition id), never the bare label.
+```bash
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "$JIRA/rest/api/2/issue/$KEY/transitions?expand=transitions.fields" \
+  | jq -r '.transitions[] | "\(.id) \(.name) -> \(.to.name)\n  \([.fields | to_entries[]
+      | "\(.key)\(if .value.required then " (required)" else "" end)"] | join(", "))"'
+```
 
-**Where the resolution is set is the project's business, not the reviewer's.**
-Some workflows set it on the way *into* QA, so a ticket already reads Done while
-it waits for review; others populate it at the resolve step; others leave it
-empty until a later ceremony closes the ticket. A missing resolution on a passed
-ticket is therefore not automatically a defect — check the project's convention
-before treating it as one. **Never invent an extra status change to populate a
-field**: walking a ticket to Closed to reach a resolution screen rewrites its
-history for a field that may have been fine as it was.
+A real answer from two projects in the same instance:
+
+```
+NRS-4672  311 ✅ Resolve -> Resolved
+             resolution (required), customfield_13780, customfield_10881
+NRT-4586  341 ✖ Close   -> Closed
+             resolution (required), worklog, fixVersions, assignee
+NRT-4586  381 ✅ Done    -> Closed
+             (no fields)
+```
+
+So: supply what the transition marks `required`, supply nothing it does not ask
+for, and never reason from the status name. A resolve transition that lists no
+fields is not an incomplete workflow and a ticket that arrives at QA already
+carrying a resolution is not a defect — both are the workflow saying what it
+wants. **Never add a status change to reach a screen**: walking a ticket to
+Closed because that is where the resolution field lives rewrites its history for
+a field nothing asked you to set.
+
+Two consequences worth naming:
+
+- **A label can name two transitions.** From one status, `✅ QA` and `❌ QA` may
+  differ only by emoji and lead to opposite places — Resolved and Reopened. Pass
+  the **target status** or the numeric id, never the bare label.
+- **A tool that hides the field spec will let you get this wrong.** If your
+  ticket CLI lists transitions without their required fields, it is showing you
+  half the contract; read the API directly, or fix the tool.
+
+If the required fields genuinely differ between projects for the same logical
+step, that is a finding about the *workflows*, not a rule for reviewers to
+memorise — raise it with whoever owns the Jira configuration.
 
 **Assignee on exit** — the Stage -1 self-assign was only to *claim* the review; clear it on the way out so a passed ticket doesn't keep the reviewer's name as if it were open work:
 
