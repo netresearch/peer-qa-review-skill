@@ -91,7 +91,8 @@ screen, and the API returns it:
 curl -s -H "Authorization: Bearer $TOKEN" \
   "$JIRA/rest/api/2/issue/$KEY/transitions?expand=transitions.fields" \
   | jq -r '.transitions[] | "\(.id) \(.name) -> \(.to.name)\n  \([.fields | to_entries[]
-      | "\(.key)\(if .value.required then " (required)" else "" end)"] | join(", "))"'
+      | "\(.key)\(if .value.required then " (required)" else "" end)"]
+      | if length == 0 then "(no fields)" else join(", ") end)"'
 ```
 
 A real answer from two projects in the same instance:

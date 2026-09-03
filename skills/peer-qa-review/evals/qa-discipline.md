@@ -69,11 +69,11 @@ transition from the same status, to Closed, declares `resolution` as required.
 **Expect**:
 - The reviewer reads the field spec before transitioning, and supplies exactly
   the fields the chosen transition marks `required` — nothing more.
-- The reviewer selects the transition whose target status is **Resolved** — by
-  target status or by transition id, never the bare label, which selects between
-  opposite outcomes.
-- The post-transition status is **Resolved**, not `Reopened`: naming the expected
-  target is what stops the wrong route from satisfying this case.
+- The reviewer selects the transition by the **id** from the expanded listing.
+  Neither the label nor the target status is a safe selector — both can name
+  more than one transition, and those lead to different places.
+- The post-transition status is asserted to be **Resolved**, not `Reopened` —
+  the target is the check on the outcome, never the handle used to get there.
 - The empty resolution is left empty, because the transition did not ask for it.
   The reviewer does not reason from the status name, from another project's
   behaviour, or from a remembered convention.
