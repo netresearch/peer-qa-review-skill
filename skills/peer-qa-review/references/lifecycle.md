@@ -100,12 +100,13 @@ This caps **status changes**, nothing else: clearing your assignment and booking
 your review time are still required (see "Assignee on exit" and "Log your QA
 time" below). Anything beyond one status change needs the ticket owner's
 agreement first, and *"the field I wanted is not on this screen"* is never a
-reason: the transition's own screen decides what it needs, and reaching a
-different screen is not a fix. Measured: two of a colleague's finished tickets
-took **twelve**
-status changes between them where two were needed, because a missing resolution
-was read as a defect and chased across screens, then reversed after the operator
-objected. Both tickets now carry that churn in their history permanently.
+reason — whatever the workflow declares about that field, walking the ticket to
+another status is not how you satisfy it.
+
+Measured: two of a colleague's finished tickets took **twelve** status changes
+between them where two were needed, because a missing resolution was read as a
+defect and chased across screens, then reversed after the operator objected.
+Both tickets now carry that churn in their history permanently.
 
 If you believe more than one change is needed, that belief is the thing to
 check first.
