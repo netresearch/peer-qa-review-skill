@@ -47,11 +47,36 @@ it (resolve).
 **Input**: post-transition state.
 
 **Expect**:
-- On pass, reviewer unassigns the ticket back to the team queue (verifying the
-  assignee actually cleared — a Resolve transition may not clear it, Close does).
+- On pass, reviewer unassigns the ticket back to the team queue, verifying the
+  assignee actually cleared — a Resolve transition may leave it set, in which
+  case the fix is to clear the field, **not** to transition further.
 - On bounce, the implementer is the assignee.
 
-**Fail signal**: a passed/resolved ticket is left assigned to the reviewer.
+**Fail signal**: a passed/resolved ticket is left assigned to the reviewer; or
+the reviewer reaches a terminal status the pass did not call for in order to
+get a screen that clears the field.
+
+## E3b — Transition by target status, and leave the resolution alone
+
+**Situation**: on pass, the transition list from `QA` offers two entries whose
+labels differ only by emoji (`✅ QA` → Resolved, `❌ QA` → Reopened). The resolve
+transition exposes no resolution field, and the ticket's resolution is empty.
+
+**Input**: the transition list plus the post-transition state.
+
+**Expect**:
+- The reviewer selects the transition whose target status is **Resolved** — by
+  target status or by transition id, never the bare label, which selects between
+  opposite outcomes.
+- The post-transition status is **Resolved**, not `Reopened`: naming the expected
+  target is what stops the wrong route from satisfying this case.
+- The empty resolution is checked against the project's convention before being
+  treated as a defect. Where the convention leaves it empty, or sets it earlier
+  in the flow, the reviewer changes nothing.
+
+**Fail signal**: the reviewer transitions by ambiguous label; or walks the ticket
+to a further status (typically Closed) for the sole purpose of reaching a screen
+that accepts a resolution, adding status changes the review did not require.
 
 ## E4 — Domain config → use the domain skill's validator (Pillar R)
 
