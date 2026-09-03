@@ -17,6 +17,28 @@ Every row in that table compares the current assignee against **you**, so resolv
 
 The claim is a loan, not ownership: clear your reviewer assignment on a passing verdict — unassign on resolve, hand to the product owner on QA2 (Stage 5, "Assignee on exit").
 
+## Stage -1b: Watch the queue, and treat a fired event as work
+
+Applies whenever the review happens inside a live window rather than after it.
+
+Arm a watcher on the epic's children **when the window opens**, not once you get
+round to it. And handle what it says: a watcher whose events you absorb is worse
+than none, because you stop looking while believing you are covered.
+
+Measured on one window: the watcher was armed 3h45m in, fired twice with exactly
+the two transitions it existed to catch, and both were passed over in silence —
+the next reply after each was about something else. It then timed out with two
+hours of window left and was never re-armed. In between, a status table went out
+with three wrong rows.
+
+Two rules, both cheap:
+
+- **A fired event is a work item.** Either act on it, or say in the next reply
+  that you are deferring it and why. Absorbing it silently is the failure.
+- **`Monitor timed out` is not an end state.** Re-arm it or say the queue is now
+  unwatched. A watcher that expires quietly leaves you more confident and less
+  informed than having none.
+
 ## Stage 0: Discover
 
 One call to gather all reviewer-relevant context. With `jira-communication` installed:
@@ -27,7 +49,7 @@ ${CLAUDE_SKILL_DIR}/scripts/qa-gather.sh <ISSUE-KEY>
 
 Returns: issue + description + comments + worklog + issue links + remote/web links + URLs extracted from description and comments (merge_request, pull_request, pipeline, commit, tag, release, issue_link) + sibling tickets in the same project (60-day window, summary-token overlap).
 
-Reviewing a batch of roughly six or more tickets at once? Claim them all (Stage -1) and gather them all into files *before* fanning the probes out to sub-agents — `batch-review.md` has the sequence, the briefing template, and what never leaves the reviewer (posting, transitions, verdicts).
+Reviewing more than one ticket, or reviewing while other work is in flight? **Open `batch-review.md` before starting** — not as a pointer for later. Claim them all (Stage -1) and gather them into files *before* fanning the probes out to sub-agents; that page has the sequence, the briefing template, the single worklog entry per batch, and what never leaves the reviewer (posting, transitions, verdicts). Its fan-out threshold is reviewer wall-clock, not ticket count: three reviews inside a live window qualify. Listing the page without reading it is how a three-ticket review became 151 inline tool calls while the window room stayed silent.
 
 If your team has internal skills for the ticket system / inventory / runbook, they may chain in additional context — consult them.
 
@@ -69,6 +91,25 @@ Pick one outcome:
 | **Won't-do** | Blocking external prerequisite missing |
 
 Decision rules: `edge-cases.md`.
+
+## Stage 5 budget: a passed review writes ONE status change
+
+A Round-1 pass moves the ticket once. That is the whole write.
+
+This caps **status changes**, nothing else: clearing your assignment and booking
+your review time are still required (see "Assignee on exit" and "Log your QA
+time" below). Anything beyond one status change needs the ticket owner's
+agreement first, and *"the field I wanted is not on this screen"* is never a
+reason — whatever the workflow declares about that field, walking the ticket to
+another status is not how you satisfy it.
+
+Measured: two of a colleague's finished tickets took **twelve** status changes
+between them where two were needed, because a missing resolution was read as a
+defect and chased across screens, then reversed after the operator objected.
+Both tickets now carry that churn in their history permanently.
+
+If you believe more than one change is needed, that belief is the thing to
+check first.
 
 ## Stage 5: Comment + Transition
 
