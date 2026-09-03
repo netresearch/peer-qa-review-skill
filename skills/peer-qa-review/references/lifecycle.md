@@ -133,12 +133,26 @@ rejection signal.
 
 Two consequences worth naming:
 
-- **A label can name two transitions.** From one status, `✅ QA` and `❌ QA` may
-  differ only by emoji and lead to opposite places — Resolved and Reopened. Pass
-  the **target status** or the numeric id, never the bare label.
-- **A tool that hides the field spec will let you get this wrong.** If your
-  ticket CLI lists transitions without their required fields, it is showing you
-  half the contract; read the API directly, or fix the tool.
+- **Neither the label nor the target status is a safe selector.** From one
+  status, `✅ QA` and `❌ QA` differ only by emoji and lead to opposite places
+  (Resolved, Reopened) — and on the same ticket two transitions can share one
+  *target*: `✅ Done → Closed` declaring nothing, `✖ Close → Closed` requiring a
+  resolution. Select the transition by the **id you just read out of the expand
+  output**, and issue it against the REST endpoint:
+
+  ```bash
+  curl -s -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+    -d '{"transition":{"id":"341"},"fields":{"resolution":{"name":"Done"}}}' \
+    "$JIRA/rest/api/2/issue/$KEY/transitions"
+  ```
+
+  Do not assume the CLI takes that id. The one shipped here does not — passing a
+  numeric id yields `Transition '311' not available`, because it matches on
+  status names only. That is a tool limitation to work around, not a reason to
+  go back to guessing from names.
+- **A tool that hides the field spec will let you get this wrong.** A CLI that
+  lists transitions without their required fields is showing you half the
+  contract; read the API directly, or fix the tool.
 
 If the required fields genuinely differ between projects for the same logical
 step, that is a finding about the *workflows*, not a rule for reviewers to
