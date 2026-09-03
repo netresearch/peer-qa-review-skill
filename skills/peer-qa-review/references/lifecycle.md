@@ -95,15 +95,19 @@ curl -s -H "Authorization: Bearer $TOKEN" \
       | if length == 0 then "(no fields)" else join(", ") end)"'
 ```
 
-A real answer from two projects in the same instance:
+Run once per ticket. Two real answers from the same instance, `$KEY=NRS-4672`
+and `$KEY=NRT-4586`:
 
 ```
-NRS-4672  311 ✅ Resolve -> Resolved
-             resolution (required), customfield_13780, customfield_10881
-NRT-4586  341 ✖ Close   -> Closed
-             resolution (required), worklog, fixVersions, assignee
-NRT-4586  381 ✅ Done    -> Closed
-             (no fields)
+311 ✅ Resolve -> Resolved
+  resolution (required), customfield_13780, customfield_10881
+```
+
+```
+341 ✖ Close   -> Closed
+  resolution (required), worklog, fixVersions, assignee
+381 ✅ Done    -> Closed
+  (no fields)
 ```
 
 Note the two routes to `Closed` above: one demands a resolution, the other
