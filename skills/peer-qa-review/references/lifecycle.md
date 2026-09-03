@@ -115,14 +115,21 @@ defect. **Never add a status change to reach a screen**: walking a ticket to
 Closed because that is where the resolution field lives rewrites its history for
 a field nothing asked you to set.
 
-One asymmetry to respect, because it bites in the other direction. A field
-marked `required` is reliable — supply it. A field that is *absent* is not
-proof the transition would reject it: a measured case on Jira DC 9.12 had a
-Close transition report no `resolution` in the expand and accept one anyway
-(`jira-communication`, `references/intent-verbs.md`). So read the spec to learn
-what you **must** send, not to predict what will be refused; when a field you
-believe belongs is missing from the spec, the transition attempt is the test,
-and `Field 'resolution' cannot be set` is the only reliable rejection.
+**The workflow is the source of truth. This page is a cached copy of it.**
+That ordering decides every disagreement: when a document — this one, a team
+runbook, an agent's memory — says something the live transition spec
+contradicts, the spec wins and the document is the thing that needs correcting.
+Documents about service behaviour go stale silently, because nothing tells them
+the workflow was edited.
+
+So the spec is what to read, and it answers one question precisely: what you
+**must** send. It is a weaker witness on the opposite question. One recorded
+observation (`jira-communication`, `references/intent-verbs.md`, Jira DC 9.12,
+2026-08) has a Close transition reporting no `resolution` and accepting one
+anyway — itself a cached claim, worth re-measuring against your own instance
+rather than believing. Where a field you expect is missing from the spec, the
+transition attempt is the test and `Field 'resolution' cannot be set` is the
+rejection signal.
 
 Two consequences worth naming:
 
@@ -135,7 +142,11 @@ Two consequences worth naming:
 
 If the required fields genuinely differ between projects for the same logical
 step, that is a finding about the *workflows*, not a rule for reviewers to
-memorise — raise it with whoever owns the Jira configuration.
+memorise — raise it with whoever owns the ticket-system configuration. "Project
+FOO deviates from BAR and FOOBAR" is a legitimate and useful conclusion, and it
+has more than one remedy: align the workflow, or document the deviation where
+the workflow lives. Absorbing it as reviewer folklore is the one option that
+guarantees the next person repeats the mistake.
 
 **Assignee on exit** — the Stage -1 self-assign was only to *claim* the review; clear it on the way out so a passed ticket doesn't keep the reviewer's name as if it were open work:
 
