@@ -122,22 +122,91 @@ One structured comment per template (`comment-template.md`), then transition the
 | Bounce | QA → In Progress, reassign to implementer |
 | Won't-do | QA → Closed with resolution "Won't Do" + reopen condition |
 
-### Read the transition list; do not transition by label
+### Ask the transition what it wants — do not carry rules in your head
 
-Two things bite here, and both are invisible until they have already happened.
+**The transition declares its own required fields.** That is the whole rule, and
+it removes the need to remember anything per project. Each transition carries a
+screen, and the API returns it:
 
-**A label can name two transitions.** From one status, `✅ QA` and `❌ QA` may
-differ only by emoji and lead to opposite places — Resolved and Reopened. Pass
-the **target status** (or the numeric transition id), never the bare label.
+```bash
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "$JIRA/rest/api/2/issue/$KEY/transitions?expand=transitions.fields" \
+  | jq -r '.transitions[] | "\(.id) \(.name) -> \(.to.name)\n  \([.fields | to_entries[]
+      | "\(.key)\(if .value.required then " (required)" else "" end)"]
+      | if length == 0 then "(no fields)" else join(", ") end)"'
+```
 
-**Where the resolution is set is the project's business, not the reviewer's.**
-Some workflows set it on the way *into* QA, so a ticket already reads Done while
-it waits for review; others populate it at the resolve step; others leave it
-empty until a later ceremony closes the ticket. A missing resolution on a passed
-ticket is therefore not automatically a defect — check the project's convention
-before treating it as one. **Never invent an extra status change to populate a
-field**: walking a ticket to Closed to reach a resolution screen rewrites its
-history for a field that may have been fine as it was.
+Run once per ticket. Two real answers from the same instance, `$KEY=NRS-4672`
+and `$KEY=NRT-4586`:
+
+```
+311 ✅ Resolve -> Resolved
+  resolution (required), customfield_13780, customfield_10881
+```
+
+```
+341 ✖ Close   -> Closed
+  resolution (required), worklog, fixVersions, assignee
+381 ✅ Done    -> Closed
+  (no fields)
+```
+
+Note the two routes to `Closed` above: one demands a resolution, the other
+declares nothing. The status name could never have told them apart.
+
+So: supply what the transition marks `required`, and never reason from the
+status name. A resolve transition that demands nothing is not an incomplete
+workflow, and a ticket that arrives at QA already carrying a resolution is not a
+defect. **Never add a status change to reach a screen**: walking a ticket to
+Closed because that is where the resolution field lives rewrites its history for
+a field nothing asked you to set.
+
+**The workflow is the source of truth. This page is a cached copy of it.**
+That ordering decides every disagreement: when a document — this one, a team
+runbook, an agent's memory — says something the live transition spec
+contradicts, the spec wins and the document is the thing that needs correcting.
+Documents about service behaviour go stale silently, because nothing tells them
+the workflow was edited.
+
+So the spec is what to read, and it answers one question precisely: what you
+**must** send. It is a weaker witness on the opposite question. One recorded
+observation (`jira-communication`, `references/intent-verbs.md`, Jira DC 9.12,
+2026-08) has a Close transition reporting no `resolution` and accepting one
+anyway — itself a cached claim, worth re-measuring against your own instance
+rather than believing. Where a field you expect is missing from the spec, the
+transition attempt is the test and `Field 'resolution' cannot be set` is the
+rejection signal.
+
+Two consequences worth naming:
+
+- **Neither the label nor the target status is a safe selector.** From one
+  status, `✅ QA` and `❌ QA` differ only by emoji and lead to opposite places
+  (Resolved, Reopened) — and on the same ticket two transitions can share one
+  *target*: `✅ Done → Closed` declaring nothing, `✖ Close → Closed` requiring a
+  resolution. Select the transition by the **id you just read out of the expand
+  output**, and issue it against the REST endpoint:
+
+  ```bash
+  curl -s -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+    -d '{"transition":{"id":"341"},"fields":{"resolution":{"name":"Done"}}}' \
+    "$JIRA/rest/api/2/issue/$KEY/transitions"
+  ```
+
+  Do not assume the CLI takes that id. The one shipped here does not — passing a
+  numeric id yields `Transition '311' not available`, because it matches on
+  status names only. That is a tool limitation to work around, not a reason to
+  go back to guessing from names.
+- **A tool that hides the field spec will let you get this wrong.** A CLI that
+  lists transitions without their required fields is showing you half the
+  contract; read the API directly, or fix the tool.
+
+If the required fields genuinely differ between projects for the same logical
+step, that is a finding about the *workflows*, not a rule for reviewers to
+memorise — raise it with whoever owns the ticket-system configuration. "Project
+FOO deviates from BAR and FOOBAR" is a legitimate and useful conclusion, and it
+has more than one remedy: align the workflow, or document the deviation where
+the workflow lives. Absorbing it as reviewer folklore is the one option that
+guarantees the next person repeats the mistake.
 
 **Assignee on exit** — the Stage -1 self-assign was only to *claim* the review; clear it on the way out so a passed ticket doesn't keep the reviewer's name as if it were open work:
 

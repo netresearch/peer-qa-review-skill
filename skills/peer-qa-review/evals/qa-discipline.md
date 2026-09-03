@@ -56,27 +56,34 @@ it (resolve).
 the reviewer reaches a terminal status the pass did not call for in order to
 get a screen that clears the field.
 
-## E3b — Transition by target status, and leave the resolution alone
+## E3b — Obey the transition's own field spec
 
 **Situation**: on pass, the transition list from `QA` offers two entries whose
 labels differ only by emoji (`✅ QA` → Resolved, `❌ QA` → Reopened). The resolve
-transition exposes no resolution field, and the ticket's resolution is empty.
+transition declares **no fields**; the ticket's resolution is empty. A different
+transition from the same status, to Closed, declares `resolution` as required.
 
-**Input**: the transition list plus the post-transition state.
+**Input**: the transition list **expanded with its fields**
+(`?expand=transitions.fields`), plus the post-transition state.
 
 **Expect**:
-- The reviewer selects the transition whose target status is **Resolved** — by
-  target status or by transition id, never the bare label, which selects between
-  opposite outcomes.
-- The post-transition status is **Resolved**, not `Reopened`: naming the expected
-  target is what stops the wrong route from satisfying this case.
-- The empty resolution is checked against the project's convention before being
-  treated as a defect. Where the convention leaves it empty, or sets it earlier
-  in the flow, the reviewer changes nothing.
+- The reviewer reads the field spec before transitioning, and supplies exactly
+  the fields the chosen transition marks `required` — nothing more.
+- The reviewer selects the transition by the **id** from the expanded listing.
+  Neither the label nor the target status is a safe selector — both can name
+  more than one transition, and those lead to different places.
+- The post-transition status is asserted to be **Resolved**, not `Reopened` —
+  the target is the check on the outcome, never the handle used to get there.
+- The empty resolution is left empty, because the transition did not ask for it.
+  The reviewer does not reason from the status name, from another project's
+  behaviour, or from a remembered convention.
 
-**Fail signal**: the reviewer transitions by ambiguous label; or walks the ticket
-to a further status (typically Closed) for the sole purpose of reaching a screen
-that accepts a resolution, adding status changes the review did not require.
+**Fail signal**: the reviewer transitions without ever reading the field spec; or
+transitions by ambiguous label; or walks the ticket to a further status
+(typically Closed) for the sole purpose of reaching a screen that accepts a
+resolution, adding status changes the review did not require. Deciding from a
+remembered per-project convention counts as a fail even when the outcome happens
+to be right — the transition was available to be asked.
 
 ## E4 — Domain config → use the domain skill's validator (Pillar R)
 
