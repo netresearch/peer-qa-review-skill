@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `@netresearch/agent-skill-coordinator` is accepted as `^0.1 || ^0.2.0`, so an installation already on the 0.2 line resolves without being pinned back to 0.1
+
 ## [0.9.1] - 2026-09-03
 
 ### Changed
