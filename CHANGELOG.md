@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `lifecycle`: a reciprocal cross-link to `netresearch-jira`'s `it/qa-workflow.md`, which describes the workflow this page's discipline runs on. Both were rewritten from the same retrospective, independently, and each was wrong about the half the other owned — that page claimed the destination status was a unique selector, this one claimed the shipped CLI could not take a transition id. The link states its purpose: when one changes, check the other
 - `lifecycle`: a rejected transition is never satisfied by a bare issue-level field write — that is a fail in every project. Whether a longer *transition* route is legitimate is a fact about the workflow, and the page now carries the measurement instead of a rule of thumb: NRS and SRVMO offer `✅ Resolve → Resolved` with `resolution` required, so an extra status change there is never needed; in the eight NRT/SRV\* projects the exit to `Resolved` carries no resolution field at all — zero of ~420 `QA → Resolved` events set one and 57 landed with it still null — so the longer route is the workflow, and what the review owes is a line in the comment naming the route it took
 - `lifecycle`: the recorded transition listings carry their read date, like every other reproduction on the page
 - `SKILL.md`: `batch-review.md` is triggered by reviewer wall-clock, not by a ticket count — the pointer contradicted the page it points at

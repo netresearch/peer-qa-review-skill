@@ -122,6 +122,14 @@ One structured comment per template (`comment-template.md`), then transition the
 | Bounce | QA → In Progress, reassign to implementer |
 | Won't-do | QA → Closed with resolution "Won't Do" + reopen condition |
 
+**Where the workflow itself is described.** This page carries the review
+discipline; the workflow it runs on is `netresearch-jira`,
+`references/it/qa-workflow.md`. Both were rewritten from the same 2026-W36
+retrospective, independently, and each turned out to be wrong about the half the
+other owned — that page claimed the destination status was a unique selector,
+this one claimed the shipped CLI could not take a transition id. So the link is
+reciprocal and says what it is for: **when one changes, check the other.**
+
 ### Which terminal — ask the ticket's own history
 
 The field spec below says what you **must send**. It does not say which of
