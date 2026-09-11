@@ -122,6 +122,29 @@ One structured comment per template (`comment-template.md`), then transition the
 | Bounce | QA → In Progress, reassign to implementer |
 | Won't-do | QA → Closed with resolution "Won't Do" + reopen condition |
 
+### Which terminal — ask the ticket's own history
+
+The field spec below says what you **must send**. It does not say which of
+several available terminals this project actually uses, and more than one is
+usually offered: `✅ Done → Closed` and `✖ Close → Closed` both exist, and
+`Resolved` and `Closed` are both reachable from QA in some workflows. Read the
+history before choosing:
+
+```bash
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "$JIRA/rest/api/2/issue/$KEY?expand=changelog" \
+  | jq -r '.changelog.histories[].items[]
+      | select(.field == "status" or .field == "resolution")
+      | "\(.field): \(.fromString // "-") -> \(.toString // "-")"'
+```
+
+Two things come out of it: the route this ticket has already travelled (a
+terminal it was bounced out of once is rarely the right one to send it back to),
+and, read on a sibling the same implementer already closed, the end state the
+project settles on. Name that end state in the QA comment, so the next reviewer
+inherits the answer instead of re-deriving it. The spec and the history answer
+different questions — neither replaces the other.
+
 ### Ask the transition what it wants — do not carry rules in your head
 
 **The transition declares its own required fields.** That is the whole rule, and
@@ -137,7 +160,9 @@ curl -s -H "Authorization: Bearer $TOKEN" \
 ```
 
 Run once per ticket. Two real answers from the same instance, `$KEY=NRS-4672`
-and `$KEY=NRT-4586`:
+and `$KEY=NRT-4586`, read on jira.netresearch.de in 2026-08 — the listings below
+are a cache with a read date, like every other reproduction on this page, and
+the live spec wins wherever they disagree:
 
 ```
 311 ✅ Resolve -> Resolved
@@ -160,6 +185,15 @@ workflow, and a ticket that arrives at QA already carrying a resolution is not a
 defect. **Never add a status change to reach a screen**: walking a ticket to
 Closed because that is where the resolution field lives rewrites its history for
 a field nothing asked you to set.
+
+And the sibling ban, because the other way round the screen is quieter: a
+rejected transition is the workflow answering you. `Field 'resolution' cannot be
+set` means this route does not carry that field — not that the field needs
+setting by another instrument. Never satisfy it with a bare issue-level field
+write (`PUT /rest/api/2/issue/$KEY`, or a CLI `update --fields-json` against the
+same field), which bypasses the screen the workflow put there. If the field is
+on no transition available from here, leave it unset and say so in the QA
+comment.
 
 **The workflow is the source of truth. This page is a cached copy of it.**
 That ordering decides every disagreement: when a document — this one, a team
@@ -192,10 +226,14 @@ Two consequences worth naming:
     "$JIRA/rest/api/2/issue/$KEY/transitions"
   ```
 
-  Do not assume the CLI takes that id. The one shipped here does not — passing a
-  numeric id yields `Transition '311' not available`, because it matches on
-  status names only. That is a tool limitation to work around, not a reason to
-  go back to guessing from names.
+  A CLI may or may not accept that id — check the one in front of you rather
+  than carrying an answer over from a previous version. `jira-transition.py`
+  (jira-integration 3.31.0, read 2026-09-11) resolves an exact transition id
+  first, before any name matching, and its `list` prints an `ID` column
+  alongside `Requires`; an earlier version matched on status names only and
+  answered `Transition '311' not available`. Where a CLI does refuse the id, the
+  REST form above is the way round it — not a reason to go back to guessing from
+  names.
 - **A tool that hides the field spec will let you get this wrong.** A CLI that
   lists transitions without their required fields is showing you half the
   contract; read the API directly, or fix the tool.

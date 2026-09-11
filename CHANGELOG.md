@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `lifecycle`: which terminal status to aim at is read from the ticket's own changelog and a sibling the implementer already closed, then named in the QA comment — the field spec says what to send, the history says where to send it
+- `evals`: E3c covers the rejected transition — a `Field 'resolution' cannot be set` is the workflow answering, not a tooling defect to route around
+
+### Changed
+
+- `lifecycle`: a rejected transition is never satisfied by a bare issue-level field write or by an extra status hop; the field stays unset and the QA comment says so
+- `lifecycle`: the recorded transition listings carry their read date, like every other reproduction on the page
+- `SKILL.md`: `batch-review.md` is triggered by reviewer wall-clock, not by a ticket count — the pointer contradicted the page it points at
+
+### Fixed
+
+- `lifecycle`: the claim that the shipped CLI cannot take a transition id is stale — `jira-transition.py` resolves an exact id before any name matching
+
 ## [0.9.2] - 2026-09-06
 
 ### Changed
