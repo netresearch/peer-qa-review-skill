@@ -189,11 +189,37 @@ a field nothing asked you to set.
 And the sibling ban, because the other way round the screen is quieter: a
 rejected transition is the workflow answering you. `Field 'resolution' cannot be
 set` means this route does not carry that field — not that the field needs
-setting by another instrument. Never satisfy it with a bare issue-level field
-write (`PUT /rest/api/2/issue/$KEY`, or a CLI `update --fields-json` against the
-same field), which bypasses the screen the workflow put there. If the field is
-on no transition available from here, leave it unset and say so in the QA
-comment.
+setting by another instrument. **Never satisfy it with a bare issue-level field
+write** (`PUT /rest/api/2/issue/$KEY`, or a CLI `update --fields-json` against
+the same field): that bypasses the screen the workflow put there and leaves the
+history silent about a value someone will later read as deliberate. It is a fail
+in every project, with no exception.
+
+Which is a narrower ban than "never add a status change", and deliberately so,
+because whether a longer route is legitimate is a fact about the workflow rather
+than a matter of discipline. Measured on jira.netresearch.de on 2026-09-12:
+
+| Family | From `QA`, does a transition carry `resolution`? |
+|---|---|
+| NRS, SRVMO | **Yes** — `311 ✅ Resolve → Resolved`, `resolution` required |
+| NRT, SRVGL, SRVC, SRVOF, SRVUC, SRVV, SRVJ, SRVEP | **No** — `341 ✖ Close` carries it but lands in `Closed`; the exit to `Resolved` carries no field at all |
+
+The second row is not an inference from an empty transition list: across those
+eight projects, ~420 `QA → Resolved` events set a resolution **zero** times, and
+57 of them left the ticket in `Resolved` with the resolution still null — which
+a screen carrying the field could not have produced, because Jira forces a
+value. Stated with its limit: on the day of measurement no ticket was in `QA` in
+any of those eight projects, so their QA screens were read from history rather
+than fetched. Ask the live spec anyway — that is the rule this table serves, not
+one it replaces.
+
+So the rule is one question, asked of the ticket in front of you rather than
+remembered per project: **does any transition available from here declare the
+field?** If yes, use it, and an extra status change is the fail the section above
+describes. If no, the longer route *is* the workflow — take it, and put one line
+in the QA comment saying which route you took and why, so the extra events in
+the history read as the workflow rather than as review work that did not happen.
+And if you leave the field unset, say that too.
 
 **The workflow is the source of truth. This page is a cached copy of it.**
 That ordering decides every disagreement: when a document — this one, a team

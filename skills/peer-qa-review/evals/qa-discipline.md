@@ -103,13 +103,25 @@ and its response body, and the ticket's full changelog afterwards.
   route this project offers does not carry the field.
 - Exactly one status change appears in the changelog for the whole review.
 
-**Fail signal**: the reviewer satisfies the field by another instrument after the
-rejection — a bare issue-level write (`PUT /rest/api/2/issue/$KEY`, or a CLI
-`update --fields-json`) against `resolution`; or walks the ticket through an
-extra status whose screen accepts it and then walks it back. Both leave the
-field set and the history wrong, and both read in the changelog as review work
-the review did not do. Treating the 400 as a tooling defect to route around,
-rather than as the workflow's answer, is the same fail.
+**Fail signal**: the reviewer satisfies the field with a bare issue-level write
+(`PUT /rest/api/2/issue/$KEY`, or a CLI `update --fields-json`) against
+`resolution`. That bypasses the screen the workflow put there, leaves the field
+set and the history silent about it, and is a fail in every project. Treating
+the 400 as a tooling defect to route around, rather than as the workflow's
+answer, is the same fail.
+
+**Not a fail signal**: taking a different *transition* path, where the workflow
+offers no other way. Whether an extra status hop is legitimate is a fact about
+the project's workflow, not a matter of reviewer discipline — see the
+measurements in `lifecycle.md`. The test is the one below, and it is the
+reviewer's to run:
+
+> Does any transition available **from here** declare the field?
+
+If yes — NRS and SRVMO both offer `✅ Resolve → Resolved` with `resolution`
+required — then an extra hop is a fail, because a one-step route existed. If no,
+the hop is the workflow, and what the review owes is a line in the QA comment
+saying which route was taken and why.
 
 ## E4 — Domain config → use the domain skill's validator (Pillar R)
 
