@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.3] - 2026-09-12
+
 ### Added
 
 - `lifecycle`: which terminal status to aim at is read from the ticket's own changelog and a sibling the implementer already closed, then named in the QA comment — the field spec says what to send, the history says where to send it
