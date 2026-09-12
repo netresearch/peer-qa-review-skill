@@ -122,6 +122,52 @@ One structured comment per template (`comment-template.md`), then transition the
 | Bounce | QA → In Progress, reassign to implementer |
 | Won't-do | QA → Closed with resolution "Won't Do" + reopen condition |
 
+**Where the workflow itself is described.** This page carries the review
+discipline; the workflow it runs on is `netresearch-jira`,
+`references/it/qa-workflow.md`. Both were rewritten from the same 2026-W36
+retrospective, independently, and each turned out to be wrong about the half the
+other owned — that page claimed the destination status was a unique selector,
+this one claimed the shipped CLI could not take a transition id. So the link is
+reciprocal and says what it is for: **when one changes, check the other.**
+
+### Which terminal — ask the ticket's own history
+
+The field spec below says what you **must send**. It does not say which of
+several available terminals this project actually uses, and more than one is
+usually offered: `✅ Done → Closed` and `✖ Close → Closed` both exist, and
+`Resolved` and `Closed` are both reachable from QA in some workflows. Read the
+history before choosing:
+
+```bash
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "$JIRA/rest/api/2/issue/$KEY?expand=changelog" \
+  | jq -r '.changelog as $c
+      | if $c.total > $c.maxResults
+        then "TRUNCATED: \($c.maxResults) of \($c.total) — the early history is missing"
+        else empty end,
+      ($c.histories[].items[]
+        | select(.field == "status" or .field == "resolution")
+        | "\(.field): \(.fromString // "-") -> \(.toString // "-")")'
+```
+
+The `total`/`maxResults` guard is in the query for a reason: a truncated
+changelog drops its *earliest* entries, which are exactly the ones that show a
+bounce, and a truncated answer looks like a clean history. Server/DC has no
+paginated changelog resource to fall back on —
+`/rest/api/2/issue/$KEY/changelog` is Jira **Cloud** and answers `404` here
+(measured on jira.netresearch.de, 2026-09-12) — so on a truncated history the
+remaining route is the issue's history tab in the UI. Four tickets of varying
+age were checked on this instance and none was capped (`total` 19, 33, 39, 68,
+each equal to `maxResults`), so the guard is a tripwire rather than a common
+case.
+
+Two things come out of it: the route this ticket has already travelled (a
+terminal it was bounced out of once is rarely the right one to send it back to),
+and, read on a sibling the same implementer already closed, the end state the
+project settles on. Name that end state in the QA comment, so the next reviewer
+inherits the answer instead of re-deriving it. The spec and the history answer
+different questions — neither replaces the other.
+
 ### Ask the transition what it wants — do not carry rules in your head
 
 **The transition declares its own required fields.** That is the whole rule, and
@@ -137,7 +183,9 @@ curl -s -H "Authorization: Bearer $TOKEN" \
 ```
 
 Run once per ticket. Two real answers from the same instance, `$KEY=NRS-4672`
-and `$KEY=NRT-4586`:
+and `$KEY=NRT-4586`, read on jira.netresearch.de in 2026-08 — the listings below
+are a cache with a read date, like every other reproduction on this page, and
+the live spec wins wherever they disagree:
 
 ```
 311 ✅ Resolve -> Resolved
@@ -160,6 +208,41 @@ workflow, and a ticket that arrives at QA already carrying a resolution is not a
 defect. **Never add a status change to reach a screen**: walking a ticket to
 Closed because that is where the resolution field lives rewrites its history for
 a field nothing asked you to set.
+
+And the sibling ban, because the other way round the screen is quieter: a
+rejected transition is the workflow answering you. `Field 'resolution' cannot be
+set` means this route does not carry that field — not that the field needs
+setting by another instrument. **Never satisfy it with a bare issue-level field
+write** (`PUT /rest/api/2/issue/$KEY`, or a CLI `update --fields-json` against
+the same field): that bypasses the screen the workflow put there and leaves the
+history silent about a value someone will later read as deliberate. It is a fail
+in every project, with no exception.
+
+Which is a narrower ban than "never add a status change", and deliberately so,
+because whether a longer route is legitimate is a fact about the workflow rather
+than a matter of discipline. Measured on jira.netresearch.de on 2026-09-12:
+
+| Family | From `QA`, does a transition carry `resolution`? |
+|---|---|
+| NRS, SRVMO | **Yes** — `311 ✅ Resolve → Resolved`, `resolution` required |
+| NRT, SRVGL, SRVC, SRVOF, SRVUC, SRVV, SRVJ, SRVEP | **No** — `341 ✖ Close` carries it but lands in `Closed`; the exit to `Resolved` carries no field at all |
+
+The second row is not an inference from an empty transition list: across those
+eight projects, ~420 `QA → Resolved` events set a resolution **zero** times, and
+57 of them left the ticket in `Resolved` with the resolution still null — which
+a screen carrying the field could not have produced, because Jira forces a
+value. Stated with its limit: on the day of measurement no ticket was in `QA` in
+any of those eight projects, so their QA screens were read from history rather
+than fetched. Ask the live spec anyway — that is the rule this table serves, not
+one it replaces.
+
+So the rule is one question, asked of the ticket in front of you rather than
+remembered per project: **does any transition available from here declare the
+field?** If yes, use it, and an extra status change is the fail the section above
+describes. If no, the longer route *is* the workflow — take it, and put one line
+in the QA comment saying which route you took and why, so the extra events in
+the history read as the workflow rather than as review work that did not happen.
+And if you leave the field unset, say that too.
 
 **The workflow is the source of truth. This page is a cached copy of it.**
 That ordering decides every disagreement: when a document — this one, a team
@@ -192,10 +275,14 @@ Two consequences worth naming:
     "$JIRA/rest/api/2/issue/$KEY/transitions"
   ```
 
-  Do not assume the CLI takes that id. The one shipped here does not — passing a
-  numeric id yields `Transition '311' not available`, because it matches on
-  status names only. That is a tool limitation to work around, not a reason to
-  go back to guessing from names.
+  A CLI may or may not accept that id — check the one in front of you rather
+  than carrying an answer over from a previous version. `jira-transition.py`
+  (jira-integration 3.31.0, read 2026-09-11) resolves an exact transition id
+  first, before any name matching, and its `list` prints an `ID` column
+  alongside `Requires`; an earlier version matched on status names only and
+  answered `Transition '311' not available`. Where a CLI does refuse the id, the
+  REST form above is the way round it — not a reason to go back to guessing from
+  names.
 - **A tool that hides the field spec will let you get this wrong.** A CLI that
   lists transitions without their required fields is showing you half the
   contract; read the API directly, or fix the tool.
