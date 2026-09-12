@@ -99,9 +99,18 @@ and its response body, and the ticket's full changelog afterwards.
 **Expect**:
 - The reviewer re-reads the spec for the chosen id, drops `resolution`, and
   re-issues the same transition without it.
-- The resolution stays empty, and the QA comment says so in one clause — the
-  route this project offers does not carry the field.
-- Exactly one status change appears in the changelog for the whole review.
+- The reviewer then asks the question below of the ticket in front of them, and
+  the postconditions follow from its answer — they are not fixed:
+  - **No transition from here declares the field.** The resolution stays empty
+    *or* is set by the longer route the workflow does offer; either way the QA
+    comment names the route taken in one clause. A multi-hop route may therefore
+    show several status changes in the changelog, and that is not a finding.
+  - **A transition from here does declare it.** Exactly one status change
+    appears in the changelog for the whole review, and the resolution is set by
+    that transition.
+
+  Grading on "resolution empty, one status change" regardless of route would
+  reject the outcome the next block explicitly permits.
 
 **Fail signal**: the reviewer satisfies the field with a bare issue-level write
 (`PUT /rest/api/2/issue/$KEY`, or a CLI `update --fields-json`) against

@@ -141,10 +141,25 @@ history before choosing:
 ```bash
 curl -s -H "Authorization: Bearer $TOKEN" \
   "$JIRA/rest/api/2/issue/$KEY?expand=changelog" \
-  | jq -r '.changelog.histories[].items[]
-      | select(.field == "status" or .field == "resolution")
-      | "\(.field): \(.fromString // "-") -> \(.toString // "-")"'
+  | jq -r '.changelog as $c
+      | if $c.total > $c.maxResults
+        then "TRUNCATED: \($c.maxResults) of \($c.total) — the early history is missing"
+        else empty end,
+      ($c.histories[].items[]
+        | select(.field == "status" or .field == "resolution")
+        | "\(.field): \(.fromString // "-") -> \(.toString // "-")")'
 ```
+
+The `total`/`maxResults` guard is in the query for a reason: a truncated
+changelog drops its *earliest* entries, which are exactly the ones that show a
+bounce, and a truncated answer looks like a clean history. Server/DC has no
+paginated changelog resource to fall back on —
+`/rest/api/2/issue/$KEY/changelog` is Jira **Cloud** and answers `404` here
+(measured on jira.netresearch.de, 2026-09-12) — so on a truncated history the
+remaining route is the issue's history tab in the UI. Four tickets of varying
+age were checked on this instance and none was capped (`total` 19, 33, 39, 68,
+each equal to `maxResults`), so the guard is a tripwire rather than a common
+case.
 
 Two things come out of it: the route this ticket has already travelled (a
 terminal it was bounced out of once is rarely the right one to send it back to),
