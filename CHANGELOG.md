@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-23
+
 ### Changed
 
 - First stable release. From 1.0.0 on, an incompatible change to what this plugin exposes — skill names, trigger descriptions, the arguments and output of its scripts — ships only in a new major version.
