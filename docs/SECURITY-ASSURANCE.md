@@ -31,7 +31,7 @@ The repository ships no server component, no container image and no library code
 - **Ticket content.** Descriptions, comments and linked artefacts are written by the implementer and other ticket-system users. The skill feeds them to the agent as material to verify, including commands the implementer ran (`lifecycle.md` Stage 2, `checklist.md`).
 - **Installed plugins.** `qa-gather.sh` runs, via `uv run`, the first `jira-communication` script it finds below `$CLAUDE_PLUGIN_ROOT` or the reviewer's plugin cache (`$HOME/.claude/plugins/cache`). Whatever is installed there is trusted as the companion skill.
 - **`jira-communication` and the ticket system.** The companion skill holds the ticket-system credentials and performs every read and write. `uv` resolves the Python dependencies that skill's scripts declare.
-- **Contributors and CI.** Changes are proposed as pull requests and checked by the workflows in `.github/workflows/`. Workflows run on GitHub-hosted runners with `permissions: {}` at the top level and grant each job only the scopes its called reusable workflow needs. `auto-merge-deps.yml` runs on `pull_request_target`, calls the organisation's auto-merge reusable without passing secrets, and does not check out pull request code.
+- **Contributors and CI.** Changes are proposed as pull requests and checked by the workflows in `.github/workflows/`. Workflows run on GitHub-hosted runners. `lint.yml`, `tests.yml` and `auto-merge-deps.yml` set `permissions: {}` at the top level and grant their job only the scopes the called reusable workflow needs; `release.yml` has no top-level block and grants its job `contents`, `id-token` and `attestations: write`. `auto-merge-deps.yml` runs on `pull_request_target`, calls the organisation's auto-merge reusable without passing secrets, and does not check out pull request code.
 
 ## Threats and countermeasures
 
@@ -52,7 +52,7 @@ No secret scanning, dependency review or static application security testing run
 
 ## Secure design principles applied
 
-- **Least privilege:** `qa-gather.sh` only locates and starts another script; it holds no credential and writes nothing. Workflows start from `permissions: {}` and grant per job.
+- **Least privilege:** `qa-gather.sh` only locates and starts another script; it holds no credential and writes nothing. Workflows grant permissions per job; all but `release.yml` start from `permissions: {}`.
 - **Fail-safe defaults:** `qa-gather.sh` runs with `set -euo pipefail` and exits non-zero when it cannot gather the ticket.
 - **Economy of mechanism:** the wrapper needs bash, `find`, `dirname` and `uv`; everything ticket-specific lives in the companion skill.
 - **Separation of duties:** the reviewer must not be the implementer; a self-review may not reach a terminal verdict without a second reviewer unless the person directing the session explicitly instructs it, and then it is recorded in the comment (`references/lifecycle.md` Stage -1, `references/edge-cases.md` §E, `references/anti-patterns.md` #18). In batch reviews, posting and transitions stay with the reviewer's agent.
