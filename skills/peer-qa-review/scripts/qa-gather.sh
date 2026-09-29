@@ -37,11 +37,13 @@ find_qa_gather() {
     # root still follows find's traversal order; the guarantee here is the
     # name preference plus the early stop — and no `| head` pipeline, so no
     # SIGPIPE risk under `set -o pipefail`.
+    # -maxdepth 8 reaches <marketplace>/<plugin>/<version>/skills/
+    # jira-communication/scripts/utility/<name> below a plugin cache root.
     local p name found
     for p in "${search_paths[@]}"; do
         [[ -z "$p" ]] && continue
         for name in jira-qa-gather.py qa-gather.py; do
-            found=$(find "$p" -maxdepth 6 -type f \
+            found=$(find "$p" -maxdepth 8 -type f \
                 -path "*/skills/jira-communication/scripts/utility/${name}" \
                 -print -quit 2>/dev/null) || true
             if [[ -n "$found" ]]; then
@@ -63,7 +65,7 @@ find_jira_scripts_dir() {
     local p found
     for p in "${search_paths[@]}"; do
         [[ -z "$p" ]] && continue
-        found=$(find "$p" -maxdepth 6 -type f \
+        found=$(find "$p" -maxdepth 8 -type f \
             -path '*/skills/jira-communication/scripts/core/jira-issue.py' \
             -print -quit 2>/dev/null) || true
         if [[ -n "$found" ]]; then

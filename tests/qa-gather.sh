@@ -126,6 +126,26 @@ run "$d" "" ABC-5
 check "the marketplace install under HOME is found without CLAUDE_PLUGIN_ROOT" \
     eq "$LOG" "uv|run|$d/home/.claude/plugins/cache/netresearch-claude-code-marketplace/jira-integration/3.32.3/skills/jira-communication/scripts/utility/jira-qa-gather.py|ABC-5"
 
+new_case
+jira_tree "$d/home/.claude/plugins/cache/other-marketplace/jira-integration/1.0.0" \
+    utility/jira-qa-gather.py
+run "$d" "" ABC-10
+check "an install from another marketplace in the HOME plugin cache is found" \
+    eq "$LOG" "uv|run|$d/home/.claude/plugins/cache/other-marketplace/jira-integration/1.0.0/skills/jira-communication/scripts/utility/jira-qa-gather.py|ABC-10"
+
+new_case
+jira_tree "$d/cache/some-marketplace/jira-integration/1.0.0" utility/jira-qa-gather.py
+run "$d" "$d/cache" ABC-11
+check "CLAUDE_PLUGIN_ROOT pointing at a plugin cache root, as the hint advises, is found" \
+    eq "$LOG" "uv|run|$d/cache/some-marketplace/jira-integration/1.0.0/skills/jira-communication/scripts/utility/jira-qa-gather.py|ABC-11"
+
+new_case
+jira_tree "$d/cache/some-marketplace/jira-integration/1.0.0" \
+    core/jira-issue.py workflow/jira-comment.py core/jira-worklog.py
+run "$d" "$d/cache" ABC-12
+check "the fallback scripts below a plugin cache root are found" \
+    has "$LOG" "uv|run|$d/cache/some-marketplace/jira-integration/1.0.0/skills/jira-communication/scripts/core/jira-issue.py|get|ABC-12"
+
 # --- fallback ------------------------------------------------------------
 fallback_calls() { # expected uv calls of the fallback for <scripts dir> <key>
     printf 'uv|run|%s/core/jira-issue.py|get|%s\nuv|run|%s/workflow/jira-comment.py|list|%s\nuv|run|%s/core/jira-worklog.py|list|%s' \
