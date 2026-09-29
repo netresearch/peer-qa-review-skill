@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Netresearch DTT GmbH
+
+name: Skill Tests
+
+# Runs this repo's behavioural tests (tests/*.sh) via the skill-repo-skill
+# reusable: tests/qa-gather.sh exercises the shipped
+# skills/peer-qa-review/scripts/qa-gather.sh. Skill Validation (lint.yml)
+# lints the script but never executes it. require_tests fails the job when
+# scripts ship under skills/*/scripts/ and no test file ran.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions: {}
+
+jobs:
+  tests:
+    uses: netresearch/skill-repo-skill/.github/workflows/tests.yml@main
+    permissions:
+      contents: read
+    with:
+      require_tests: true
