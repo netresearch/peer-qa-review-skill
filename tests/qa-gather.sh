@@ -174,6 +174,15 @@ check "fallback fails when the issue call fails" eq "$RC" 1
 check "fallback stops after a failing issue call" \
     eq "$LOG" "uv|run|$d/plugin/skills/jira-communication/scripts/core/jira-issue.py|get|ABC-8"
 
+new_case
+jira_tree "$d/plugin" core/jira-issue.py workflow/jira-comment.py core/jira-worklog.py
+UV_FAIL=jira-comment.py run "$d" "$d/plugin" ABC-13
+check "fallback fails when the comment call fails" eq "$RC" 1
+check "fallback reaches the comment call" \
+    has "$LOG" "jira-comment.py|list|ABC-13"
+check "fallback runs no worklog call after a failing comment call" \
+    eq "${LOG/jira-worklog.py/}" "$LOG"
+
 # --- nothing installed ---------------------------------------------------
 new_case
 run "$d" "" ABC-9
