@@ -1,4 +1,6 @@
 ---
+# SPDX-License-Identifier: CC-BY-SA-4.0
+# SPDX-FileCopyrightText: Netresearch DTT GmbH
 name: peer-qa-review
 description: "Use when reviewing a teammate's completed work as Round-1 IT QA (before customer acceptance / QA2 / internal close). Triggers: tickets moved to QA, 'ready for QA' / 'ready for review' comments, or requests for 'IT QA review' / 'peer review' / 'internal QA' / 'quality gate'. Covers a 6-stage lifecycle, severity vocabulary, comment template, edge cases, anti-patterns. Generic for any IT/Ops team."
 license: "(MIT AND CC-BY-SA-4.0). See LICENSE-MIT and LICENSE-CC-BY-SA-4.0"

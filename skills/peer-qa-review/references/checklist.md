@@ -1,3 +1,6 @@
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!-- SPDX-FileCopyrightText: Netresearch DTT GmbH -->
+
 # Round-1 QA Checklist
 
 All checks, organised by pillar. Apply the severity in the rightmost column when a check fails. See `severity.md` for the full vocabulary.

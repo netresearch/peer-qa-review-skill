@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// SPDX-FileCopyrightText: Netresearch DTT GmbH
 {
   // Mirrors the netresearch/skill-repo-skill reusable validate.yml defaults
   // (MD013/024/033/036/040/041/060) so the local pre-commit hook and CI lint

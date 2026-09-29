@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Netresearch DTT GmbH
+#
 # Stage 0 single-call discovery for peer-qa-review.
 #
 # Delegates to the jira-communication skill's qa-gather.py if available

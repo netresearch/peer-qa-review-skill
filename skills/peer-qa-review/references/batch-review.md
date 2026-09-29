@@ -1,3 +1,6 @@
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!-- SPDX-FileCopyrightText: Netresearch DTT GmbH -->
+
 # Batch review with sub-agents
 
 How one reviewer takes a **batch** of QA tickets through a single Round-1 pass by fanning the evidence-gathering out to sub-agents, while every verdict, comment and transition stays the reviewer's own. The lifecycle in `lifecycle.md` is unchanged; this page says how its stages are sequenced when there are many tickets and several agents.

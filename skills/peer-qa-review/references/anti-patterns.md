@@ -1,3 +1,6 @@
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!-- SPDX-FileCopyrightText: Netresearch DTT GmbH -->
+
 # Anti-patterns
 
 Things to flag in the implementer's comments. Each item below is `(!)` unless noted.

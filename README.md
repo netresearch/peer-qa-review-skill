@@ -1,3 +1,6 @@
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!-- SPDX-FileCopyrightText: Netresearch DTT GmbH -->
+
 # Peer QA Review Skill
 
 A Claude Code skill that turns Round-1 IT QA into a repeatable runbook: structured lifecycle, severity vocabulary, comment template, edge cases, and anti-patterns. Generic for any IT/Ops team.
