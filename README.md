@@ -76,6 +76,20 @@ The skill's Markdown is not executed; Skill Validation (`.github/workflows/lint.
 - **Development and CI:** the pre-commit hooks are pinned by `rev:` in `.pre-commit-config.yaml`. The workflows call reusable workflows from `netresearch/skill-repo-skill` and `netresearch/.github` at `@main`; the third-party actions inside those are pinned to commit SHAs there.
 - **Tracking:** Renovate (`renovate.json`, extending `github>netresearch/renovate-config`) opens update pull requests, for example for the pre-commit hook revisions, and `.github/workflows/auto-merge-deps.yml` hands Renovate and Dependabot pull requests without a `deps-major` or `deps-no-automerge` label to the organisation's auto-merge workflow, which merges them after the pull request's other checks have passed. The licence and vulnerability rules for dependencies are those of the organisation's security policy linked below.
 
+## Governance and policies
+
+This repository follows the Netresearch organisation policies:
+
+- [Governance](https://github.com/netresearch/.github/blob/main/GOVERNANCE.md): ownership, roles, how decisions are made and disputes resolved, and continuity.
+- [Roadmap](https://github.com/netresearch/.github/blob/main/ROADMAP.md): planned and explicitly excluded work for the coming year.
+- [Handling of dependency and code analysis findings](https://github.com/netresearch/.github/blob/main/SECURITY.md#handling-of-dependency-and-code-analysis-findings): thresholds, deadlines and the exception process for dependency (SCA) and static analysis (SAST) findings.
+- [Secret management](https://github.com/netresearch/.github/blob/main/SECURITY.md#secret-management): how CI and release credentials are stored, accessed and rotated.
+- [Access roster](https://github.com/netresearch/.github/blob/main/docs/access-roster.md): who holds administrative access to this repository and the organisation.
+
+The architecture of this skill (actors, components, data flows) is described in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and its security assurance case (threat model, trust boundaries, countermeasures and limits) in [docs/SECURITY-ASSURANCE.md](docs/SECURITY-ASSURANCE.md).
+
+Checks that run on every pull request in this repository: Skill Validation (`.github/workflows/lint.yml`: skill structure, plugin manifest sync, markdownlint, yamllint, actionlint, JSON syntax, plugin and SKILL.md version checks, ShellCheck at style severity; its ruff and checkpoint-schema steps find no files here) and Skill Tests (`.github/workflows/tests.yml`). No dependency review, Composer Audit, static application security testing or secret scanning runs on pull requests in this repository.
+
 ## License
 
 Dual-licensed: MIT for code, CC-BY-SA-4.0 for content. See `LICENSE-MIT` and `LICENSE-CC-BY-SA-4.0`.
