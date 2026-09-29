@@ -49,7 +49,7 @@ Requires [@netresearch/agent-skill-coordinator](https://github.com/netresearch/n
 
 ## Companion skills (optional)
 
-- [`jira-communication`](https://github.com/netresearch/jira-skill) (public) — required for ticket I/O. The bundled `qa-gather.py` script is used in Stage 0.
+- [`jira-communication`](https://github.com/netresearch/jira-skill) (public) — required for ticket I/O. In Stage 0, `qa-gather.sh` runs its `jira-qa-gather.py` script (`qa-gather.py` before jira-integration 3.13), or falls back to its `jira-issue.py`, `jira-comment.py` and `jira-worklog.py`.
 - Internal team-specific skills (private to your org) — for project-list overrides, inventory CRUD (CMDB, IOS), announcement channels (Matrix / Slack / Email), and workflow-specific lifecycle rules. The skill defers to them with *"if your team has an internal IT/maintenance/ITSM skill, consult it for project-specific overrides."*
 
 ## License
