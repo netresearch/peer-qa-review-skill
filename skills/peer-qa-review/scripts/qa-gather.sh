@@ -4,17 +4,21 @@
 #
 # Stage 0 single-call discovery for peer-qa-review.
 #
-# Delegates to the jira-communication skill's qa-gather.py if available
-# (locates it via CLAUDE_PLUGIN_ROOT, $HOME/.claude/plugins, or PATH).
+# Delegates to the jira-communication skill's jira-qa-gather.py (named
+# qa-gather.py before jira-integration 3.13) if available. It searches
+# below $CLAUDE_PLUGIN_ROOT, then
+# $HOME/.claude/plugins/cache/netresearch-claude-code-marketplace/jira-integration,
+# then $HOME/.claude/plugins/cache; PATH is not searched.
 #
 # Falls back to a multi-call sequence using core jira-communication scripts
-# if qa-gather.py is not yet installed (older skill version).
+# (jira-issue.py, jira-comment.py, jira-worklog.py) if neither is installed;
+# the fallback ignores extra arguments such as --json.
 #
 # Usage:
-#   qa-gather.sh <ISSUE-KEY> [--json]
+#   qa-gather.sh <ISSUE-KEY> [--json|--no-siblings|--max-siblings N|...]
 #
 # Exits with the underlying script's status. Prints a friendly hint to
-# stderr if neither qa-gather.py nor the fallback scripts can be found.
+# stderr and exits 1 if neither script nor the fallback scripts are found.
 
 set -euo pipefail
 
