@@ -77,7 +77,9 @@ find_jira_scripts_dir() {
 }
 
 if QA_GATHER_PATH=$(find_qa_gather); then
-    exec uv run "$QA_GATHER_PATH" "$ISSUE_KEY" "${EXTRA_ARGS[@]}"
+    # ${EXTRA_ARGS[@]+...}: bash < 4.4 (macOS /bin/bash is 3.2) treats an
+    # empty array as unbound under `set -u`.
+    exec uv run "$QA_GATHER_PATH" "$ISSUE_KEY" ${EXTRA_ARGS[@]+"${EXTRA_ARGS[@]}"}
 fi
 
 # Fallback path
