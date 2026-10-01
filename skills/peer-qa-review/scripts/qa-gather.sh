@@ -1,17 +1,24 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Netresearch DTT GmbH
+#
 # Stage 0 single-call discovery for peer-qa-review.
 #
-# Delegates to the jira-communication skill's qa-gather.py if available
-# (locates it via CLAUDE_PLUGIN_ROOT, $HOME/.claude/plugins, or PATH).
+# Delegates to the jira-communication skill's jira-qa-gather.py (named
+# qa-gather.py before jira-integration 3.13) if available. It searches
+# below $CLAUDE_PLUGIN_ROOT, then
+# $HOME/.claude/plugins/cache/netresearch-claude-code-marketplace/jira-integration,
+# then $HOME/.claude/plugins/cache; PATH is not searched.
 #
 # Falls back to a multi-call sequence using core jira-communication scripts
-# if qa-gather.py is not yet installed (older skill version).
+# (jira-issue.py, jira-comment.py, jira-worklog.py) if neither is installed;
+# the fallback ignores extra arguments such as --json.
 #
 # Usage:
-#   qa-gather.sh <ISSUE-KEY> [--json]
+#   qa-gather.sh <ISSUE-KEY> [--json|--no-siblings|--max-siblings N|...]
 #
 # Exits with the underlying script's status. Prints a friendly hint to
-# stderr if neither qa-gather.py nor the fallback scripts can be found.
+# stderr and exits 1 if neither script nor the fallback scripts are found.
 
 set -euo pipefail
 
@@ -37,11 +44,13 @@ find_qa_gather() {
     # root still follows find's traversal order; the guarantee here is the
     # name preference plus the early stop — and no `| head` pipeline, so no
     # SIGPIPE risk under `set -o pipefail`.
+    # -maxdepth 8 reaches <marketplace>/<plugin>/<version>/skills/
+    # jira-communication/scripts/utility/<name> below a plugin cache root.
     local p name found
     for p in "${search_paths[@]}"; do
         [[ -z "$p" ]] && continue
         for name in jira-qa-gather.py qa-gather.py; do
-            found=$(find "$p" -maxdepth 6 -type f \
+            found=$(find "$p" -maxdepth 8 -type f \
                 -path "*/skills/jira-communication/scripts/utility/${name}" \
                 -print -quit 2>/dev/null) || true
             if [[ -n "$found" ]]; then
@@ -63,7 +72,7 @@ find_jira_scripts_dir() {
     local p found
     for p in "${search_paths[@]}"; do
         [[ -z "$p" ]] && continue
-        found=$(find "$p" -maxdepth 6 -type f \
+        found=$(find "$p" -maxdepth 8 -type f \
             -path '*/skills/jira-communication/scripts/core/jira-issue.py' \
             -print -quit 2>/dev/null) || true
         if [[ -n "$found" ]]; then
@@ -75,7 +84,9 @@ find_jira_scripts_dir() {
 }
 
 if QA_GATHER_PATH=$(find_qa_gather); then
-    exec uv run "$QA_GATHER_PATH" "$ISSUE_KEY" "${EXTRA_ARGS[@]}"
+    # ${EXTRA_ARGS[@]+...}: bash < 4.4 (macOS /bin/bash is 3.2) treats an
+    # empty array as unbound under `set -u`.
+    exec uv run "$QA_GATHER_PATH" "$ISSUE_KEY" ${EXTRA_ARGS[@]+"${EXTRA_ARGS[@]}"}
 fi
 
 # Fallback path

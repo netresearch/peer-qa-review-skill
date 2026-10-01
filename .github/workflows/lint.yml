@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Netresearch DTT GmbH
+
 name: Lint
 
 # Skill validation (SKILL.md word cap, plugin.json schema, markdown lint, …)
@@ -18,3 +21,7 @@ jobs:
     uses: netresearch/skill-repo-skill/.github/workflows/validate.yml@main
     permissions:
       contents: read
+    with:
+      # Same level as the shellcheck pre-commit hook, which runs at its
+      # default (style); the reusable's default is error.
+      shellcheck-severity: style

@@ -1,3 +1,6 @@
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<!-- SPDX-FileCopyrightText: Netresearch DTT GmbH -->
+
 # Lifecycle
 
 The 6-stage Round-1 IT QA lifecycle. Stages are sequential — do not skip or reorder them.
