@@ -9,12 +9,12 @@ This document states what a user can expect from this repository in terms of sec
 
 | Part | Files | Runs where |
 | --- | --- | --- |
-| Skill instructions for an AI agent | `skills/peer-qa-review/SKILL.md`, `skills/peer-qa-review/references/*.md` | Read by the agent as instructions; not executed. The agent runs the commands they describe against the ticket system, code forge and hosts the reviewed ticket names, with the reviewer's privileges. |
+| Skill instructions for an AI agent | `skills/peer-qa-review/SKILL.md`, `skills/peer-qa-review/references/*.md` | Read by the agent as instructions; not executed. The agent runs the commands they describe against the ticket system, the code forge and any host the reviewed ticket names, with the reviewer's privileges. |
 | Eval scenarios | `skills/peer-qa-review/evals/qa-discipline.md` | Text for grading a transcript; not executed. |
 | Discovery wrapper | `skills/peer-qa-review/scripts/qa-gather.sh` | On the reviewer's machine, started by the agent. |
 | Repository checks | `.github/workflows/*.yml`, `.pre-commit-config.yaml`, `tests/qa-gather.sh` | In this repository's CI and on contributors' machines. |
 
-The repository ships no server component, no container image and no library code. It stores nothing and handles no user accounts or credentials of its own; all ticket-system access goes through the separately installed `jira-communication` skill.
+The repository ships no server component, no container image and no library code. It stores nothing and handles no user accounts or credentials of its own. Ticket-system access goes through the separately installed `jira-communication` skill, except for the Jira REST calls `references/lifecycle.md` shows (`curl` with a token the reviewer supplies as `$TOKEN`).
 
 ## Security requirements
 
@@ -30,7 +30,7 @@ The repository ships no server component, no container image and no library code
 - **Reviewer and agent.** The agent reads `SKILL.md` and the references and runs commands with the reviewer's privileges; what it runs is decided by the agent and the reviewer, not by this repository. `allowed-tools` in `SKILL.md` pre-approves `${CLAUDE_SKILL_DIR}/scripts/*`, `git`, `glab`, `Read`, `Write` and `Edit`; it does not take any tool away from the agent.
 - **Ticket content.** Descriptions, comments and linked artefacts are written by the implementer and other ticket-system users. The skill feeds them to the agent as material to verify, including commands the implementer ran (`lifecycle.md` Stage 2, `checklist.md`).
 - **Installed plugins.** `qa-gather.sh` runs, via `uv run`, the first `jira-communication` script it finds below `$CLAUDE_PLUGIN_ROOT` or the reviewer's plugin cache (`$HOME/.claude/plugins/cache`). Whatever is installed there is trusted as the companion skill.
-- **`jira-communication` and the ticket system.** The companion skill holds the ticket-system credentials and performs every read and write. `uv` resolves the Python dependencies that skill's scripts declare.
+- **`jira-communication` and the ticket system.** The companion skill holds the ticket-system credentials and performs the reads and writes the skill routes through it. The raw REST calls in `lifecycle.md` (the issue changelog, the transitions list and the transition `POST`) go to the ticket system directly, with the token the reviewer supplies as `$TOKEN`. `uv` resolves the Python dependencies that skill's scripts declare.
 - **Contributors and CI.** Changes are proposed as pull requests and checked by the workflows in `.github/workflows/`. Workflows run on GitHub-hosted runners. `lint.yml`, `tests.yml` and `auto-merge-deps.yml` set `permissions: {}` at the top level and grant their job only the scopes the called reusable workflow needs; `release.yml` has no top-level block and grants its job `contents`, `id-token` and `attestations: write`. `auto-merge-deps.yml` runs on `pull_request_target`, calls the organisation's auto-merge reusable without passing secrets, and does not check out pull request code.
 
 ## Threats and countermeasures
