@@ -88,7 +88,7 @@ This repository follows the Netresearch organisation policies:
 
 The architecture of this skill (actors, components, data flows) is described in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and its security assurance case (threat model, trust boundaries, countermeasures and limits) in [docs/SECURITY-ASSURANCE.md](docs/SECURITY-ASSURANCE.md).
 
-Checks that run on every pull request in this repository: Skill Validation (`.github/workflows/lint.yml`: skill structure, plugin manifest sync, markdownlint, yamllint, actionlint, JSON syntax, plugin and SKILL.md version checks, ShellCheck at style severity; its ruff and checkpoint-schema steps find no files here) and Skill Tests (`.github/workflows/tests.yml`). No dependency review, Composer Audit, static application security testing or secret scanning runs on pull requests in this repository.
+The checks that run on every pull request, as the organisation's rules for code analysis findings ask, are listed in [CONTRIBUTING.md](CONTRIBUTING.md#checks-on-pull-requests).
 
 ## License
 

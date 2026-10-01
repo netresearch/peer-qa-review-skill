@@ -48,7 +48,7 @@ The repository ships no server component, no container image and no library code
 | An outdated linter or validator | Renovate proposes updates for the pinned pre-commit hook revisions; they reach `main` through pull requests checked like any other | `renovate.json`, `.pre-commit-config.yaml` |
 | A released archive is tampered with | The release workflow checks that the tag is annotated and signed, then publishes a Cosign-signed `SHA256SUMS.txt` and build-provenance attestations for the archives | `.github/workflows/release.yml` (calls the skill-repo-skill release reusable) |
 
-No secret scanning, dependency review or static application security testing runs on pull requests in this repository. Which checks must pass before a change reaches `main` is set in the repository settings, not in this repository.
+No secret scanning or dependency review runs on pull requests in this repository; static analysis comes from CodeQL (workflow files only) and SonarCloud automatic analysis, both configured outside the repository (see [CONTRIBUTING.md](../CONTRIBUTING.md#checks-on-pull-requests)). Which checks must pass before a change reaches `main` is set in the repository settings, not in this repository.
 
 ## Secure design principles applied
 
