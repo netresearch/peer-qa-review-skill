@@ -116,6 +116,13 @@ check "extra arguments are passed through in order" \
 
 new_case
 jira_tree "$d/plugin" utility/jira-qa-gather.py
+# shellcheck disable=SC2016 # the $(id) must reach uv as literal text
+run "$d" "$d/plugin" 'ABC-99 x' 'a  b;$(id)*'
+check "arguments with spaces and shell metacharacters reach uv unchanged, one each" \
+    eq "$LOG" "uv|run|$d/plugin/skills/jira-communication/scripts/utility/jira-qa-gather.py|ABC-99 x|a  b;\$(id)*"
+
+new_case
+jira_tree "$d/plugin" utility/jira-qa-gather.py
 UV_EXIT=3 run "$d" "$d/plugin" ABC-4
 check "a failing preferred script's exit status is returned" eq "$RC" 3
 
