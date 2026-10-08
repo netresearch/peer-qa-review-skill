@@ -25,7 +25,7 @@ This repository ships one agent skill, `peer-qa-review`: Markdown instructions t
 | Eval scenarios | `skills/peer-qa-review/evals/qa-discipline.md` | Scenarios to grade a reviewer transcript against; the file states it is not yet a runnable harness. |
 | Discovery wrapper | `skills/peer-qa-review/scripts/qa-gather.sh` | Stage 0: finds the `jira-communication` scripts and runs them through `uv` (see the data flow below). |
 | Package manifests | `composer.json`, `package.json`, `plugin.json`, `.claude-plugin/plugin.json` | Make the skill installable through Composer, npm and agent plugin marketplaces. |
-| Repository checks | `.github/workflows/lint.yml`, `tests.yml`, `release.yml`, `auto-merge-deps.yml`, `.pre-commit-config.yaml`, `tests/qa-gather.sh` | Validation, behavioural tests, release packaging and dependency-update merging; see the README. |
+| Repository checks | `.github/workflows/*.yml`, `.github/template.yaml`, `.github/labeler.yml`, `.pre-commit-config.yaml`, `tests/qa-gather.sh` | Validation, behavioural tests, security scans, template drift, eval and harness checks, labelling, release packaging and dependency-update merging; see [CONTRIBUTING.md](../CONTRIBUTING.md#checks-on-pull-requests) and the README. |
 
 ## Data flow of a review
 
