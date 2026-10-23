@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Every file under `skills/peer-qa-review/` carries an SPDX licence and copyright notice: MIT for `qa-gather.sh`, CC-BY-SA-4.0 for `SKILL.md`, the references and the evals (#81)
+- Repository only, not shipped: behavioural tests for `qa-gather.sh` in `tests/qa-gather.sh`, `docs/ARCHITECTURE.md`, `docs/SECURITY-ASSURANCE.md`, an `AGENTS.md`, and README and `CONTRIBUTING.md` sections on tests, dependencies, policies and the checks that run on pull requests (#81, #84)
+
+### Fixed
+
+- `qa-gather.sh`: searches below a plugin cache root reach eight directory levels instead of six, so `jira-qa-gather.py` and the fallback scripts are found below `$HOME/.claude/plugins/cache` and below a `CLAUDE_PLUGIN_ROOT` that points at a cache root; the marketplace-specific `jira-integration` path was already reachable (#81)
+- `qa-gather.sh`: on bash older than 4.4 (macOS `/bin/bash` 3.2), a call without extra arguments no longer aborts under `set -u` when it hands over to `jira-qa-gather.py` (#81)
+- `qa-gather.sh`: the header comment names `jira-qa-gather.py` and the search paths the script actually uses, and no longer claims a `PATH` lookup (#81)
+
 ## [1.0.0] - 2026-09-23
 
 ### Changed
