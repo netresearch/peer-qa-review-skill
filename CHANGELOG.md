@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-23
+
 ### Changed
 
 - Every file under `skills/peer-qa-review/` carries an SPDX licence and copyright notice: MIT for `qa-gather.sh`, CC-BY-SA-4.0 for `SKILL.md`, the references and the evals (#81)
